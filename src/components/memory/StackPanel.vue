@@ -11,11 +11,8 @@ defineProps<{
 <template>
   <section class="stack-panel">
     <header class="stack-panel__header">
-      <div>
-        <p class="panel-label">Stack</p>
-        <h2 class="stack-panel__title">Call stack</h2>
-      </div>
-      <p class="stack-panel__hint">haut = appel courant</p>
+      <p class="panel-label">Stack</p>
+      <h2 class="stack-panel__title">Call stack</h2>
     </header>
 
     <div class="stack-panel__body">
@@ -45,10 +42,6 @@ defineProps<{
 }
 
 .stack-panel__header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem;
   margin-bottom: 0.85rem;
 }
 
@@ -58,11 +51,6 @@ defineProps<{
   font-weight: 550;
   color: var(--stack);
   margin-top: 0.15rem;
-}
-
-.stack-panel__hint {
-  font-size: 0.78rem;
-  color: var(--text-dim);
 }
 
 .stack-panel__body {

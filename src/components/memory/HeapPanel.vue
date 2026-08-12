@@ -11,11 +11,8 @@ defineProps<{
 <template>
   <section class="heap-panel">
     <header class="heap-panel__header">
-      <div>
-        <p class="panel-label">Heap</p>
-        <h2 class="heap-panel__title">Objets dynamiques</h2>
-      </div>
-      <p class="heap-panel__hint">taille variable · partagés</p>
+      <p class="panel-label">Heap</p>
+      <h2 class="heap-panel__title">Objets dynamiques</h2>
     </header>
 
     <div class="heap-panel__body">
@@ -44,10 +41,6 @@ defineProps<{
 }
 
 .heap-panel__header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem;
   margin-bottom: 0.85rem;
 }
 
@@ -57,11 +50,6 @@ defineProps<{
   font-weight: 550;
   color: var(--heap);
   margin-top: 0.15rem;
-}
-
-.heap-panel__hint {
-  font-size: 0.78rem;
-  color: var(--text-dim);
 }
 
 .heap-panel__body {
