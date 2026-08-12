@@ -1,0 +1,231 @@
+import type { Scenario } from "../../types/memory";
+
+export const parseOkScenario: Scenario = {
+  id: "parse-ok",
+  title: "Parse réussi",
+  subtitle: "int.Parse convertit une string valide en entier.",
+  part: "conversions",
+  code: [
+    "static void Main()",
+    "{",
+    "    string s = \"42\";",
+    "    int n = int.Parse(s);",
+    "    Console.WriteLine(n);",
+    "}"
+  ],
+  steps: [
+    {
+      id: "po0",
+      highlightLines: [
+        0,
+        1
+      ],
+      narration: "Main démarre.",
+      stack: [
+        {
+          id: "frame-main",
+          method: "Main",
+          slots: []
+        }
+      ],
+      heap: [],
+      refs: [],
+      consoleLines: []
+    },
+    {
+      id: "po1",
+      highlightLines: [
+        2
+      ],
+      narration: "s pointe vers \"42\".",
+      stack: [
+        {
+          id: "frame-main",
+          method: "Main",
+          slots: [
+            {
+              id: "slot-s",
+              name: "s",
+              value: "→ #S1",
+              kind: "ref",
+              targetId: "obj-s"
+            }
+          ]
+        }
+      ],
+      heap: [
+        {
+          id: "obj-s",
+          typeLabel: "string",
+          address: "#S1",
+          fields: [
+            {
+              label: "chars",
+              value: "\"42\""
+            }
+          ]
+        }
+      ],
+      refs: [
+        {
+          id: "ref-s",
+          fromSlotId: "slot-s",
+          toObjectId: "obj-s"
+        }
+      ],
+      consoleLines: []
+    },
+    {
+      id: "po2",
+      highlightLines: [
+        3
+      ],
+      narration: "int.Parse(s) → n = 42 sur la stack.",
+      stack: [
+        {
+          id: "frame-main",
+          method: "Main",
+          slots: [
+            {
+              id: "slot-s",
+              name: "s",
+              value: "→ #S1",
+              kind: "ref",
+              targetId: "obj-s"
+            },
+            {
+              id: "slot-n",
+              name: "n",
+              value: "42",
+              kind: "value"
+            }
+          ]
+        }
+      ],
+      heap: [
+        {
+          id: "obj-s",
+          typeLabel: "string",
+          address: "#S1",
+          fields: [
+            {
+              label: "chars",
+              value: "\"42\""
+            }
+          ]
+        }
+      ],
+      refs: [
+        {
+          id: "ref-s",
+          fromSlotId: "slot-s",
+          toObjectId: "obj-s"
+        }
+      ],
+      focus: "slot-n",
+      consoleLines: []
+    },
+    {
+      id: "po3",
+      highlightLines: [
+        4
+      ],
+      narration: "Affiche 42.",
+      stack: [
+        {
+          id: "frame-main",
+          method: "Main",
+          slots: [
+            {
+              id: "slot-s",
+              name: "s",
+              value: "→ #S1",
+              kind: "ref",
+              targetId: "obj-s"
+            },
+            {
+              id: "slot-n",
+              name: "n",
+              value: "42",
+              kind: "value"
+            }
+          ]
+        }
+      ],
+      heap: [
+        {
+          id: "obj-s",
+          typeLabel: "string",
+          address: "#S1",
+          fields: [
+            {
+              label: "chars",
+              value: "\"42\""
+            }
+          ]
+        }
+      ],
+      refs: [
+        {
+          id: "ref-s",
+          fromSlotId: "slot-s",
+          toObjectId: "obj-s"
+        }
+      ],
+      consoleLines: [
+        "42"
+      ]
+    },
+    {
+      id: "parse-ok-end",
+      highlightLines: [
+        5
+      ],
+      narration: "La fonction Main est terminée, le programme s'arrête.",
+      stack: [
+        {
+          id: "frame-main",
+          method: "Main",
+          slots: [
+            {
+              id: "slot-s",
+              name: "s",
+              value: "→ #S1",
+              kind: "ref",
+              targetId: "obj-s"
+            },
+            {
+              id: "slot-n",
+              name: "n",
+              value: "42",
+              kind: "value"
+            }
+          ]
+        }
+      ],
+      heap: [
+        {
+          id: "obj-s",
+          typeLabel: "string",
+          address: "#S1",
+          fields: [
+            {
+              label: "chars",
+              value: "\"42\""
+            }
+          ]
+        }
+      ],
+      refs: [
+        {
+          id: "ref-s",
+          fromSlotId: "slot-s",
+          toObjectId: "obj-s"
+        }
+      ],
+      consoleLines: [
+        "42"
+      ]
+    }
+  ]
+};
