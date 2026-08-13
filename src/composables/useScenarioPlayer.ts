@@ -123,6 +123,5 @@ export function useScenarioPlayer(scenario: Ref<Scenario>) {
     prev,
     goto,
     gotoLine,
-    reset,
   };
 }

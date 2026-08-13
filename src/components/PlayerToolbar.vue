@@ -18,7 +18,6 @@ const emit = defineEmits<{
   select: [id: string];
   prevStep: [];
   nextStep: [];
-  reset: [];
   goto: [index: number];
 }>();
 
@@ -117,15 +116,6 @@ function onSelectChange(event: Event) {
         <span class="toolbar__label">Étape</span>
 
         <div class="toolbar__cluster">
-          <button
-            class="btn btn--ghost"
-            type="button"
-            title="Réinitialiser (Home)"
-            @click="emit('reset')"
-          >
-            Reset
-          </button>
-
           <button
             class="btn btn--icon"
             type="button"
@@ -388,10 +378,6 @@ function onSelectChange(event: Event) {
     &:hover:not(:disabled) {
       background: rgba(107, 163, 240, 0.28);
     }
-  }
-
-  &--ghost {
-    color: var(--text-muted);
   }
 }
 

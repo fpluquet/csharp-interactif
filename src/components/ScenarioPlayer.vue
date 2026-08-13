@@ -36,7 +36,6 @@ const {
   prev,
   goto,
   gotoLine,
-  reset,
 } = useScenarioPlayer(scenarioRef);
 
 const stepLabel = computed(() => `Étape ${currentIndex.value + 1} / ${stepCount.value}`);
@@ -83,7 +82,6 @@ const nextHighlightExpr = computed(
       @select="emit('select', $event)"
       @prev-step="prev"
       @next-step="next"
-      @reset="reset"
       @goto="goto"
     />
 
