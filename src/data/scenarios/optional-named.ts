@@ -37,9 +37,8 @@ export const optionalNamedScenario: Scenario = {
     },
     {
       id: "on1",
-      highlightLines: [
-        7
-      ],
+      highlightLines: [7],
+      highlightExpr: "Ajouter(5)",
       narration: "Ajouter(5) : b va prendre la valeur par défaut 1.",
       stack: [
         {
@@ -103,9 +102,8 @@ export const optionalNamedScenario: Scenario = {
     },
     {
       id: "on3",
-      highlightLines: [
-        8
-      ],
+      highlightLines: [8],
+      highlightExpr: "Ajouter(a: 2, b: 3)",
       narration: "Ajouter(a: 2, b: 3) : on va utiliser des paramètres nommés.",
       stack: [
         {

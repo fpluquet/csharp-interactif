@@ -43,9 +43,41 @@ export const multiCatchScenario: Scenario = {
     },
     {
       id: "mc1",
+      highlightLines: [2, 3],
+      narration: "On va entrer dans le try. Deux catch sont prêts, du plus spécifique au plus général.",
+      stack: [
+        {
+          id: "frame-main",
+          method: "Main",
+          slots: []
+        }
+      ],
+      heap: [],
+      refs: [],
+      consoleLines: []
+    },
+    {
+      id: "mc2",
+      highlightLines: [4],
+      highlightExpr: "int.Parse(\"x\")",
+      narration: "int.Parse(\"x\") : on va appeler Parse.",
+      stack: [
+        {
+          id: "frame-main",
+          method: "Main",
+          slots: []
+        }
+      ],
+      heap: [],
+      refs: [],
+      consoleLines: []
+    },
+    {
+      id: "mc3",
       highlightLines: [
         4
       ],
+      highlightExpr: "int.Parse(\"x\")",
       narration: "Parse(\"x\") va lever une FormatException.",
       stack: [
         {
@@ -64,7 +96,7 @@ export const multiCatchScenario: Scenario = {
       }
     },
     {
-      id: "mc2",
+      id: "mc4",
       highlightLines: [
         6,
         8

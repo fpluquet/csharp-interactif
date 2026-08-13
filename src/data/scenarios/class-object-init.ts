@@ -50,7 +50,7 @@ export const classObjectInitScenario: Scenario = {
         { label: "Age", value: "0", kind: "value" },
       ])],
       [link("ref-p", "slot-p", "obj-p")],
-      { focus: "obj-p" },
+      { focus: "obj-p", highlightExpr: "new Personne" },
     ),
     step(
       "oi2",
@@ -59,7 +59,7 @@ export const classObjectInitScenario: Scenario = {
       main([refSlot("slot-p", "p", "#P1", "obj-p")]),
       heap,
       refs,
-      { focus: "obj-p" },
+      { focus: "obj-p", highlightExpr: "{ Nom = \"Ada\", Age = 30 }" },
     ),
     step("class-object-init-end", [9], MAIN_DONE, main([refSlot("slot-p", "p", "#P1", "obj-p")]), heap, refs),
   ],

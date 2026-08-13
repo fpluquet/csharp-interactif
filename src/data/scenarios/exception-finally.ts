@@ -43,9 +43,25 @@ export const exceptionFinallyScenario: Scenario = {
     },
     {
       id: "ef1",
+      highlightLines: [2, 3],
+      narration: "On va entrer dans le try. catch et finally attendent.",
+      stack: [
+        {
+          id: "frame-main",
+          method: "Main",
+          slots: []
+        }
+      ],
+      heap: [],
+      refs: [],
+      consoleLines: []
+    },
+    {
+      id: "ef2",
       highlightLines: [
         4
       ],
+      highlightExpr: "throw new Exception(\"x\")",
       narration: "throw : une exception va être levée.",
       stack: [
         {
@@ -64,7 +80,7 @@ export const exceptionFinallyScenario: Scenario = {
       }
     },
     {
-      id: "ef2",
+      id: "ef3",
       highlightLines: [
         6,
         8
@@ -90,7 +106,7 @@ export const exceptionFinallyScenario: Scenario = {
       }
     },
     {
-      id: "ef3",
+      id: "ef4",
       highlightLines: [
         10,
         12

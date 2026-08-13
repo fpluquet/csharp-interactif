@@ -38,9 +38,8 @@ export const functionLocalsScenario: Scenario = {
     },
     {
       id: "f1",
-      highlightLines: [
-        9
-      ],
+      highlightLines: [9],
+      highlightExpr: "Calculer(5)",
       narration: "int r = Calculer(5) : l'appel va d'abord être évalué.",
       stack: [
         {

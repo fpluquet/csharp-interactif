@@ -8,7 +8,7 @@ const heap = [
   ]),
   s,
 ];
-const refs = [link("ref-b", "slot-b", "obj-b"), fieldLink("ref-v", "field-v", "obj-s")];
+const refs = [link("ref-d", "slot-d", "obj-b"), fieldLink("ref-v", "field-v", "obj-s")];
 
 export const classGenericWhereScenario: Scenario = {
   id: "class-generic-where",
@@ -37,7 +37,7 @@ export const classGenericWhereScenario: Scenario = {
       main([refSlot("slot-d", "d", "#B1", "obj-b", "Depot<string>")]),
       heap,
       refs,
-      { focus: "obj-b" },
+      { focus: "obj-b", highlightExpr: "new Depot<string>(\"Ada\")" },
     ),
     step(
       "class-generic-where-end",

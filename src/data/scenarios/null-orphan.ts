@@ -84,9 +84,8 @@ export const nullOrphanScenario: Scenario = {
     },
     {
       id: "no2",
-      highlightLines: [
-        3
-      ],
+      highlightLines: [3],
+      highlightExpr: "null",
       narration: "nums = null : on va couper la seule référence vivante.",
       stack: [
         {

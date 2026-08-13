@@ -8,7 +8,7 @@ const heap = [
   ]),
   nom,
 ];
-const refs = [link("ref-c", "slot-c", "obj-c"), fieldLink("ref-nom", "field-nom", "obj-s")];
+const refs = [link("ref-a", "slot-a", "obj-c"), fieldLink("ref-nom", "field-nom", "obj-s")];
 
 export const classBaseCallScenario: Scenario = {
   id: "class-base-call",
@@ -44,7 +44,7 @@ export const classBaseCallScenario: Scenario = {
       main([refSlot("slot-a", "a", "#C1", "obj-c", "Animal")]),
       heap,
       refs,
-      { focus: "obj-c" },
+      { focus: "obj-c", highlightExpr: "new Chien(\"Rex\")" },
     ),
     step(
       "ba2",
@@ -58,6 +58,7 @@ export const classBaseCallScenario: Scenario = {
       [...refs, link("ref-s", "slot-s", "obj-s2")],
       {
         focus: "slot-s",
+        highlightExpr: "a.Decrire()",
         dispatchFlow: {
           mode: "virtual",
           callExpr: "a.Decrire()",

@@ -47,6 +47,7 @@ export const whileLoopScenario: Scenario = {
     {
       id: "wl2",
       highlightLines: [3],
+      highlightExpr: "i < 2",
       narration: "Test : i < 2 → 0 < 2 vrai → on va entrer.",
       stack: i("0"),
       heap: [],
@@ -84,6 +85,7 @@ export const whileLoopScenario: Scenario = {
     {
       id: "wl5",
       highlightLines: [3],
+      highlightExpr: "i < 2",
       narration: "Test : 1 < 2 vrai → on va faire encore un tour.",
       stack: i("1"),
       heap: [],
@@ -121,6 +123,7 @@ export const whileLoopScenario: Scenario = {
     {
       id: "wl8",
       highlightLines: [3],
+      highlightExpr: "i < 2",
       narration: "Test : 2 < 2 faux → le while va se terminer.",
       stack: i("2"),
       heap: [],

@@ -78,6 +78,7 @@ export const parseThrowScenario: Scenario = {
       highlightLines: [
         4
       ],
+      highlightExpr: "int.Parse(\"abc\")",
       narration: "\"abc\" n’est pas un entier : Parse va lever une FormatException. n ne sera pas créée.",
       stack: [
         {

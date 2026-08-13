@@ -41,9 +41,8 @@ export const nestedCallsScenario: Scenario = {
     },
     {
       id: "nc1",
-      highlightLines: [
-        12
-      ],
+      highlightLines: [12],
+      highlightExpr: "Increment(3)",
       narration: "On va commencer par l'appel intérieur : Increment(3).",
       stack: [
         {

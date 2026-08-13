@@ -35,9 +35,8 @@ export const overloadScenario: Scenario = {
     },
     {
       id: "ov1",
-      highlightLines: [
-        5
-      ],
+      highlightLines: [5],
+      highlightExpr: "Max(3, 5)",
       narration: "Max(3,5) va choisir la surcharge int.",
       stack: [
         {

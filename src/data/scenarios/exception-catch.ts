@@ -85,9 +85,8 @@ export const exceptionCatchScenario: Scenario = {
     },
     {
       id: "ec3",
-      highlightLines: [
-        2
-      ],
+      highlightLines: [2],
+      highlightExpr: "throw new InvalidOperationException(\"boom\")",
       narration: "throw : l’exception va être levée dans Risquer.",
       stack: [
         {

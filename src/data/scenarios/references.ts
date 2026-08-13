@@ -34,9 +34,8 @@ export const referencesScenario: Scenario = {
     },
     {
       id: "r1",
-      highlightLines: [
-        2
-      ],
+      highlightLines: [2],
+      highlightExpr: "{ 1, 2, 3 }",
       narration: "int[] nums = {1,2,3} : l’objet tableau va être créé sur le heap.",
       stack: [
         {
@@ -85,9 +84,8 @@ export const referencesScenario: Scenario = {
     },
     {
       id: "r2",
-      highlightLines: [
-        2
-      ],
+      highlightLines: [2],
+      highlightExpr: "nums",
       narration: "Sur la stack, nums ne va pas contenir les éléments — seulement une référence.",
       stack: [
         {

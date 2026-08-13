@@ -42,9 +42,8 @@ export const multiCallsScenario: Scenario = {
     },
     {
       id: "m1",
-      highlightLines: [
-        12
-      ],
+      highlightLines: [12],
+      highlightExpr: "Double(3)",
       narration: "int x = Double(3) : l’expression contient un appel — on va l’évaluer.",
       stack: [
         {
@@ -183,9 +182,8 @@ export const multiCallsScenario: Scenario = {
     },
     {
       id: "m6",
-      highlightLines: [
-        13
-      ],
+      highlightLines: [13],
+      highlightExpr: "Ajouter(x, 4)",
       narration: "int y = Ajouter(x, 4) : nouvel appel va être évalué.",
       stack: [
         {

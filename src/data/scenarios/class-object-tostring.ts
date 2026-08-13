@@ -8,7 +8,7 @@ const heap = [
   ]),
   nom,
 ];
-const refs = [link("ref-c", "slot-c", "obj-c"), fieldLink("ref-nom", "field-nom", "obj-s")];
+const refs = [link("ref-o", "slot-o", "obj-c"), fieldLink("ref-nom", "field-nom", "obj-s")];
 
 export const classObjectToStringScenario: Scenario = {
   id: "class-object-tostring",
@@ -34,11 +34,11 @@ export const classObjectToStringScenario: Scenario = {
     step(
       "ob1",
       [9],
-      "object o = new Chien : type déclaré object, type réel va être Chien.",
+      "object o = new Chien : le type déclaré va être object, le type réel Chien.",
       main([refSlot("slot-o", "o", "#C1", "obj-c", "object")]),
       heap,
       refs,
-      { focus: "slot-o" },
+      { focus: "slot-o", highlightExpr: "new Chien(\"Rex\")" },
     ),
     step(
       "ob2",
@@ -52,6 +52,7 @@ export const classObjectToStringScenario: Scenario = {
       [...refs, link("ref-s", "slot-s", "obj-s")],
       {
         focus: "slot-s",
+        highlightExpr: "o.ToString()",
         dispatchFlow: {
           mode: "virtual",
           callExpr: "o.ToString()",
@@ -60,7 +61,6 @@ export const classObjectToStringScenario: Scenario = {
           chosen: "Chien.ToString",
           result: "Rex",
         },
-        consoleLines: ["Rex"],
       },
     ),
     step(
@@ -73,7 +73,6 @@ export const classObjectToStringScenario: Scenario = {
       ]),
       heap,
       [...refs, link("ref-s", "slot-s", "obj-s")],
-      { consoleLines: ["Rex"] },
     ),
   ],
 };

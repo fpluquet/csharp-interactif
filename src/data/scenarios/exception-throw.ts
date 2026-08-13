@@ -90,9 +90,8 @@ export const exceptionThrowScenario: Scenario = {
     },
     {
       id: "et3",
-      highlightLines: [
-        2
-      ],
+      highlightLines: [2],
+      highlightExpr: "throw new InvalidOperationException(\"boom\")",
       narration: "throw new InvalidOperationException(\"boom\") : l’exception va être levée.",
       stack: [
         {

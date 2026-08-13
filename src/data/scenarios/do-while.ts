@@ -68,6 +68,7 @@ export const doWhileScenario: Scenario = {
     {
       id: "dw4",
       highlightLines: [7],
+      highlightExpr: "i < 5",
       narration: "Test en bas : 6 < 5 sera faux → on va s’arrêter. Un tour malgré tout.",
       stack: i("6"),
       heap: [],

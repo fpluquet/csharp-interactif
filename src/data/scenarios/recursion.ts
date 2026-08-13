@@ -84,9 +84,8 @@ export const recursionScenario: Scenario = {
     },
     {
       id: "rc3",
-      highlightLines: [
-        3
-      ],
+      highlightLines: [3],
+      highlightExpr: "Fact(n - 1)",
       narration: "return n * Fact(n-1) : appel récursif Fact(2) va être lancé — nouvelle frame va s’empiler.",
       stack: [
         {
