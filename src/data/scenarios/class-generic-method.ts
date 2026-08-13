@@ -16,11 +16,11 @@ export const classGenericMethodScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("gm0", [2, 3], "Main démarre.", main([]), [], []),
+    step("gm0", [2, 3], "Main va démarrer.", main([]), [], []),
     step(
       "gm1",
       [4, 0],
-      "Premier(10, 20) : T = int. Frame avec a=10, b=20, retourne a.",
+      "Premier(10, 20) : T va être int. Frame avec a=10, b=20, va retourner a.",
       main(
         [],
         [frame("frame-p", "Premier<int>", [val("slot-a", "a", "10"), val("slot-b", "b", "20")])],
@@ -32,7 +32,7 @@ export const classGenericMethodScenario: Scenario = {
     step(
       "gm2",
       [4],
-      "x = 10.",
+      "x va valoir 10.",
       main([val("slot-x", "x", "10")]),
       [],
       [],
@@ -40,7 +40,7 @@ export const classGenericMethodScenario: Scenario = {
     step(
       "gm3",
       [5],
-      "Premier(\"A\", \"B\") : T = string. Même méthode, autre instanciation.",
+      "Premier(\"A\", \"B\") : T va être string. Même méthode, autre instanciation.",
       main([
         val("slot-x", "x", "10"),
         { id: "slot-s", name: "s", value: "→ #S1", kind: "ref", targetId: "obj-s", declaredType: "string" },

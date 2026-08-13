@@ -28,7 +28,7 @@ export const classInterfaceScenario: Scenario = {
     {
       id: "if0",
       highlightLines: [12, 13],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
@@ -36,7 +36,7 @@ export const classInterfaceScenario: Scenario = {
     {
       id: "if1",
       highlightLines: [14],
-      narration: "IForme f = new Cercle(2) : f a le type interface, l’objet est un Cercle.",
+      narration: "IForme f = new Cercle(2) : f va avoir le type interface, l’objet va être un Cercle.",
       stack: [
         {
           id: "frame-main",
@@ -60,7 +60,7 @@ export const classInterfaceScenario: Scenario = {
     {
       id: "if2",
       highlightLines: [15, 9],
-      narration: "f.Aire() appelle l’implémentation de Cercle → 12.56.",
+      narration: "f.Aire() va appeler l’implémentation de Cercle → 12.56.",
       stack: [
         {
           id: "frame-main",
@@ -85,7 +85,7 @@ export const classInterfaceScenario: Scenario = {
     {
       id: "class-interface-end",
       highlightLines: [16],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

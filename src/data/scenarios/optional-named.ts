@@ -24,7 +24,7 @@ export const optionalNamedScenario: Scenario = {
         5,
         6
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -40,7 +40,7 @@ export const optionalNamedScenario: Scenario = {
       highlightLines: [
         7
       ],
-      narration: "Ajouter(5) : b prend la valeur par défaut 1.",
+      narration: "Ajouter(5) : b va prendre la valeur par défaut 1.",
       stack: [
         {
           id: "frame-main",
@@ -75,7 +75,7 @@ export const optionalNamedScenario: Scenario = {
       highlightLines: [
         7
       ],
-      narration: "return 6 → x = 6.",
+      narration: "return 6 → x va valoir 6.",
       stack: [
         {
           id: "frame-main",
@@ -106,7 +106,7 @@ export const optionalNamedScenario: Scenario = {
       highlightLines: [
         8
       ],
-      narration: "Ajouter(a: 2, b: 3) : paramètres nommés.",
+      narration: "Ajouter(a: 2, b: 3) : on va utiliser des paramètres nommés.",
       stack: [
         {
           id: "frame-main",
@@ -148,7 +148,7 @@ export const optionalNamedScenario: Scenario = {
       highlightLines: [
         8
       ],
-      narration: "return 5 → y = 5.",
+      narration: "return 5 → y va valoir 5.",
       stack: [
         {
           id: "frame-main",
@@ -178,7 +178,7 @@ export const optionalNamedScenario: Scenario = {
       highlightLines: [
         9
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

@@ -25,7 +25,7 @@ export const callstackShareScenario: Scenario = {
         5,
         6
       ],
-      narration: "On démarre dans Main. Une seule frame sur la stack.",
+      narration: "On va démarrer dans Main. Une seule frame va être sur la stack.",
       stack: [
         {
           id: "frame-main",
@@ -41,7 +41,7 @@ export const callstackShareScenario: Scenario = {
       highlightLines: [
         7
       ],
-      narration: "int[] scores = {10, 20} : tableau sur le heap, référence sur la stack.",
+      narration: "int[] scores = {10, 20} : le tableau va être sur le heap, la référence sur la stack.",
       stack: [
         {
           id: "frame-main",
@@ -88,7 +88,7 @@ export const callstackShareScenario: Scenario = {
       highlightLines: [
         8
       ],
-      narration: "Incrementer(scores) : on appelle la méthode — une nouvelle frame va s’empiler.",
+      narration: "Incrementer(scores) : on va appeler la méthode — une nouvelle frame va s'empiler.",
       stack: [
         {
           id: "frame-main",
@@ -136,7 +136,7 @@ export const callstackShareScenario: Scenario = {
         0,
         1
       ],
-      narration: "Frame Incrementer empilée. Le paramètre t reçoit une copie de la référence.",
+      narration: "La frame Incrementer va s'empiler. Le paramètre t va recevoir une copie de la référence.",
       stack: [
         {
           id: "frame-main",
@@ -202,7 +202,7 @@ export const callstackShareScenario: Scenario = {
         0,
         1
       ],
-      narration: "scores et t pointent vers le même objet. Deux flèches, un seul tableau.",
+      narration: "scores et t vont pointer vers le même objet. Deux flèches, un seul tableau.",
       stack: [
         {
           id: "frame-main",
@@ -267,7 +267,7 @@ export const callstackShareScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "t[0] = t[0] + 1 : on mute le heap. Les deux références voient le changement.",
+      narration: "t[0] = t[0] + 1 : on va muter le heap. Les deux références vont voir le changement.",
       stack: [
         {
           id: "frame-main",
@@ -332,7 +332,7 @@ export const callstackShareScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "Fin de Incrementer : la frame se dépile. Le tableau modifié reste sur le heap.",
+      narration: "Fin de Incrementer : la frame va se dépiler. Le tableau modifié va rester sur le heap.",
       stack: [
         {
           id: "frame-main",
@@ -379,7 +379,7 @@ export const callstackShareScenario: Scenario = {
       highlightLines: [
         9
       ],
-      narration: "De retour dans Main : scores[0] vaut 11. Partage = mutation visible.",
+      narration: "De retour dans Main : scores[0] va valoir 11. Partage = mutation visible.",
       stack: [
         {
           id: "frame-main",
@@ -426,7 +426,7 @@ export const callstackShareScenario: Scenario = {
       highlightLines: [
         10
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

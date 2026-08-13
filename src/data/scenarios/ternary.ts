@@ -20,7 +20,7 @@ export const ternaryScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const ternaryScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "age = 20.",
+      narration: "age va valoir 20.",
       stack: [
         {
           id: "frame-main",
@@ -61,7 +61,7 @@ export const ternaryScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "age >= 18 est true → on prend \"majeur\". String sur le heap.",
+      narration: "age >= 18 va être true → on va prendre \"majeur\". La string va être sur le heap.",
       stack: [
         {
           id: "frame-main",
@@ -111,7 +111,7 @@ export const ternaryScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "Affiche majeur.",
+      narration: "On va afficher majeur.",
       stack: [
         {
           id: "frame-main",
@@ -162,7 +162,7 @@ export const ternaryScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

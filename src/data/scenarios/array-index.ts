@@ -20,7 +20,7 @@ export const arrayIndexScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const arrayIndexScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "Tableau {1,2,3} sur le heap.",
+      narration: "Un tableau {1,2,3} va être créé sur le heap.",
       stack: [
         {
           id: "frame-main",
@@ -88,7 +88,7 @@ export const arrayIndexScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "nums[1] = 9 : on mute la case [1] de #A1.",
+      narration: "nums[1] = 9 : on va muter la case [1] de #A1.",
       stack: [
         {
           id: "frame-main",
@@ -140,7 +140,7 @@ export const arrayIndexScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "Affiche 9.",
+      narration: "On va afficher 9.",
       stack: [
         {
           id: "frame-main",
@@ -193,7 +193,7 @@ export const arrayIndexScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

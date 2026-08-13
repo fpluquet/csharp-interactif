@@ -25,7 +25,7 @@ export const parseThrowScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre avec un try/catch.",
+      narration: "Main va démarrer avec un try/catch.",
       stack: [
         {
           id: "frame-main",
@@ -40,9 +40,44 @@ export const parseThrowScenario: Scenario = {
     {
       id: "pt1",
       highlightLines: [
+        2,
+        3
+      ],
+      narration: "On va entrer dans le try. Le catch attend, au cas où.",
+      stack: [
+        {
+          id: "frame-main",
+          method: "Main",
+          slots: []
+        }
+      ],
+      heap: [],
+      refs: [],
+      consoleLines: []
+    },
+    {
+      id: "pt2",
+      highlightLines: [
         4
       ],
-      narration: "int.Parse(\"abc\") échoue → FormatException.",
+      narration: "int n = int.Parse(\"abc\") : on va appeler Parse. n n’existe pas encore.",
+      stack: [
+        {
+          id: "frame-main",
+          method: "Main",
+          slots: []
+        }
+      ],
+      heap: [],
+      refs: [],
+      consoleLines: []
+    },
+    {
+      id: "pt3",
+      highlightLines: [
+        4
+      ],
+      narration: "\"abc\" n’est pas un entier : Parse va lever une FormatException. n ne sera pas créée.",
       stack: [
         {
           id: "frame-main",
@@ -60,13 +95,13 @@ export const parseThrowScenario: Scenario = {
       }
     },
     {
-      id: "pt2",
+      id: "pt4",
       highlightLines: [
         6,
         7,
         8
       ],
-      narration: "catch attrape FormatException. Affiche invalide.",
+      narration: "catch va attraper FormatException. Console va afficher invalide.",
       stack: [
         {
           id: "frame-main",
@@ -91,7 +126,7 @@ export const parseThrowScenario: Scenario = {
       highlightLines: [
         10
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

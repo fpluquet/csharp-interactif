@@ -32,7 +32,7 @@ export const classGraphScenario: Scenario = {
         11,
         12
       ],
-      narration: "Main démarre. On va construire un petit graphe Personne → Adresse.",
+      narration: "Main va démarrer. On va construire un petit graphe Personne → Adresse.",
       stack: [
         {
           id: "frame-main",
@@ -48,7 +48,7 @@ export const classGraphScenario: Scenario = {
       highlightLines: [
         13
       ],
-      narration: "new Personne() : objet #P1. Adresse est encore null.",
+      narration: "new Personne() : objet #P1 va être créé. Adresse va encore être null.",
       stack: [
         {
           id: "frame-main",
@@ -98,7 +98,7 @@ export const classGraphScenario: Scenario = {
       highlightLines: [
         14
       ],
-      narration: "p.Nom = \"Sam\" : string #S1 sur le heap, liée au champ Nom.",
+      narration: "p.Nom = \"Sam\" : la string #S1 va être sur le heap, liée au champ Nom.",
       stack: [
         {
           id: "frame-main",
@@ -166,7 +166,7 @@ export const classGraphScenario: Scenario = {
       highlightLines: [
         15
       ],
-      narration: "p.Adresse = new Adresse() : nouvel objet #A1. Flèche heap→heap depuis le champ Adresse.",
+      narration: "p.Adresse = new Adresse() : un nouvel objet #A1 va être créé. Une flèche heap→heap va partir du champ Adresse.",
       stack: [
         {
           id: "frame-main",
@@ -252,7 +252,7 @@ export const classGraphScenario: Scenario = {
       highlightLines: [
         16
       ],
-      narration: "p.Adresse.Ville = \"Mons\" : on suit la flèche jusqu’à #A1, puis on attache la string #S2.",
+      narration: "p.Adresse.Ville = \"Mons\" : on va suivre la flèche jusqu’à #A1, puis on va attacher la string #S2.",
       stack: [
         {
           id: "frame-main",
@@ -356,7 +356,7 @@ export const classGraphScenario: Scenario = {
       highlightLines: [
         17
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

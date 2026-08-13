@@ -18,7 +18,7 @@ export const fileWriteScenario: Scenario = {
         0,
         1
       ],
-      narration: "Pas encore de out.txt.",
+      narration: "out.txt n'existera pas encore.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +35,7 @@ export const fileWriteScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "WriteAllText crée out.txt avec OK.",
+      narration: "WriteAllText va créer out.txt avec OK.",
       stack: [
         {
           id: "frame-main",
@@ -57,7 +57,7 @@ export const fileWriteScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

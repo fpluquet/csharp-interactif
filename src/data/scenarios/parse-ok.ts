@@ -20,7 +20,7 @@ export const parseOkScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const parseOkScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "s pointe vers \"42\".",
+      narration: "s va pointer vers \"42\".",
       stack: [
         {
           id: "frame-main",
@@ -80,7 +80,7 @@ export const parseOkScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "int.Parse(s) → n = 42 sur la stack.",
+      narration: "int.Parse(s) → n va valoir 42 sur la stack.",
       stack: [
         {
           id: "frame-main",
@@ -130,7 +130,7 @@ export const parseOkScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "Affiche 42.",
+      narration: "Console va afficher 42.",
       stack: [
         {
           id: "frame-main",
@@ -181,7 +181,7 @@ export const parseOkScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

@@ -29,11 +29,11 @@ export const classGenericWhereScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("gw0", [6, 7], "Main démarre. La contrainte where T : class est déjà vérifiée à la compilation.", main([]), [], []),
+    step("gw0", [6, 7], "Main va démarrer. La contrainte where T : class est déjà vérifiée à la compilation.", main([]), [], []),
     step(
       "gw1",
       [8],
-      "Depot<string> : string est une classe → objet heap, Valeur est une référence.",
+      "Depot<string> : string est une classe → l’objet va être sur le heap, Valeur va être une référence.",
       main([refSlot("slot-d", "d", "#B1", "obj-b", "Depot<string>")]),
       heap,
       refs,

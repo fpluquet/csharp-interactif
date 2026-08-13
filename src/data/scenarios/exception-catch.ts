@@ -31,7 +31,7 @@ export const exceptionCatchScenario: Scenario = {
         5,
         6
       ],
-      narration: "Main démarre. Un bloc try/catch protège l’appel.",
+      narration: "Main va démarrer. Un bloc try/catch va protéger l’appel.",
       stack: [
         {
           id: "frame-main",
@@ -49,7 +49,7 @@ export const exceptionCatchScenario: Scenario = {
         8,
         9
       ],
-      narration: "On entre dans le try. Risquer() va être appelé.",
+      narration: "On va entrer dans le try. Risquer() va être appelé.",
       stack: [
         {
           id: "frame-main",
@@ -66,7 +66,7 @@ export const exceptionCatchScenario: Scenario = {
       highlightLines: [
         9
       ],
-      narration: "Frame Risquer empilée au-dessus de Main.",
+      narration: "La frame Risquer va s’empiler au-dessus de Main.",
       stack: [
         {
           id: "frame-main",
@@ -88,7 +88,7 @@ export const exceptionCatchScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "throw : l’exception est levée dans Risquer.",
+      narration: "throw : l’exception va être levée dans Risquer.",
       stack: [
         {
           id: "frame-main",
@@ -115,7 +115,7 @@ export const exceptionCatchScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "Pas de catch dans Risquer : sa frame est dépilée. L’exception remonte vers Main.",
+      narration: "Pas de catch dans Risquer : sa frame va être dépilée. L’exception va remonter vers Main.",
       stack: [
         {
           id: "frame-main",
@@ -139,7 +139,7 @@ export const exceptionCatchScenario: Scenario = {
         12,
         13
       ],
-      narration: "Main a un catch compatible : l’exception est attrapée. ex reçoit le message. La stack reste.",
+      narration: "Main a un catch compatible : l’exception va être attrapée. ex va recevoir le message. La stack va rester.",
       stack: [
         {
           id: "frame-main",
@@ -188,7 +188,7 @@ export const exceptionCatchScenario: Scenario = {
       highlightLines: [
         15
       ],
-      narration: "Après le catch, l’exécution reprend dans Main. Contrairement au throw non géré, le programme continue.",
+      narration: "Après le catch, l’exécution va reprendre dans Main. Contrairement au throw non géré, le programme va continuer.",
       stack: [
         {
           id: "frame-main",
@@ -205,7 +205,7 @@ export const exceptionCatchScenario: Scenario = {
       highlightLines: [
         16
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

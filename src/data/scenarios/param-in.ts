@@ -19,12 +19,12 @@ export const paramInScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("in0", [5, 6], "Main démarre.", main([]), [], []),
-    step("in1", [7], "n = 4 sur la stack.", main([val("slot-n", "n", "4")]), [], []),
+    step("in0", [5, 6], "Main va démarrer.", main([]), [], []),
+    step("in1", [7], "n va valoir 4 sur la stack.", main([val("slot-n", "n", "4")]), [], []),
     step(
       "in2",
       [8, 2],
-      "Triple(in n) : x aliasse n (pas de copie). Lecture seulement.",
+      "Triple(in n) : x va aliasser n (pas de copie). Lecture seulement.",
       main(
         [val("slot-n", "n", "4")],
         [frame("frame-t", "Triple", [val("slot-x", "x (in → n)", "4")])],
@@ -36,7 +36,7 @@ export const paramInScenario: Scenario = {
     step(
       "in3",
       [8],
-      "return 12 → t. n est inchangé (et n’aurait pas pu l’être via x).",
+      "return 12 → t va valoir 12. n va rester inchangé (et n’aurait pas pu l’être via x).",
       main([val("slot-n", "n", "4"), val("slot-t", "t", "12")]),
       [],
       [],

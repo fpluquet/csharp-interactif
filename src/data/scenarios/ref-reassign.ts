@@ -22,7 +22,7 @@ export const refReassignScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre. On va distinguer partage et réaffectation.",
+      narration: "Main va démarrer. On va distinguer partage et réaffectation.",
       stack: [
         {
           id: "frame-main",
@@ -38,7 +38,7 @@ export const refReassignScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "int[] a = {1} : tableau sur le heap, a pointe vers #E1.",
+      narration: "int[] a = {1} : tableau va être créé sur le heap, a va pointer vers #E1.",
       stack: [
         {
           id: "frame-main",
@@ -81,7 +81,7 @@ export const refReassignScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "int[] b = a : on copie la référence. a et b pointent vers le même objet.",
+      narration: "int[] b = a : on va copier la référence. a et b vont pointer vers le même objet.",
       stack: [
         {
           id: "frame-main",
@@ -136,7 +136,7 @@ export const refReassignScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "b[0] = 9 : mutation du heap. a voit aussi 9 — même objet.",
+      narration: "b[0] = 9 : mutation du heap. a va aussi voir 9 — même objet.",
       stack: [
         {
           id: "frame-main",
@@ -191,7 +191,7 @@ export const refReassignScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "b = new int[]{2} : un nouvel objet #E2 apparaît sur le heap.",
+      narration: "b = new int[]{2} : un nouvel objet #E2 va apparaître sur le heap.",
       stack: [
         {
           id: "frame-main",
@@ -257,7 +257,7 @@ export const refReassignScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "Seule la flèche de b change vers #E2. a reste sur #E1.",
+      narration: "Seule la flèche de b va changer vers #E2. a va rester sur #E1.",
       stack: [
         {
           id: "frame-main",
@@ -323,7 +323,7 @@ export const refReassignScenario: Scenario = {
       highlightLines: [
         6
       ],
-      narration: "a[0] vaut encore 9. Réaffecter b ≠ muter l’objet partagé.",
+      narration: "a[0] va encore valoir 9. Réaffecter b ≠ muter l’objet partagé.",
       stack: [
         {
           id: "frame-main",
@@ -389,7 +389,7 @@ export const refReassignScenario: Scenario = {
       highlightLines: [
         7
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

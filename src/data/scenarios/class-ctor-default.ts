@@ -26,11 +26,11 @@ export const classCtorDefaultScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("cd0", [6, 7], "Main démarre.", main([]), [], []),
+    step("cd0", [6, 7], "Main va démarrer.", main([]), [], []),
     step(
       "cd1",
       [8],
-      "new Compte() appelle le constructeur par défaut : Solde = 0.",
+      "new Compte() va appeler le constructeur par défaut : Solde va valoir 0.",
       main([refSlot("slot-c", "c", "#C1", "obj-c")]),
       heap,
       refs,

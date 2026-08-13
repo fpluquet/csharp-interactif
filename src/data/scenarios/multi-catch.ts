@@ -29,7 +29,7 @@ export const multiCatchScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -46,7 +46,7 @@ export const multiCatchScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "Parse(\"x\") → FormatException.",
+      narration: "Parse(\"x\") va lever une FormatException.",
       stack: [
         {
           id: "frame-main",
@@ -69,7 +69,7 @@ export const multiCatchScenario: Scenario = {
         6,
         8
       ],
-      narration: "Premier catch compatible : FormatException. Le catch Exception n'est pas atteint.",
+      narration: "Premier catch compatible : FormatException. Le catch Exception ne sera pas atteint.",
       stack: [
         {
           id: "frame-main",
@@ -94,7 +94,7 @@ export const multiCatchScenario: Scenario = {
       highlightLines: [
         14
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

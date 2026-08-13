@@ -32,7 +32,7 @@ export const paramsPassScenario: Scenario = {
         10,
         11
       ],
-      narration: "Main démarre. On va comparer passage par valeur et par référence.",
+      narration: "Main va démarrer. On va comparer passage par valeur et par référence.",
       stack: [
         {
           id: "frame-main",
@@ -48,7 +48,7 @@ export const paramsPassScenario: Scenario = {
       highlightLines: [
         12
       ],
-      narration: "int a = 5 : la valeur vit sur la stack, dans la frame Main.",
+      narration: "int a = 5 : la valeur va être stockée sur la stack, dans la frame Main.",
       stack: [
         {
           id: "frame-main",
@@ -72,7 +72,7 @@ export const paramsPassScenario: Scenario = {
       highlightLines: [
         13
       ],
-      narration: "ModifierValeur(a) : appel — une nouvelle frame s’empile.",
+      narration: "ModifierValeur(a) : appel — une nouvelle frame va s’empiler.",
       stack: [
         {
           id: "frame-main",
@@ -97,7 +97,7 @@ export const paramsPassScenario: Scenario = {
         0,
         1
       ],
-      narration: "Par valeur : x reçoit une copie de 5. a et x sont indépendants.",
+      narration: "Par valeur : x va recevoir une copie de 5. a et x vont être indépendants.",
       stack: [
         {
           id: "frame-main",
@@ -133,7 +133,7 @@ export const paramsPassScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "x = 99 : seule la copie change. a reste à 5.",
+      narration: "x = 99 : seule la copie va changer. a va rester à 5.",
       stack: [
         {
           id: "frame-main",
@@ -170,7 +170,7 @@ export const paramsPassScenario: Scenario = {
         3,
         14
       ],
-      narration: "Retour dans Main : a vaut toujours 5. La frame ModifierValeur a disparu.",
+      narration: "Retour dans Main : a va toujours valoir 5. La frame ModifierValeur va disparaître.",
       stack: [
         {
           id: "frame-main",
@@ -194,7 +194,7 @@ export const paramsPassScenario: Scenario = {
       highlightLines: [
         15
       ],
-      narration: "ModifierRef(ref a) : on passe une référence vers a, pas une copie.",
+      narration: "ModifierRef(ref a) : on va passer une référence vers a, pas une copie.",
       stack: [
         {
           id: "frame-main",
@@ -219,7 +219,7 @@ export const paramsPassScenario: Scenario = {
         5,
         6
       ],
-      narration: "Avec ref, x désigne la même case que a (alias sur la stack).",
+      narration: "Avec ref, x va désigner la même case que a (alias sur la stack).",
       stack: [
         {
           id: "frame-main",
@@ -256,7 +256,7 @@ export const paramsPassScenario: Scenario = {
       highlightLines: [
         7
       ],
-      narration: "x = 99 : comme x pointe vers a, a devient 99.",
+      narration: "x = 99 : comme x va pointer vers a, a va devenir 99.",
       stack: [
         {
           id: "frame-main",
@@ -293,7 +293,7 @@ export const paramsPassScenario: Scenario = {
         8,
         16
       ],
-      narration: "Retour dans Main : a vaut 99. ref a bien modifié l’original.",
+      narration: "Retour dans Main : a va valoir 99. ref va bien modifier l’original.",
       stack: [
         {
           id: "frame-main",
@@ -317,7 +317,7 @@ export const paramsPassScenario: Scenario = {
       highlightLines: [
         17
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

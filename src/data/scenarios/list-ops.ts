@@ -21,7 +21,7 @@ export const listOpsScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const listOpsScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "new List<int>() : liste vide sur le heap.",
+      narration: "new List<int>() : une liste vide va être créée sur le heap.",
       stack: [
         {
           id: "frame-main",
@@ -79,7 +79,7 @@ export const listOpsScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "Add(12).",
+      narration: "Add(12) va ajouter 12 à la liste.",
       stack: [
         {
           id: "frame-main",
@@ -126,7 +126,7 @@ export const listOpsScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "Add(15).",
+      narration: "Add(15) va ajouter 15 à la liste.",
       stack: [
         {
           id: "frame-main",
@@ -177,7 +177,7 @@ export const listOpsScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "Count → n = 2.",
+      narration: "Count → n va valoir 2.",
       stack: [
         {
           id: "frame-main",
@@ -234,7 +234,7 @@ export const listOpsScenario: Scenario = {
       highlightLines: [
         6
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

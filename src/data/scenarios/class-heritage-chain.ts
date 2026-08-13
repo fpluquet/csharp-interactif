@@ -100,11 +100,11 @@ export const classHeritageChainScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("hc0", [27, 28], "Main démarre.", main([]), [], []),
+    step("hc0", [27, 28], "Main va démarrer.", main([]), [], []),
     step(
       "hc1",
       [29],
-      "new Chien : un seul objet, trois couches de champs encore aux défauts. Entrée dans Chien.",
+      "new Chien : un seul objet va être alloué, trois couches de champs encore aux défauts. On va entrer dans Chien.",
       main([slotC], [fChien]),
       [empty, ...heapStrings],
       rChien,
@@ -113,7 +113,7 @@ export const classHeritageChainScenario: Scenario = {
     step(
       "hc2",
       [21],
-      "Chien délègue : base(id, nom) → constructeur Animal. Son corps (Race = …) attend.",
+      "Chien va déléguer : base(id, nom) → constructeur Animal. Son corps (Race = …) va attendre.",
       main([slotC], [fChien]),
       [empty, ...heapStrings],
       rChien,
@@ -122,7 +122,7 @@ export const classHeritageChainScenario: Scenario = {
     step(
       "hc3",
       [12],
-      "Frame Animal empilée. Même this → #C1.",
+      "La frame Animal va être empilée. Même this → #C1.",
       main([slotC], [fChien, fAnimal]),
       [empty, ...heapStrings],
       [...rChien, ...rAnimal],
@@ -131,7 +131,7 @@ export const classHeritageChainScenario: Scenario = {
     step(
       "hc4",
       [12],
-      "Animal délègue à son tour : base(id) → constructeur Etre.",
+      "Animal va déléguer à son tour : base(id) → constructeur Etre.",
       main([slotC], [fChien, fAnimal]),
       [empty, ...heapStrings],
       [...rChien, ...rAnimal],
@@ -140,7 +140,7 @@ export const classHeritageChainScenario: Scenario = {
     step(
       "hc5",
       [3, 4],
-      "Frame Etre au sommet. Toujours le même objet #C1.",
+      "La frame Etre va être au sommet. Toujours le même objet #C1.",
       main([slotC], [fChien, fAnimal, fEtre]),
       [empty, ...heapStrings],
       [...rChien, ...rAnimal, ...rEtre],
@@ -149,7 +149,7 @@ export const classHeritageChainScenario: Scenario = {
     step(
       "hc6",
       [5],
-      "Id = id → 1. Etre a fini : on va dépiler vers Animal.",
+      "Id = id → 1. Etre va se terminer : on va dépiler vers Animal.",
       main([slotC], [fChien, fAnimal, fEtre]),
       [afterEtre, ...heapStrings],
       [...rChien, ...rAnimal, ...rEtre],
@@ -158,7 +158,7 @@ export const classHeritageChainScenario: Scenario = {
     step(
       "hc7",
       [12],
-      "Retour dans Animal, après base(id). Id est déjà posé.",
+      "On va revenir dans Animal, après base(id). Id va déjà être posé.",
       main([slotC], [fChien, fAnimal]),
       [afterEtre, ...heapStrings],
       [...rChien, ...rAnimal],
@@ -167,7 +167,7 @@ export const classHeritageChainScenario: Scenario = {
     step(
       "hc8",
       [14],
-      "Corps d’Animal : Nom = nom.",
+      "Corps d’Animal : Nom va être assigné à nom.",
       main([slotC], [fChien, fAnimal]),
       [afterAnimal, ...heapStrings],
       [...rChien, ...rAnimal, ...rNom],
@@ -176,7 +176,7 @@ export const classHeritageChainScenario: Scenario = {
     step(
       "hc9",
       [21],
-      "Retour dans Chien, après base(id, nom). Race encore null.",
+      "On va revenir dans Chien, après base(id, nom). Race va encore être null.",
       main([slotC], [fChien]),
       [afterAnimal, ...heapStrings],
       [...rChien, ...rNom],
@@ -185,7 +185,7 @@ export const classHeritageChainScenario: Scenario = {
     step(
       "hc10",
       [23],
-      "Corps de Chien : Race = race. La chaîne de délégation est terminée.",
+      "Corps de Chien : Race va être assignée à race. La chaîne de délégation va se terminer.",
       main([slotC], [fChien]),
       [filled, ...heapStrings],
       [...rChien, ...rNom, ...rRace],
@@ -194,7 +194,7 @@ export const classHeritageChainScenario: Scenario = {
     step(
       "hc11",
       [29],
-      "Plus de frames ctor. c pointe vers #C1 complet (Id, Nom, Race).",
+      "Il n’y aura plus de frames ctor. c va pointer vers #C1 complet (Id, Nom, Race).",
       main([slotC]),
       [filled, ...heapStrings],
       rDone,

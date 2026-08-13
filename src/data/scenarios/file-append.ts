@@ -19,7 +19,7 @@ export const fileAppendScenario: Scenario = {
         0,
         1
       ],
-      narration: "log.txt est vide.",
+      narration: "On va partir d'un log.txt vide.",
       stack: [
         {
           id: "frame-main",
@@ -41,7 +41,7 @@ export const fileAppendScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "Append \"a\".",
+      narration: "On va ajouter \"a\".",
       stack: [
         {
           id: "frame-main",
@@ -63,7 +63,7 @@ export const fileAppendScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "Append \"b\" → \"ab\".",
+      narration: "On va ajouter \"b\" → le fichier va valoir \"ab\".",
       stack: [
         {
           id: "frame-main",
@@ -85,7 +85,7 @@ export const fileAppendScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

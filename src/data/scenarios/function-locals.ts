@@ -25,7 +25,7 @@ export const functionLocalsScenario: Scenario = {
         7,
         8
       ],
-      narration: "Main démarre. Pas encore de locaux dans sa frame.",
+      narration: "Main va démarrer. Pas encore de locaux dans sa frame.",
       stack: [
         {
           id: "frame-main",
@@ -41,7 +41,7 @@ export const functionLocalsScenario: Scenario = {
       highlightLines: [
         9
       ],
-      narration: "int r = Calculer(5) : l’appel doit d’abord être évalué.",
+      narration: "int r = Calculer(5) : l'appel va d'abord être évalué.",
       stack: [
         {
           id: "frame-main",
@@ -59,7 +59,7 @@ export const functionLocalsScenario: Scenario = {
         0,
         1
       ],
-      narration: "Frame Calculer empilée. Le paramètre n = 5 est un local de cette frame.",
+      narration: "La frame Calculer va s'empiler. Le paramètre n va valoir 5 (local de cette frame).",
       stack: [
         {
           id: "frame-main",
@@ -88,7 +88,7 @@ export const functionLocalsScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "int temp = n + 1 : temp s’ajoute dans la frame Calculer (valeur 6).",
+      narration: "int temp = n + 1 : temp va s'ajouter dans la frame Calculer (valeur 6).",
       stack: [
         {
           id: "frame-main",
@@ -123,7 +123,7 @@ export const functionLocalsScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "int resultat = temp * 2 : encore un local dans la même frame (12).",
+      narration: "int resultat = temp * 2 : un autre local va s'ajouter dans la même frame (12).",
       stack: [
         {
           id: "frame-main",
@@ -164,7 +164,7 @@ export const functionLocalsScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "return resultat : on renvoie 12. Les locaux vont disparaître, pas la valeur retournée.",
+      narration: "return resultat : on va renvoyer 12. Les locaux vont disparaître, pas la valeur retournée.",
       stack: [
         {
           id: "frame-main",
@@ -213,7 +213,7 @@ export const functionLocalsScenario: Scenario = {
       highlightLines: [
         9
       ],
-      narration: "Frame Calculer disparue. Calculer(5) est remplacé par 12 dans l’expression.",
+      narration: "La frame Calculer va disparaître. Calculer(5) va être remplacé par 12 dans l'expression.",
       stack: [
         {
           id: "frame-main",
@@ -239,7 +239,7 @@ export const functionLocalsScenario: Scenario = {
         9,
         10
       ],
-      narration: "12 est affecté à r. n, temp et resultat n’existent plus.",
+      narration: "12 va être affecté à r. n, temp et resultat n'existeront plus.",
       stack: [
         {
           id: "frame-main",
@@ -271,7 +271,7 @@ export const functionLocalsScenario: Scenario = {
       highlightLines: [
         10
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

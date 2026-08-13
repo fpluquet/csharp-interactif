@@ -29,11 +29,11 @@ export const classGenericInterfaceScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("gi0", [11, 12], "Main démarre.", main([]), [], []),
+    step("gi0", [11, 12], "Main va démarrer.", main([]), [], []),
     step(
       "gi1",
       [13],
-      "IStock<int> s = new Magasin() : contrat générique, objet concret.",
+      "IStock<int> s = new Magasin() : contrat générique, l’objet va être concret.",
       main([refSlot("slot-s", "s", "#M1", "obj-m", "IStock<int>")]),
       [mag],
       [link("ref-s", "slot-s", "obj-m")],
@@ -42,7 +42,7 @@ export const classGenericInterfaceScenario: Scenario = {
     step(
       "gi2",
       [14, 8],
-      "s.Prendre() : Quantite 5→4, retourne 4 (int, pas object).",
+      "s.Prendre() : Quantite va passer de 5 à 4, va retourner 4 (int, pas object).",
       main([
         refSlot("slot-s", "s", "#M1", "obj-m", "IStock<int>"),
         val("slot-n", "n", "4"),

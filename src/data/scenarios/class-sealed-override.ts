@@ -20,11 +20,11 @@ export const classSealedOverrideScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("so0", [4, 5], "Main démarre.", main([]), [], []),
+    step("so0", [4, 5], "Main va démarrer.", main([]), [], []),
     step(
       "so1",
       [6],
-      "Animal a = new Siamois() : type réel Siamois, qui hérite de Chat.",
+      "Animal a = new Siamois() va créer un type réel Siamois, qui hérite de Chat.",
       main([refSlot("slot-a", "a", "#C1", "obj-c", "Animal")]),
       [chat],
       [link("ref-a", "slot-a", "obj-c")],
@@ -32,7 +32,7 @@ export const classSealedOverrideScenario: Scenario = {
     step(
       "so2",
       [7],
-      "a.Crier() : lookup s’arrête à Chat.Crier (sealed) → Miaou.",
+      "a.Crier() : le lookup va s’arrêter à Chat.Crier (sealed) → Miaou.",
       main([
         refSlot("slot-a", "a", "#C1", "obj-c", "Animal"),
         refSlot("slot-s", "s", "#S1", "obj-s", "string"),

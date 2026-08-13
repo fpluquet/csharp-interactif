@@ -18,11 +18,11 @@ export const classStaticMethodScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("sm0", [5, 6], "Main démarre. Aucune instance de MathUtil.", main([]), [], []),
+    step("sm0", [5, 6], "Main va démarrer. Aucune instance de MathUtil.", main([]), [], []),
     step(
       "sm1",
       [7, 2],
-      "MathUtil.Carre(4) : frame sans this, seulement n = 4.",
+      "MathUtil.Carre(4) va empiler une frame sans this, seulement n = 4.",
       main(
         [],
         [frame("frame-carre", "MathUtil.Carre", [val("slot-n", "n", "4")])],
@@ -34,7 +34,7 @@ export const classStaticMethodScenario: Scenario = {
     step(
       "sm2",
       [7],
-      "return 16 → x. Toujours aucun objet heap.",
+      "return 16 va alimenter x. Toujours aucun objet heap.",
       main([val("slot-x", "x", "16")]),
       [],
       [],

@@ -26,7 +26,7 @@ export const ifElseScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -43,7 +43,7 @@ export const ifElseScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "age = 20.",
+      narration: "age va valoir 20.",
       stack: [
         {
           id: "frame-main",
@@ -67,7 +67,7 @@ export const ifElseScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "age >= 18 → true : on entre dans le if.",
+      narration: "age >= 18 → true : on va entrer dans le if.",
       stack: [
         {
           id: "frame-main",
@@ -91,7 +91,7 @@ export const ifElseScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "Branche if : affiche majeur. Le else est ignoré.",
+      narration: "Branche if : on va afficher majeur. Le else va être ignoré.",
       stack: [
         {
           id: "frame-main",
@@ -117,7 +117,7 @@ export const ifElseScenario: Scenario = {
       highlightLines: [
         11
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

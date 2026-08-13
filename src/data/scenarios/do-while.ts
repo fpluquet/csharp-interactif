@@ -28,7 +28,7 @@ export const doWhileScenario: Scenario = {
     {
       id: "dw0",
       highlightLines: [0, 1],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
@@ -37,7 +37,7 @@ export const doWhileScenario: Scenario = {
     {
       id: "dw1",
       highlightLines: [2],
-      narration: "i = 5. Remarque : i < 5 est déjà faux…",
+      narration: "i va valoir 5. Remarque : i < 5 est déjà faux…",
       stack: i("5"),
       heap: [],
       refs: [],
@@ -47,7 +47,7 @@ export const doWhileScenario: Scenario = {
     {
       id: "dw2",
       highlightLines: [3, 5],
-      narration: "Corps d’abord (do) : affiche 5 — sans tester encore.",
+      narration: "Corps d’abord (do) : on va afficher 5 — sans tester encore.",
       stack: i("5"),
       heap: [],
       refs: [],
@@ -57,7 +57,7 @@ export const doWhileScenario: Scenario = {
     {
       id: "dw3",
       highlightLines: [6],
-      narration: "Post : i++ → 6.",
+      narration: "Post : i++ va donner 6.",
       stack: i("6"),
       heap: [],
       refs: [],
@@ -68,7 +68,7 @@ export const doWhileScenario: Scenario = {
     {
       id: "dw4",
       highlightLines: [7],
-      narration: "Test en bas : 6 < 5 est faux → on s’arrête. Un tour malgré tout.",
+      narration: "Test en bas : 6 < 5 sera faux → on va s’arrêter. Un tour malgré tout.",
       stack: i("6"),
       heap: [],
       refs: [],
@@ -84,7 +84,7 @@ export const doWhileScenario: Scenario = {
     {
       id: "dw5",
       highlightLines: [7],
-      narration: "Fin du do/while : on continue après la boucle.",
+      narration: "Fin du do/while : on va continuer après la boucle.",
       stack: i("6"),
       heap: [],
       refs: [],
@@ -99,7 +99,7 @@ export const doWhileScenario: Scenario = {
     {
       id: "do-while-end",
       highlightLines: [8],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: i("6"),
       heap: [],
       refs: [],

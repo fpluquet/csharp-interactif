@@ -21,7 +21,7 @@ export const valueCopyScenario: Scenario = {
         0,
         1
       ],
-      narration: "Frame Main prête. On va voir comment se comportent les types valeur.",
+      narration: "Frame Main va être prête. On va voir comment vont se comporter les types valeur.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const valueCopyScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "int a = 10 : a contient directement la valeur 10 sur la stack.",
+      narration: "int a = 10 : a va contenir directement la valeur 10 sur la stack.",
       stack: [
         {
           id: "frame-main",
@@ -61,7 +61,7 @@ export const valueCopyScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "int b = a : on copie la valeur. b reçoit 10, pas un lien vers a.",
+      narration: "int b = a : on va copier la valeur. b va recevoir 10, pas un lien vers a.",
       stack: [
         {
           id: "frame-main",
@@ -91,7 +91,7 @@ export const valueCopyScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "b = 20 : seule la case b change. a reste intacte.",
+      narration: "b = 20 : seule la case b va changer. a va rester intacte.",
       stack: [
         {
           id: "frame-main",
@@ -121,7 +121,7 @@ export const valueCopyScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "Deux variables, deux valeurs. Modifier l’une n’affecte pas l’autre.",
+      narration: "Deux variables, deux valeurs. Modifier l’une ne va pas affecter l’autre.",
       stack: [
         {
           id: "frame-main",
@@ -151,7 +151,7 @@ export const valueCopyScenario: Scenario = {
       highlightLines: [
         6
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

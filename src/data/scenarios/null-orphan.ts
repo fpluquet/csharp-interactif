@@ -20,7 +20,7 @@ export const nullOrphanScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre. Le heap est vide.",
+      narration: "Main va démarrer. Le heap va démarrer vide.",
       stack: [
         {
           id: "frame-main",
@@ -36,7 +36,7 @@ export const nullOrphanScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "int[] nums = {1,2,3} : objet sur le heap, flèche depuis nums.",
+      narration: "int[] nums = {1,2,3} : un objet va être créé sur le heap, avec une flèche depuis nums.",
       stack: [
         {
           id: "frame-main",
@@ -87,7 +87,7 @@ export const nullOrphanScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "nums = null : on s’apprête à couper la seule référence vivante.",
+      narration: "nums = null : on va couper la seule référence vivante.",
       stack: [
         {
           id: "frame-main",
@@ -138,7 +138,7 @@ export const nullOrphanScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "La flèche disparaît. nums vaut null — plus de lien vers #F1.",
+      narration: "La flèche va disparaître. nums va valoir null — plus de lien vers #F1.",
       stack: [
         {
           id: "frame-main",
@@ -183,7 +183,7 @@ export const nullOrphanScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "Objet orphelin : plus aucune variable ne le référence. Le GC pourra le récupérer plus tard.",
+      narration: "Objet orphelin : plus aucune variable ne le référencera. Le GC pourra le récupérer plus tard.",
       stack: [
         {
           id: "frame-main",
@@ -228,7 +228,7 @@ export const nullOrphanScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

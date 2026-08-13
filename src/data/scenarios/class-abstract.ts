@@ -28,11 +28,11 @@ export const classAbstractScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("ab0", [12, 13], "Main démarre. Forme est abstract : pas d’instance Forme.", main([]), [], []),
+    step("ab0", [12, 13], "Main va démarrer. Forme est abstract : pas d’instance Forme.", main([]), [], []),
     step(
       "ab1",
       [14],
-      "Forme f = new Cercle(2) : type déclaré Forme, objet réel Cercle.",
+      "Forme f = new Cercle(2) : type déclaré Forme, objet réel Cercle va être alloué.",
       main([refSlot("slot-f", "f", "#C1", "obj-c", "Forme")]),
       [cercle],
       [link("ref-f", "slot-f", "obj-c")],
@@ -41,7 +41,7 @@ export const classAbstractScenario: Scenario = {
     step(
       "ab2",
       [15, 9],
-      "f.Aire() : liaison dynamique → Cercle.Aire → 12.56.",
+      "f.Aire() : liaison dynamique va appeler Cercle.Aire → 12.56.",
       main([
         refSlot("slot-f", "f", "#C1", "obj-c", "Forme"),
         val("slot-a", "a", "12.56"),

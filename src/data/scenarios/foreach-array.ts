@@ -56,7 +56,7 @@ export const foreachArrayScenario: Scenario = {
     {
       id: "fe0",
       highlightLines: [0, 1],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
@@ -65,7 +65,7 @@ export const foreachArrayScenario: Scenario = {
     {
       id: "fe1",
       highlightLines: [2],
-      narration: "Tableau {10, 20} sur le heap.",
+      narration: "Le tableau {10, 20} va être créé sur le heap.",
       stack: frame(),
       heap,
       refs,
@@ -74,7 +74,7 @@ export const foreachArrayScenario: Scenario = {
     {
       id: "fe2",
       highlightLines: [3],
-      narration: "foreach : y a-t-il un prochain élément ? Oui → n = 10.",
+      narration: "foreach : y aura-t-il un prochain élément ? Oui → n va valoir 10.",
       stack: frame("10"),
       heap,
       refs,
@@ -92,7 +92,7 @@ export const foreachArrayScenario: Scenario = {
     {
       id: "fe3",
       highlightLines: [5],
-      narration: "Corps (tour 1) : affiche 10.",
+      narration: "Corps (tour 1) : on va afficher 10.",
       stack: frame("10"),
       heap,
       refs,
@@ -102,7 +102,7 @@ export const foreachArrayScenario: Scenario = {
     {
       id: "fe4",
       highlightLines: [3],
-      narration: "Prochain élément ? Oui → n = 20.",
+      narration: "Prochain élément ? Oui → n va valoir 20.",
       stack: frame("20"),
       heap,
       refs,
@@ -120,7 +120,7 @@ export const foreachArrayScenario: Scenario = {
     {
       id: "fe5",
       highlightLines: [5],
-      narration: "Corps (tour 2) : affiche 20.",
+      narration: "Corps (tour 2) : on va afficher 20.",
       stack: frame("20"),
       heap,
       refs,
@@ -130,7 +130,7 @@ export const foreachArrayScenario: Scenario = {
     {
       id: "fe6",
       highlightLines: [3],
-      narration: "Plus d’élément → fin du foreach.",
+      narration: "Plus d'élément → on va quitter le foreach.",
       stack: frame("20"),
       heap,
       refs,
@@ -146,7 +146,7 @@ export const foreachArrayScenario: Scenario = {
     {
       id: "foreach-array-end",
       highlightLines: [7],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: frame("20"),
       heap,
       refs,

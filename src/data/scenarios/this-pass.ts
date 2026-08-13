@@ -36,7 +36,7 @@ export const thisPassScenario: Scenario = {
     {
       id: "tp0",
       highlightLines: [18, 19],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
@@ -44,7 +44,7 @@ export const thisPassScenario: Scenario = {
     {
       id: "tp1",
       highlightLines: [20, 21],
-      narration: "Alice est créée sur le heap (#J1).",
+      narration: "Alice va être créée sur le heap (#J1).",
       stack: [
         {
           id: "frame-main",
@@ -79,7 +79,7 @@ export const thisPassScenario: Scenario = {
     {
       id: "tp2",
       highlightLines: [22],
-      narration: "Equipe e → #E1 (Membre encore null).",
+      narration: "Equipe e va pointer vers #E1 (Membre encore null).",
       stack: [
         {
           id: "frame-main",
@@ -122,7 +122,7 @@ export const thisPassScenario: Scenario = {
     {
       id: "tp3",
       highlightLines: [23, 4],
-      narration: "alice.Rejoindre(e) : this = Alice (#J1), parametre equipe = #E1.",
+      narration: "alice.Rejoindre(e) : this va être Alice (#J1), parametre equipe va être #E1.",
       stack: [
         {
           id: "frame-main",
@@ -176,7 +176,7 @@ export const thisPassScenario: Scenario = {
       id: "tp4",
       highlightLines: [5, 12],
       narration:
-        "equipe.Ajouter(this) : on passe this (#J1) comme argument joueur. Même objet, autre nom dans la frame.",
+        "equipe.Ajouter(this) : on va passer this (#J1) comme argument joueur. Même objet, autre nom dans la frame.",
       stack: [
         {
           id: "frame-main",
@@ -239,7 +239,7 @@ export const thisPassScenario: Scenario = {
     {
       id: "tp5",
       highlightLines: [14],
-      narration: "Membre = joueur : #E1 pointe vers #J1. Alice s’est ajoutée elle-même.",
+      narration: "Membre = joueur : #E1 va pointer vers #J1. Alice va s’ajouter elle-même.",
       stack: [
         {
           id: "frame-main",
@@ -285,7 +285,7 @@ export const thisPassScenario: Scenario = {
     {
       id: "this-pass-end",
       highlightLines: [24],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

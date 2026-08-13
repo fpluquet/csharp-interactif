@@ -26,11 +26,11 @@ export const classSealedScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("se0", [4, 5], "Main démarre.", main([]), [], []),
+    step("se0", [4, 5], "Main va démarrer.", main([]), [], []),
     step(
       "se1",
       [6],
-      "new Chien fonctionne. sealed bloque seulement l’héritage, pas l’instanciation.",
+      "new Chien va fonctionner. sealed bloque seulement l’héritage, pas l’instanciation.",
       main([refSlot("slot-c", "c", "#C1", "obj-c", "Chien")]),
       heap,
       refs,

@@ -55,7 +55,7 @@ export const classMethodScenario: Scenario = {
     {
       id: "cm0",
       highlightLines: [9, 10],
-      narration: "Main démarre. On va créer deux Compteur distincts.",
+      narration: "Main va démarrer. On va créer deux Compteur distincts.",
       stack: main([]),
       heap: [],
       refs: [],
@@ -63,7 +63,7 @@ export const classMethodScenario: Scenario = {
     {
       id: "cm1",
       highlightLines: [11],
-      narration: "new Compteur() → a pointe vers #C1 (Valeur = 0).",
+      narration: "new Compteur() → a va pointer vers #C1 (Valeur = 0).",
       stack: main([a]),
       heap: [compteur("obj-a", "#C1", "0")],
       refs: refs([["ref-a", "slot-a", "obj-a"]]),
@@ -72,7 +72,7 @@ export const classMethodScenario: Scenario = {
     {
       id: "cm2",
       highlightLines: [12],
-      narration: "Autre new → b pointe vers #C2, un deuxième objet de la même classe.",
+      narration: "Autre new → b va pointer vers #C2, un deuxième objet de la même classe.",
       stack: main([a, b]),
       heap: [compteur("obj-a", "#C1", "0"), compteur("obj-b", "#C2", "0")],
       refs: refs([
@@ -84,7 +84,7 @@ export const classMethodScenario: Scenario = {
     {
       id: "cm3",
       highlightLines: [13, 14],
-      narration: "a.Valeur = 1 et b.Valeur = 10 : chaque objet a son propre état.",
+      narration: "a.Valeur = 1 et b.Valeur = 10 : chaque objet va avoir son propre état.",
       stack: main([a, b]),
       heap: [compteur("obj-a", "#C1", "1"), compteur("obj-b", "#C2", "10")],
       refs: refs([
@@ -95,7 +95,7 @@ export const classMethodScenario: Scenario = {
     {
       id: "cm4",
       highlightLines: [15, 5],
-      narration: "a.Incrementer() : this → #C1 (le même objet que a). #C2 n’est pas concerné.",
+      narration: "a.Incrementer() : this va pointer vers #C1 (le même objet que a). #C2 n’est pas concerné.",
       stack: main([a, b], [{ id: "frame-inc", method: "Incrementer", slots: [thisA] }]),
       heap: [compteur("obj-a", "#C1", "1"), compteur("obj-b", "#C2", "10")],
       refs: refs([
@@ -108,7 +108,7 @@ export const classMethodScenario: Scenario = {
     {
       id: "cm5",
       highlightLines: [5],
-      narration: "this.Valeur++ : #C1 passe à 2. #C2 reste à 10. La frame (et this) disparaît.",
+      narration: "this.Valeur++ : #C1 va passer à 2. #C2 va rester à 10. La frame (et this) va disparaître.",
       stack: main([a, b]),
       heap: [compteur("obj-a", "#C1", "2"), compteur("obj-b", "#C2", "10")],
       refs: refs([
@@ -120,7 +120,7 @@ export const classMethodScenario: Scenario = {
     {
       id: "cm6",
       highlightLines: [16, 5],
-      narration: "b.Incrementer() : même code, mais this → #C2 cette fois.",
+      narration: "b.Incrementer() : même code, mais this va pointer vers #C2 cette fois.",
       stack: main([a, b], [{ id: "frame-inc", method: "Incrementer", slots: [thisB] }]),
       heap: [compteur("obj-a", "#C1", "2"), compteur("obj-b", "#C2", "10")],
       refs: refs([
@@ -133,7 +133,7 @@ export const classMethodScenario: Scenario = {
     {
       id: "cm7",
       highlightLines: [5],
-      narration: "this.Valeur++ : #C2 passe à 11. #C1 reste à 2. this suit l’objet de l’appel.",
+      narration: "this.Valeur++ : #C2 va passer à 11. #C1 va rester à 2. this va suivre l’objet de l’appel.",
       stack: main([a, b]),
       heap: [compteur("obj-a", "#C1", "2"), compteur("obj-b", "#C2", "11")],
       refs: refs([
@@ -145,7 +145,7 @@ export const classMethodScenario: Scenario = {
     {
       id: "class-method-end",
       highlightLines: [17],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: main([a, b]),
       heap: [compteur("obj-a", "#C1", "2"), compteur("obj-b", "#C2", "11")],
       refs: refs([

@@ -39,7 +39,7 @@ export const breakContinueScenario: Scenario = {
     {
       id: "bc0",
       highlightLines: [0, 1],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
@@ -48,7 +48,7 @@ export const breakContinueScenario: Scenario = {
     {
       id: "bc1",
       highlightLines: [2],
-      narration: "Init : i = 0.",
+      narration: "Init : i va valoir 0.",
       stack: i("0"),
       heap: [],
       refs: [],
@@ -58,7 +58,7 @@ export const breakContinueScenario: Scenario = {
     {
       id: "bc2",
       highlightLines: [3],
-      narration: "Test : 0 < 5 vrai.",
+      narration: "Test : 0 < 5 va être vrai.",
       stack: i("0"),
       heap: [],
       refs: [],
@@ -74,7 +74,7 @@ export const breakContinueScenario: Scenario = {
     {
       id: "bc3",
       highlightLines: [8],
-      narration: "Corps : affiche 0.",
+      narration: "Corps : on va afficher 0.",
       stack: i("0"),
       heap: [],
       refs: [],
@@ -84,7 +84,7 @@ export const breakContinueScenario: Scenario = {
     {
       id: "bc4",
       highlightLines: [4],
-      narration: "Post : i++ → 1.",
+      narration: "Post : i++ va donner 1.",
       stack: i("1"),
       heap: [],
       refs: [],
@@ -94,7 +94,7 @@ export const breakContinueScenario: Scenario = {
     {
       id: "bc5",
       highlightLines: [3],
-      narration: "Test : 1 < 5 vrai.",
+      narration: "Test : 1 < 5 va être vrai.",
       stack: i("1"),
       heap: [],
       refs: [],
@@ -110,7 +110,7 @@ export const breakContinueScenario: Scenario = {
     {
       id: "bc6",
       highlightLines: [6],
-      narration: "Corps : continue → on saute WriteLine et on va au post.",
+      narration: "Corps : continue → on va sauter WriteLine et aller au post.",
       stack: i("1"),
       heap: [],
       refs: [],
@@ -120,7 +120,7 @@ export const breakContinueScenario: Scenario = {
     {
       id: "bc7",
       highlightLines: [4],
-      narration: "Post (après continue) : i++ → 2.",
+      narration: "Post (après continue) : i va passer à 2.",
       stack: i("2"),
       heap: [],
       refs: [],
@@ -130,7 +130,7 @@ export const breakContinueScenario: Scenario = {
     {
       id: "bc8",
       highlightLines: [3, 8],
-      narration: "Test vrai, corps : affiche 2.",
+      narration: "Test vrai, corps : on va afficher 2.",
       stack: i("2"),
       heap: [],
       refs: [],
@@ -140,7 +140,7 @@ export const breakContinueScenario: Scenario = {
     {
       id: "bc9",
       highlightLines: [4],
-      narration: "Post : i++ → 3.",
+      narration: "Post : i va passer à 3.",
       stack: i("3"),
       heap: [],
       refs: [],
@@ -150,7 +150,7 @@ export const breakContinueScenario: Scenario = {
     {
       id: "bc10",
       highlightLines: [3, 7],
-      narration: "Test vrai, corps : break → on quitte sans post ni retest.",
+      narration: "Test vrai, corps : break → on va quitter sans post ni retest.",
       stack: i("3"),
       heap: [],
       refs: [],
@@ -160,7 +160,7 @@ export const breakContinueScenario: Scenario = {
     {
       id: "break-continue-end",
       highlightLines: [10],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: i("3"),
       heap: [],
       refs: [],

@@ -27,11 +27,11 @@ export const classPatternScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("pm0", [11, 12], "Main démarre.", main([]), [], []),
+    step("pm0", [11, 12], "Main va démarrer.", main([]), [], []),
     step(
       "pm1",
       [13],
-      "Forme f = new Cercle(2).",
+      "Forme f = new Cercle(2) : un Cercle va être créé.",
       main([refSlot("slot-f", "f", "#C1", "obj-c", "Forme")]),
       [cercle],
       [link("ref-f", "slot-f", "obj-c")],
@@ -40,7 +40,7 @@ export const classPatternScenario: Scenario = {
     step(
       "pm2",
       [14, 6],
-      "Aire(f) : pattern Cercle { R: var r } matche, r = 2 → 12.56.",
+      "Aire(f) : le pattern Cercle { R: var r } va matcher, r va valoir 2 → 12.56.",
       main([
         refSlot("slot-f", "f", "#C1", "obj-c", "Forme"),
         val("slot-a", "a", "12.56"),

@@ -30,11 +30,11 @@ export const classProtectedScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("pr0", [13, 14], "Main démarre.", main([]), [], []),
+    step("pr0", [13, 14], "Main va démarrer.", main([]), [], []),
     step(
       "pr1",
       [15],
-      "new Chien : l’objet a Nom (public) et Age (protected, 0).",
+      "new Chien : l’objet va avoir Nom (public) et Age (protected, 0).",
       main([refSlot("slot-c", "c", "#C1", "obj-c", "Chien")]),
       [
         obj("obj-c", "Chien", "#C1", [
@@ -49,7 +49,7 @@ export const classProtectedScenario: Scenario = {
     step(
       "pr2",
       [16, 10],
-      "c.Vieillir() : code de Chien, donc Age++ est autorisé → 1. Main ne peut pas écrire c.Age.",
+      "c.Vieillir() : code de Chien, donc Age++ va être autorisé → 1. Main ne pourra pas écrire c.Age.",
       main([refSlot("slot-c", "c", "#C1", "obj-c", "Chien")]),
       [
         obj("obj-c", "Chien", "#C1", [

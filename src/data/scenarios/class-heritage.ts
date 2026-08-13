@@ -93,7 +93,7 @@ export const classHeritageScenario: Scenario = {
     {
       id: "he0",
       highlightLines: [18, 19],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
@@ -101,7 +101,7 @@ export const classHeritageScenario: Scenario = {
     {
       id: "he1",
       highlightLines: [20],
-      narration: "new Chien : un seul objet (Chien) alloué, champs par défaut. Entrée dans le constructeur Chien.",
+      narration: "new Chien : un seul objet (Chien) va être alloué, champs par défaut. On va entrer dans le constructeur Chien.",
       stack: [
         { id: "frame-main", method: "Main", slots: [slotC] },
         frameChien,
@@ -113,7 +113,7 @@ export const classHeritageScenario: Scenario = {
     {
       id: "he2",
       highlightLines: [12],
-      narration: "Avant le corps de Chien : : base(nom). On délègue au constructeur Animal. Race n’est pas encore assigné.",
+      narration: "Avant le corps de Chien : : base(nom). On va déléguer au constructeur Animal. Race ne va pas encore être assigné.",
       stack: [
         { id: "frame-main", method: "Main", slots: [slotC] },
         frameChien,
@@ -125,7 +125,7 @@ export const classHeritageScenario: Scenario = {
     {
       id: "he3",
       highlightLines: [3, 4],
-      narration: "Frame Animal empilée. Même this → #C1 (pas un nouvel objet).",
+      narration: "La frame Animal va être empilée. Même this → #C1 (pas un nouvel objet).",
       stack: [
         { id: "frame-main", method: "Main", slots: [slotC] },
         frameChien,
@@ -138,7 +138,7 @@ export const classHeritageScenario: Scenario = {
     {
       id: "he4",
       highlightLines: [5],
-      narration: "Nom = nom dans Animal : le champ hérité de #C1 est initialisé.",
+      narration: "Nom = nom dans Animal : le champ hérité de #C1 va être initialisé.",
       stack: [
         { id: "frame-main", method: "Main", slots: [slotC] },
         frameChien,
@@ -151,7 +151,7 @@ export const classHeritageScenario: Scenario = {
     {
       id: "he5",
       highlightLines: [12],
-      narration: "Animal se termine : sa frame disparaît. Retour dans Chien, juste après base(nom).",
+      narration: "Animal va se terminer : sa frame va disparaître. On va revenir dans Chien, juste après base(nom).",
       stack: [
         { id: "frame-main", method: "Main", slots: [slotC] },
         frameChien,
@@ -163,7 +163,7 @@ export const classHeritageScenario: Scenario = {
     {
       id: "he6",
       highlightLines: [14],
-      narration: "Corps de Chien : Race = race. Nom était déjà prêt grâce à base.",
+      narration: "Corps de Chien : Race va être assignée à race. Nom va déjà être prêt grâce à base.",
       stack: [
         { id: "frame-main", method: "Main", slots: [slotC] },
         frameChien,
@@ -187,7 +187,7 @@ export const classHeritageScenario: Scenario = {
     {
       id: "he7",
       highlightLines: [20],
-      narration: "Fin de Chien : plus de this. c pointe vers l’objet complet.",
+      narration: "Fin de Chien : plus de this. c va pointer vers l’objet complet.",
       stack: [{ id: "frame-main", method: "Main", slots: [slotC] }],
       heap: [
         {
@@ -212,7 +212,7 @@ export const classHeritageScenario: Scenario = {
     {
       id: "class-heritage-end",
       highlightLines: [21],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [{ id: "frame-main", method: "Main", slots: [slotC] }],
       heap: [
         {

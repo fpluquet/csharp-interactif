@@ -18,11 +18,11 @@ export const classRecordScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("re0", [2, 3], "Main démarre.", main([]), [], []),
+    step("re0", [2, 3], "Main va démarrer.", main([]), [], []),
     step(
       "re1",
       [4, 5],
-      "Deux records distincts, mêmes valeurs (X=1, Y=2).",
+      "Deux records distincts vont être créés, avec les mêmes valeurs (X=1, Y=2).",
       main([
         refSlot("slot-a", "a", "#P1", "obj-a", "Point"),
         refSlot("slot-b", "b", "#P2", "obj-b", "Point"),
@@ -42,7 +42,7 @@ export const classRecordScenario: Scenario = {
     step(
       "re2",
       [6],
-      "a == b → true : égalité par valeur, pas par référence.",
+      "a == b va valoir true : égalité par valeur, pas par référence.",
       main([
         refSlot("slot-a", "a", "#P1", "obj-a", "Point"),
         refSlot("slot-b", "b", "#P2", "obj-b", "Point"),
@@ -64,7 +64,7 @@ export const classRecordScenario: Scenario = {
     step(
       "re3",
       [7],
-      "with crée #P3 (1, 9). a reste (1, 2).",
+      "with va créer #P3 (1, 9). a va rester (1, 2).",
       main([
         refSlot("slot-a", "a", "#P1", "obj-a", "Point"),
         refSlot("slot-b", "b", "#P2", "obj-b", "Point"),

@@ -20,7 +20,7 @@ export const linqWhereScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const linqWhereScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "nums = {1,2,3,4}.",
+      narration: "nums va valoir {1,2,3,4}.",
       stack: [
         {
           id: "frame-main",
@@ -92,7 +92,7 @@ export const linqWhereScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "Where + ToArray → nouveau tableau {2,4}. nums intact.",
+      narration: "Where + ToArray → un nouveau tableau {2,4} va être créé. nums restera intact.",
       stack: [
         {
           id: "frame-main",
@@ -175,7 +175,7 @@ export const linqWhereScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "pairs.Length = 2.",
+      narration: "On va afficher pairs.Length = 2.",
       stack: [
         {
           id: "frame-main",
@@ -259,7 +259,7 @@ export const linqWhereScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

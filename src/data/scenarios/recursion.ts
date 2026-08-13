@@ -24,7 +24,7 @@ export const recursionScenario: Scenario = {
         6,
         7
       ],
-      narration: "Main démarre. La récursion empile plusieurs frames Fact.",
+      narration: "Main va démarrer. La récursion va empiler plusieurs frames Fact.",
       stack: [
         {
           id: "frame-main",
@@ -40,7 +40,7 @@ export const recursionScenario: Scenario = {
       highlightLines: [
         8
       ],
-      narration: "int r = Fact(3) : premier appel.",
+      narration: "int r = Fact(3) : on va lancer le premier appel.",
       stack: [
         {
           id: "frame-main",
@@ -58,7 +58,7 @@ export const recursionScenario: Scenario = {
         0,
         1
       ],
-      narration: "Fact(3) : frame empilée, n = 3.",
+      narration: "Fact(3) : frame va s’empiler, n va valoir 3.",
       stack: [
         {
           id: "frame-main",
@@ -87,7 +87,7 @@ export const recursionScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "return n * Fact(n-1) : appel récursif Fact(2) — nouvelle frame.",
+      narration: "return n * Fact(n-1) : appel récursif Fact(2) va être lancé — nouvelle frame va s’empiler.",
       stack: [
         {
           id: "frame-main",
@@ -128,7 +128,7 @@ export const recursionScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "Encore Fact(1) : trois frames Fact empilées (n=3,2,1).",
+      narration: "Encore Fact(1) : trois frames Fact vont être empilées (n=3,2,1).",
       stack: [
         {
           id: "frame-main",
@@ -181,7 +181,7 @@ export const recursionScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "n <= 1 : cas de base. Fact(1) retourne 1.",
+      narration: "n <= 1 : cas de base. Fact(1) va retourner 1.",
       stack: [
         {
           id: "frame-main",
@@ -241,7 +241,7 @@ export const recursionScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "Fact(1) disparaît. Dans Fact(2) : n * 1 devient 2.",
+      narration: "Fact(1) va disparaître. Dans Fact(2) : n * 1 va devenir 2.",
       stack: [
         {
           id: "frame-main",
@@ -289,7 +289,7 @@ export const recursionScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "Fact(2) retourne 2. Remonte vers Fact(3).",
+      narration: "Fact(2) va retourner 2. Va remonter vers Fact(3).",
       stack: [
         {
           id: "frame-main",
@@ -325,7 +325,7 @@ export const recursionScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "Dans Fact(3) : n * 2 = 6. Dernier return vers Main.",
+      narration: "Dans Fact(3) : n * 2 va valoir 6. Dernier return va remonter vers Main.",
       stack: [
         {
           id: "frame-main",
@@ -362,7 +362,7 @@ export const recursionScenario: Scenario = {
       highlightLines: [
         8
       ],
-      narration: "Toutes les frames Fact ont disparu. Fact(3) est remplacé par 6.",
+      narration: "Toutes les frames Fact vont disparaître. Fact(3) va être remplacé par 6.",
       stack: [
         {
           id: "frame-main",
@@ -388,7 +388,7 @@ export const recursionScenario: Scenario = {
         8,
         9
       ],
-      narration: "r = 6. La récursion = empiler, atteindre le cas de base, dépiler en multipliant.",
+      narration: "r va valoir 6. La récursion va empiler, atteindre le cas de base, dépiler en multipliant.",
       stack: [
         {
           id: "frame-main",
@@ -420,7 +420,7 @@ export const recursionScenario: Scenario = {
       highlightLines: [
         9
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

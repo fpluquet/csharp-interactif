@@ -21,7 +21,7 @@ export const stringMethodsScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const stringMethodsScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "s → \"ciao\".",
+      narration: "s va pointer vers \"ciao\".",
       stack: [
         {
           id: "frame-main",
@@ -79,7 +79,7 @@ export const stringMethodsScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "s.Length = 4 (propriété, int sur stack).",
+      narration: "s.Length va valoir 4 (propriété, int sur stack).",
       stack: [
         {
           id: "frame-main",
@@ -128,7 +128,7 @@ export const stringMethodsScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "ToUpper() crée #S2 \"CIAO\". s inchangé.",
+      narration: "ToUpper() va créer #S2 \"CIAO\". s va rester inchangé.",
       stack: [
         {
           id: "frame-main",
@@ -200,7 +200,7 @@ export const stringMethodsScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "Contains(\"ia\") → true.",
+      narration: "Contains(\"ia\") va retourner true.",
       stack: [
         {
           id: "frame-main",
@@ -278,7 +278,7 @@ export const stringMethodsScenario: Scenario = {
       highlightLines: [
         6
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

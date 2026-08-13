@@ -28,7 +28,7 @@ export const classStaticMemberScenario: Scenario = {
     {
       id: "st0",
       highlightLines: [2],
-      narration: "static int Total = 0 : un seul exemplaire, dans la zone de la classe.",
+      narration: "static int Total = 0 : un seul exemplaire va exister dans la zone de la classe.",
       stack: [
         {
           id: "frame-static",
@@ -43,7 +43,7 @@ export const classStaticMemberScenario: Scenario = {
     {
       id: "st1",
       highlightLines: [11, 12],
-      narration: "Main démarre. Total est déjà là, partagé.",
+      narration: "Main va démarrer. Total est déjà là, partagé.",
       stack: [
         {
           id: "frame-static",
@@ -58,7 +58,7 @@ export const classStaticMemberScenario: Scenario = {
     {
       id: "st2",
       highlightLines: [13, 7],
-      narration: "new Etudiant(\"Ada\") : objet #E1 + Total++ → 1.",
+      narration: "new Etudiant(\"Ada\") va créer l’objet #E1 et Total++ va donner 1.",
       stack: [
         {
           id: "frame-static",
@@ -98,7 +98,7 @@ export const classStaticMemberScenario: Scenario = {
     {
       id: "st3",
       highlightLines: [14, 7],
-      narration: "new Etudiant(\"Alan\") : autre objet #E2, même Total → 2.",
+      narration: "new Etudiant(\"Alan\") va créer l’objet #E2, Total va passer à 2.",
       stack: [
         {
           id: "frame-static",
@@ -155,7 +155,7 @@ export const classStaticMemberScenario: Scenario = {
     {
       id: "st4",
       highlightLines: [15],
-      narration: "Etudiant.Total se lit via la classe (pas via a ou b).",
+      narration: "Etudiant.Total va se lire via la classe (pas via a ou b).",
       stack: [
         {
           id: "frame-static",
@@ -213,7 +213,7 @@ export const classStaticMemberScenario: Scenario = {
     {
       id: "class-static-member-end",
       highlightLines: [16],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-static",

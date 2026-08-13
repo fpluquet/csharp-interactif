@@ -26,11 +26,11 @@ export const paramParamsScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("pp0", [7, 8], "Main démarre.", main([]), [], []),
+    step("pp0", [7, 8], "Main va démarrer.", main([]), [], []),
     step(
       "pp1",
       [9],
-      "Somme(2, 5, 3) : le runtime alloue un int[] de 3 éléments, passé à vals.",
+      "Somme(2, 5, 3) : le runtime va allouer un int[] de 3 éléments, passé à vals.",
       main(
         [],
         [
@@ -47,7 +47,7 @@ export const paramParamsScenario: Scenario = {
     step(
       "pp2",
       [3],
-      "foreach : s accumule 2 + 5 + 3 → 10.",
+      "foreach : s va accumuler 2 + 5 + 3 → 10.",
       main(
         [],
         [
@@ -64,7 +64,7 @@ export const paramParamsScenario: Scenario = {
     step(
       "pp3",
       [9],
-      "return 10 → t. Le tableau temporaire n’est plus référencé.",
+      "return 10 → t va valoir 10. Le tableau temporaire ne va plus être référencé.",
       main([val("slot-t", "t", "10")]),
       [{ ...arr, orphan: true }],
       [],

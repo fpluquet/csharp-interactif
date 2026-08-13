@@ -28,11 +28,11 @@ export const classInitOnlyScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("io0", [5, 6], "Main démarre.", main([]), [], []),
+    step("io0", [5, 6], "Main va démarrer.", main([]), [], []),
     step(
       "io1",
       [7],
-      "L’initialiseur d’objet a le droit d’écrire Nom (contexte init).",
+      "L’initialiseur d’objet va avoir le droit d’écrire Nom (contexte init).",
       main([refSlot("slot-p", "p", "#P1", "obj-p")]),
       heap,
       refs,

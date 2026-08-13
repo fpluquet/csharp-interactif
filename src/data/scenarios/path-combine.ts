@@ -19,7 +19,7 @@ export const pathCombineScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const pathCombineScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "Path.Combine produit data\\\\a.txt (séparateur OS).",
+      narration: "Path.Combine va produire data\\\\a.txt (séparateur OS).",
       stack: [
         {
           id: "frame-main",
@@ -81,7 +81,7 @@ export const pathCombineScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "Affiche le chemin.",
+      narration: "Console va afficher le chemin.",
       stack: [
         {
           id: "frame-main",
@@ -127,7 +127,7 @@ export const pathCombineScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

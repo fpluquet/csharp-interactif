@@ -20,7 +20,7 @@ export const charIsDigitScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const charIsDigitScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "c = '5' sur la stack.",
+      narration: "c = '5' va être stocké sur la stack.",
       stack: [
         {
           id: "frame-main",
@@ -61,7 +61,7 @@ export const charIsDigitScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "IsDigit('5') → true.",
+      narration: "IsDigit('5') va retourner true.",
       stack: [
         {
           id: "frame-main",
@@ -92,7 +92,7 @@ export const charIsDigitScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "Affiche True.",
+      narration: "On va afficher True.",
       stack: [
         {
           id: "frame-main",
@@ -124,7 +124,7 @@ export const charIsDigitScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

@@ -20,7 +20,7 @@ export const stringConcatScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -36,7 +36,7 @@ export const stringConcatScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "a pointe vers \"Bon\".",
+      narration: "a va pointer vers \"Bon\".",
       stack: [
         {
           id: "frame-main",
@@ -79,7 +79,7 @@ export const stringConcatScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "b pointe vers \"jour\".",
+      narration: "b va pointer vers \"jour\".",
       stack: [
         {
           id: "frame-main",
@@ -145,7 +145,7 @@ export const stringConcatScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "a + b crée #S3 \"Bonjour\". a et b inchangés.",
+      narration: "a + b va créer #S3 \"Bonjour\". a et b vont rester inchangés.",
       stack: [
         {
           id: "frame-main",
@@ -234,7 +234,7 @@ export const stringConcatScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

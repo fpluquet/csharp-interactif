@@ -93,7 +93,7 @@ export const blockScopeScenario: Scenario = {
     {
       id: "bs0",
       highlightLines: [0, 1],
-      narration: "Main démarre. On va enchaîner bloc imbriqué, if, puis for.",
+      narration: "Main va démarrer. On va enchaîner bloc imbriqué, if, puis for.",
       stack: frame(),
       heap: [],
       refs: [],
@@ -101,7 +101,7 @@ export const blockScopeScenario: Scenario = {
     {
       id: "bs1",
       highlightLines: [2],
-      narration: "int a = 1 : portée de toute la méthode Main.",
+      narration: "int a = 1 : a va avoir la portée de toute la méthode Main.",
       stack: frame(a()),
       heap: [],
       refs: [],
@@ -110,7 +110,7 @@ export const blockScopeScenario: Scenario = {
     {
       id: "bs2",
       highlightLines: [3, 4],
-      narration: "Premier bloc { } : int b = 2 apparaît dans une portée imbriquée.",
+      narration: "Premier bloc { } : int b = 2 va apparaître dans une portée imbriquée.",
       stack: frame(a(), b),
       heap: [],
       refs: [],
@@ -119,7 +119,7 @@ export const blockScopeScenario: Scenario = {
     {
       id: "bs3",
       highlightLines: [5, 6],
-      narration: "Bloc encore plus profond : int c = 3. a et b restent visibles.",
+      narration: "Bloc encore plus profond : int c = 3 va apparaître. a et b vont rester visibles.",
       stack: frame(a(), b, c),
       heap: [],
       refs: [],
@@ -128,7 +128,7 @@ export const blockScopeScenario: Scenario = {
     {
       id: "bs4",
       highlightLines: [7, 8],
-      narration: "Fin du bloc interne : c disparaît. b vit encore dans son bloc.",
+      narration: "Fin du bloc interne : c va disparaître. b va rester visible dans son bloc.",
       stack: frame(a(), b),
       heap: [],
       refs: [],
@@ -137,7 +137,7 @@ export const blockScopeScenario: Scenario = {
     {
       id: "bs5",
       highlightLines: [9, 10],
-      narration: "Fin du premier bloc : b disparaît. Seul a reste.",
+      narration: "Fin du premier bloc : b va disparaître. Seul a va rester.",
       stack: frame(a()),
       heap: [],
       refs: [],
@@ -146,7 +146,7 @@ export const blockScopeScenario: Scenario = {
     {
       id: "bs6",
       highlightLines: [12, 13, 14],
-      narration: "if (a > 0) : vraie → on entre. int d = 4 vit seulement dans le if.",
+      narration: "if (a > 0) : vraie → on va entrer. int d = 4 va exister seulement dans le if.",
       stack: frame(a(), d),
       heap: [],
       refs: [],
@@ -155,7 +155,7 @@ export const blockScopeScenario: Scenario = {
     {
       id: "bs7",
       highlightLines: [15, 16],
-      narration: "Fin du if : d disparaît. a est toujours là.",
+      narration: "Fin du if : d va disparaître. a va toujours être là.",
       stack: frame(a()),
       heap: [],
       refs: [],
@@ -164,7 +164,7 @@ export const blockScopeScenario: Scenario = {
     {
       id: "bs8",
       highlightLines: [18],
-      narration: "for (int i = 0; …) : i appartient à la portée du for (pas à Main).",
+      narration: "for (int i = 0; …) : i va appartenir à la portée du for (pas à Main).",
       stack: frame(a(), i),
       heap: [],
       refs: [],
@@ -173,7 +173,7 @@ export const blockScopeScenario: Scenario = {
     {
       id: "bs9",
       highlightLines: [19, 20],
-      narration: "Corps du for : int e = 5 dans une portée encore plus locale.",
+      narration: "Corps du for : int e = 5 va apparaître dans une portée encore plus locale.",
       stack: frame(a(), i, e),
       heap: [],
       refs: [],
@@ -182,7 +182,7 @@ export const blockScopeScenario: Scenario = {
     {
       id: "bs10",
       highlightLines: [21, 22],
-      narration: "Fin du for : i et e disparaissent ensemble. a survit.",
+      narration: "Fin du for : i et e vont disparaître ensemble. a va survivre.",
       stack: frame(a()),
       heap: [],
       refs: [],
@@ -191,7 +191,7 @@ export const blockScopeScenario: Scenario = {
     {
       id: "block-scope-end",
       highlightLines: [23],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: frame(a()),
       heap: [],
       refs: [],

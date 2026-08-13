@@ -22,11 +22,11 @@ export const classStaticCtorScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("sc0", [9, 10], "Main démarre. Config n’est pas encore initialisée.", main([]), [], []),
+    step("sc0", [9, 10], "Main va démarrer. Config n’est pas encore initialisée.", main([]), [], []),
     step(
       "sc1",
       [11, 3, 5],
-      "Premier accès à Config.Version : le constructeur statique tourne (Version = 2).",
+      "Premier accès à Config.Version : le constructeur statique va s’exécuter (Version = 2).",
       [
         { id: "frame-static", method: "static Config", slots: [val("slot-ver", "Config.Version", "2")] },
         ...main([], [frame("frame-cctor", "Config.cctor", [])]),
@@ -38,7 +38,7 @@ export const classStaticCtorScenario: Scenario = {
     step(
       "sc2",
       [11],
-      "Ensuite la lecture : v = 2. Le cctor ne se relancera plus.",
+      "Ensuite la lecture va donner v = 2. Le cctor ne se relancera plus.",
       [
         { id: "frame-static", method: "static", slots: [val("slot-ver", "Config.Version", "2")] },
         ...main([val("slot-v", "v", "2")]),

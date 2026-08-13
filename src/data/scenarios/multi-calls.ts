@@ -29,7 +29,7 @@ export const multiCallsScenario: Scenario = {
         10,
         11
       ],
-      narration: "Main démarre. La call stack ne contient qu’une frame.",
+      narration: "Main va démarrer. La call stack ne va contenir qu'une frame.",
       stack: [
         {
           id: "frame-main",
@@ -63,7 +63,7 @@ export const multiCallsScenario: Scenario = {
         0,
         1
       ],
-      narration: "Frame Double empilée. Le paramètre n reçoit 3 (copie par valeur).",
+      narration: "La frame Double va s'empiler. Le paramètre n va recevoir 3 (copie par valeur).",
       stack: [
         {
           id: "frame-main",
@@ -92,7 +92,7 @@ export const multiCallsScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "return n * 2 : Double produit la valeur 6. Cette valeur va remonter.",
+      narration: "return n * 2 : Double va produire la valeur 6. Cette valeur va remonter.",
       stack: [
         {
           id: "frame-main",
@@ -129,7 +129,7 @@ export const multiCallsScenario: Scenario = {
       highlightLines: [
         12
       ],
-      narration: "La frame Double disparaît. Dans Main, Double(3) est remplacé par 6.",
+      narration: "La frame Double va disparaître. Dans Main, Double(3) va être remplacé par 6.",
       stack: [
         {
           id: "frame-main",
@@ -154,7 +154,7 @@ export const multiCallsScenario: Scenario = {
       highlightLines: [
         12
       ],
-      narration: "Ensuite seulement : 6 est affecté à x sur la stack.",
+      narration: "Ensuite seulement : 6 va être affecté à x sur la stack.",
       stack: [
         {
           id: "frame-main",
@@ -186,7 +186,7 @@ export const multiCallsScenario: Scenario = {
       highlightLines: [
         13
       ],
-      narration: "int y = Ajouter(x, 4) : nouvel appel à évaluer.",
+      narration: "int y = Ajouter(x, 4) : nouvel appel va être évalué.",
       stack: [
         {
           id: "frame-main",
@@ -211,7 +211,7 @@ export const multiCallsScenario: Scenario = {
         5,
         6
       ],
-      narration: "Frame Ajouter : a = 6 et b = 4, copies des arguments.",
+      narration: "La frame Ajouter va s'empiler : a va valoir 6 et b va valoir 4 (copies des arguments).",
       stack: [
         {
           id: "frame-main",
@@ -253,7 +253,7 @@ export const multiCallsScenario: Scenario = {
       highlightLines: [
         7
       ],
-      narration: "return a + b : Ajouter produit 10.",
+      narration: "return a + b : Ajouter va produire 10.",
       stack: [
         {
           id: "frame-main",
@@ -303,7 +303,7 @@ export const multiCallsScenario: Scenario = {
       highlightLines: [
         13
       ],
-      narration: "Ajouter disparaît. Ajouter(x, 4) est remplacé par 10 dans l’expression.",
+      narration: "Ajouter va disparaître. Ajouter(x, 4) va être remplacé par 10 dans l'expression.",
       stack: [
         {
           id: "frame-main",
@@ -336,7 +336,7 @@ export const multiCallsScenario: Scenario = {
         13,
         14
       ],
-      narration: "10 est affecté à y. Main garde x = 6 et y = 10.",
+      narration: "10 va être affecté à y. Main va garder x = 6 et y = 10.",
       stack: [
         {
           id: "frame-main",
@@ -374,7 +374,7 @@ export const multiCallsScenario: Scenario = {
       highlightLines: [
         14
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

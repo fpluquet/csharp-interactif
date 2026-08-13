@@ -27,7 +27,7 @@ export const classAliasScenario: Scenario = {
         5,
         6
       ],
-      narration: "Main démarre. On va partager un même objet Compteur.",
+      narration: "Main va démarrer. On va partager un même objet Compteur.",
       stack: [
         {
           id: "frame-main",
@@ -43,7 +43,7 @@ export const classAliasScenario: Scenario = {
       highlightLines: [
         7
       ],
-      narration: "new Compteur() : objet #C1 sur le heap, a y pointe.",
+      narration: "new Compteur() : l'objet #C1 va être sur le heap, a va y pointer.",
       stack: [
         {
           id: "frame-main",
@@ -87,7 +87,7 @@ export const classAliasScenario: Scenario = {
       highlightLines: [
         8
       ],
-      narration: "a.Valeur = 1 : on mute le champ de #C1 via a.",
+      narration: "a.Valeur = 1 : on va muter le champ de #C1 via a.",
       stack: [
         {
           id: "frame-main",
@@ -131,7 +131,7 @@ export const classAliasScenario: Scenario = {
       highlightLines: [
         9
       ],
-      narration: "Compteur b = a : on copie la référence, pas l’objet. Deux flèches vers #C1.",
+      narration: "Compteur b = a : on va copier la référence, pas l’objet. Deux flèches vers #C1.",
       stack: [
         {
           id: "frame-main",
@@ -187,7 +187,7 @@ export const classAliasScenario: Scenario = {
       highlightLines: [
         10
       ],
-      narration: "b.Valeur = 9 : mutation via b. a « voit » 9 aussi — même objet.",
+      narration: "b.Valeur = 9 : mutation via b. a va aussi « voir » 9 — même objet.",
       stack: [
         {
           id: "frame-main",
@@ -243,7 +243,7 @@ export const classAliasScenario: Scenario = {
       highlightLines: [
         11
       ],
-      narration: "a.Valeur vaut 9. Alias = deux noms pour un seul objet sur le heap.",
+      narration: "a.Valeur va valoir 9. Alias = deux noms pour un seul objet sur le heap.",
       stack: [
         {
           id: "frame-main",
@@ -299,7 +299,7 @@ export const classAliasScenario: Scenario = {
       highlightLines: [
         12
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

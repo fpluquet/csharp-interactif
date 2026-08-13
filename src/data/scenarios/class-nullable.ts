@@ -17,11 +17,11 @@ export const classNullableScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("nu0", [0, 1], "Main démarre.", main([]), [], []),
+    step("nu0", [0, 1], "Main va démarrer.", main([]), [], []),
     step(
       "nu1",
       [2, 3],
-      "a = null (pas d’objet). b pointe vers \"Ada\".",
+      "a va valoir null (pas d’objet). b va pointer vers \"Ada\".",
       main([
         { id: "slot-a", name: "a", value: "null", kind: "ref", declaredType: "string?" },
         refSlot("slot-b", "b", "#S1", "obj-b", "string?"),
@@ -32,7 +32,7 @@ export const classNullableScenario: Scenario = {
     step(
       "nu2",
       [4],
-      "a?.Length : a est null → na = null, Length n’est pas appelé.",
+      "a?.Length : a va être null → na va valoir null, Length ne va pas être appelé.",
       main([
         { id: "slot-a", name: "a", value: "null", kind: "ref", declaredType: "string?" },
         refSlot("slot-b", "b", "#S1", "obj-b", "string?"),
@@ -45,7 +45,7 @@ export const classNullableScenario: Scenario = {
     step(
       "nu3",
       [5],
-      "b?.Length : b non null → nb = 3.",
+      "b?.Length : b non null → nb va valoir 3.",
       main([
         { id: "slot-a", name: "a", value: "null", kind: "ref", declaredType: "string?" },
         refSlot("slot-b", "b", "#S1", "obj-b", "string?"),
@@ -59,7 +59,7 @@ export const classNullableScenario: Scenario = {
     step(
       "nu4",
       [6],
-      "a ?? \"anonyme\" : a est null → n = \"anonyme\".",
+      "a ?? \"anonyme\" : a va être null → n va valoir \"anonyme\".",
       main([
         { id: "slot-a", name: "a", value: "null", kind: "ref", declaredType: "string?" },
         refSlot("slot-b", "b", "#S1", "obj-b", "string?"),

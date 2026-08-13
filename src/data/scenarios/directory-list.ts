@@ -21,7 +21,7 @@ export const directoryListScenario: Scenario = {
         0,
         1
       ],
-      narration: "Rien pour l'instant.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -39,7 +39,7 @@ export const directoryListScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "CreateDirectory(\"tmp\").",
+      narration: "On va appeler CreateDirectory(\"tmp\").",
       stack: [
         {
           id: "frame-main",
@@ -62,7 +62,7 @@ export const directoryListScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "Écrit tmp/a.txt.",
+      narration: "On va écrire tmp/a.txt.",
       stack: [
         {
           id: "frame-main",
@@ -89,7 +89,7 @@ export const directoryListScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "GetFiles → tableau d'1 chemin.",
+      narration: "GetFiles va renvoyer un tableau d'1 chemin.",
       stack: [
         {
           id: "frame-main",
@@ -142,7 +142,7 @@ export const directoryListScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "Length = 1.",
+      narration: "On va afficher Length = 1.",
       stack: [
         {
           id: "frame-main",
@@ -197,7 +197,7 @@ export const directoryListScenario: Scenario = {
       highlightLines: [
         6
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

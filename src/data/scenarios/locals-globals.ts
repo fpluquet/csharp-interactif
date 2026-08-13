@@ -26,7 +26,7 @@ export const localsGlobalsScenario: Scenario = {
       highlightLines: [
         0
       ],
-      narration: "static int total = 10 : la variable globale vit hors des frames d’appel (zone static).",
+      narration: "static int total = 10 : la variable globale va vivre hors des frames d'appel (zone static).",
       stack: [
         {
           id: "frame-static",
@@ -51,7 +51,7 @@ export const localsGlobalsScenario: Scenario = {
         8,
         9
       ],
-      narration: "Main démarre. total reste visible dans la zone static.",
+      narration: "Main va démarrer. total va rester visible dans la zone static.",
       stack: [
         {
           id: "frame-static",
@@ -80,7 +80,7 @@ export const localsGlobalsScenario: Scenario = {
       highlightLines: [
         10
       ],
-      narration: "Ajouter(5) : on appelle la fonction — une frame va s’empiler.",
+      narration: "Ajouter(5) : on va appeler la fonction — une frame va s'empiler.",
       stack: [
         {
           id: "frame-static",
@@ -110,7 +110,7 @@ export const localsGlobalsScenario: Scenario = {
         2,
         3
       ],
-      narration: "Frame Ajouter : le paramètre n = 5 est local à cette frame.",
+      narration: "La frame Ajouter va s'empiler : le paramètre n va valoir 5 (local à cette frame).",
       stack: [
         {
           id: "frame-static",
@@ -151,7 +151,7 @@ export const localsGlobalsScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "int local = n : un autre local dans Ajouter. total (global) n’a pas bougé.",
+      narration: "int local = n : un autre local va s'ajouter dans Ajouter. total (global) n'aura pas bougé.",
       stack: [
         {
           id: "frame-static",
@@ -198,7 +198,7 @@ export const localsGlobalsScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "total = total + local : on lit/écrit la globale. total passe à 15.",
+      narration: "total = total + local : on va lire/écrire la globale. total va passer à 15.",
       stack: [
         {
           id: "frame-static",
@@ -246,7 +246,7 @@ export const localsGlobalsScenario: Scenario = {
         6,
         11
       ],
-      narration: "Fin d’Ajouter : n et local disparaissent. total (global) reste à 15.",
+      narration: "Fin d'Ajouter : n et local vont disparaître. total (global) va rester à 15.",
       stack: [
         {
           id: "frame-static",
@@ -275,7 +275,7 @@ export const localsGlobalsScenario: Scenario = {
       highlightLines: [
         12
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-static",

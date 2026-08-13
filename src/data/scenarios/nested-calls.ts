@@ -28,7 +28,7 @@ export const nestedCallsScenario: Scenario = {
         10,
         11
       ],
-      narration: "Main démarre. L’expression Double(Increment(3)) s’évalue de l’intérieur.",
+      narration: "Main va démarrer. L'expression Double(Increment(3)) va s'évaluer de l'intérieur.",
       stack: [
         {
           id: "frame-main",
@@ -44,7 +44,7 @@ export const nestedCallsScenario: Scenario = {
       highlightLines: [
         12
       ],
-      narration: "On commence par l’appel intérieur : Increment(3).",
+      narration: "On va commencer par l'appel intérieur : Increment(3).",
       stack: [
         {
           id: "frame-main",
@@ -62,7 +62,7 @@ export const nestedCallsScenario: Scenario = {
         0,
         1
       ],
-      narration: "Frame Increment empilée. n = 3.",
+      narration: "La frame Increment va s'empiler. n va valoir 3.",
       stack: [
         {
           id: "frame-main",
@@ -91,7 +91,7 @@ export const nestedCallsScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "return n + 1 : Increment produit 4.",
+      narration: "return n + 1 : Increment va produire 4.",
       stack: [
         {
           id: "frame-main",
@@ -127,7 +127,7 @@ export const nestedCallsScenario: Scenario = {
       highlightLines: [
         12
       ],
-      narration: "Increment disparaît. Increment(3) est remplacé par 4 → reste Double(4).",
+      narration: "Increment va disparaître. Increment(3) va être remplacé par 4 → il restera Double(4).",
       stack: [
         {
           id: "frame-main",
@@ -152,7 +152,7 @@ export const nestedCallsScenario: Scenario = {
         5,
         6
       ],
-      narration: "Maintenant Double(4) : frame Double empilée avec n = 4.",
+      narration: "Ensuite Double(4) : la frame Double va s'empiler avec n = 4.",
       stack: [
         {
           id: "frame-main",
@@ -181,7 +181,7 @@ export const nestedCallsScenario: Scenario = {
       highlightLines: [
         7
       ],
-      narration: "return n * 2 : Double produit 8.",
+      narration: "return n * 2 : Double va produire 8.",
       stack: [
         {
           id: "frame-main",
@@ -218,7 +218,7 @@ export const nestedCallsScenario: Scenario = {
       highlightLines: [
         12
       ],
-      narration: "Double disparaît. L’appel entier est remplacé par 8.",
+      narration: "Double va disparaître. L'appel entier va être remplacé par 8.",
       stack: [
         {
           id: "frame-main",
@@ -244,7 +244,7 @@ export const nestedCallsScenario: Scenario = {
         12,
         13
       ],
-      narration: "8 est affecté à r. Les deux frames d’appel ont disparu.",
+      narration: "8 va être affecté à r. Les deux frames d'appel auront disparu.",
       stack: [
         {
           id: "frame-main",
@@ -276,7 +276,7 @@ export const nestedCallsScenario: Scenario = {
       highlightLines: [
         13
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

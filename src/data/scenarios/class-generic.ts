@@ -22,7 +22,7 @@ export const classGenericScenario: Scenario = {
     {
       id: "ge0",
       highlightLines: [6, 7],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
@@ -30,7 +30,7 @@ export const classGenericScenario: Scenario = {
     {
       id: "ge1",
       highlightLines: [8],
-      narration: "new Boite<int>(42) : objet typé Boite<int>, Valeur est un int (stack dans l’objet).",
+      narration: "new Boite<int>(42) : l’objet va être typé Boite<int>, Valeur va être un int (stack dans l’objet).",
       stack: [
         {
           id: "frame-main",
@@ -54,7 +54,7 @@ export const classGenericScenario: Scenario = {
     {
       id: "ge2",
       highlightLines: [9],
-      narration: "Lecture de b.Valeur : copie du int vers x sur la stack.",
+      narration: "Lecture de b.Valeur : le int va être copié vers x sur la stack.",
       stack: [
         {
           id: "frame-main",
@@ -79,7 +79,7 @@ export const classGenericScenario: Scenario = {
     {
       id: "class-generic-end",
       highlightLines: [10],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

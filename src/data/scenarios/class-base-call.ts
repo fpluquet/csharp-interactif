@@ -36,11 +36,11 @@ export const classBaseCallScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("ba0", [13, 14], "Main démarre.", main([]), [], []),
+    step("ba0", [13, 14], "Main va démarrer.", main([]), [], []),
     step(
       "ba1",
       [15],
-      "Animal a = new Chien(\"Rex\").",
+      "Animal a = new Chien(\"Rex\") : un Chien va être créé.",
       main([refSlot("slot-a", "a", "#C1", "obj-c", "Animal")]),
       heap,
       refs,
@@ -49,7 +49,7 @@ export const classBaseCallScenario: Scenario = {
     step(
       "ba2",
       [16, 10, 4],
-      "a.Decrire() → Chien.Decrire, qui appelle base.Decrire() (\"Rex\") puis ajoute \" (chien)\".",
+      "a.Decrire() → Chien.Decrire, qui va appeler base.Decrire() (\"Rex\") puis ajouter \" (chien)\".",
       main([
         refSlot("slot-a", "a", "#C1", "obj-c", "Animal"),
         refSlot("slot-s", "s", "#S2", "obj-s2", "string"),

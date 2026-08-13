@@ -22,7 +22,7 @@ export const overloadScenario: Scenario = {
         3,
         4
       ],
-      narration: "Main démarre. Deux Max sont disponibles.",
+      narration: "Main va démarrer. Deux Max vont être disponibles.",
       stack: [
         {
           id: "frame-main",
@@ -38,7 +38,7 @@ export const overloadScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "Max(3,5) choisit la surcharge int.",
+      narration: "Max(3,5) va choisir la surcharge int.",
       stack: [
         {
           id: "frame-main",
@@ -73,7 +73,7 @@ export const overloadScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "i = 5.",
+      narration: "i va valoir 5.",
       stack: [
         {
           id: "frame-main",
@@ -96,7 +96,7 @@ export const overloadScenario: Scenario = {
       highlightLines: [
         6
       ],
-      narration: "Max(2.5, 1.1) choisit la surcharge double.",
+      narration: "Max(2.5, 1.1) va choisir la surcharge double.",
       stack: [
         {
           id: "frame-main",
@@ -138,7 +138,7 @@ export const overloadScenario: Scenario = {
       highlightLines: [
         6
       ],
-      narration: "d = 2.5.",
+      narration: "d va valoir 2.5.",
       stack: [
         {
           id: "frame-main",
@@ -168,7 +168,7 @@ export const overloadScenario: Scenario = {
       highlightLines: [
         7
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

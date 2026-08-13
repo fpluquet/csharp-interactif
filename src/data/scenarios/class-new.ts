@@ -26,7 +26,7 @@ export const classNewScenario: Scenario = {
         6,
         7
       ],
-      narration: "Main démarre. Aucun objet Etudiant pour l’instant.",
+      narration: "Main va démarrer. Aucun objet Etudiant pour l’instant.",
       stack: [
         {
           id: "frame-main",
@@ -42,7 +42,7 @@ export const classNewScenario: Scenario = {
       highlightLines: [
         8
       ],
-      narration: "new Etudiant() : l’objet est alloué sur le heap. e sur la stack pointe vers #E1.",
+      narration: "new Etudiant() : l’objet va être alloué sur le heap. e sur la stack va pointer vers #E1.",
       stack: [
         {
           id: "frame-main",
@@ -91,7 +91,7 @@ export const classNewScenario: Scenario = {
       highlightLines: [
         9
       ],
-      narration: "e.Nom = \"Ada\" : le champ Nom de l’objet #E1 est mis à jour (string sur le heap).",
+      narration: "e.Nom = \"Ada\" : le champ Nom de l’objet #E1 va être mis à jour (string sur le heap).",
       stack: [
         {
           id: "frame-main",
@@ -158,7 +158,7 @@ export const classNewScenario: Scenario = {
       highlightLines: [
         10
       ],
-      narration: "e.Age = 20 : Age est un type valeur — stocké dans l’objet, pas une référence séparée.",
+      narration: "e.Age = 20 : Age est un type valeur — va être stocké dans l’objet, pas une référence séparée.",
       stack: [
         {
           id: "frame-main",
@@ -225,7 +225,7 @@ export const classNewScenario: Scenario = {
       highlightLines: [
         11
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

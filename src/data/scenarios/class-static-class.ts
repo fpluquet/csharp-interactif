@@ -18,11 +18,11 @@ export const classStaticClassScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("ss0", [5, 6], "Main démarre. Pas d’instance possible.", main([]), [], []),
+    step("ss0", [5, 6], "Main va démarrer. Pas d’instance possible.", main([]), [], []),
     step(
       "ss1",
       [7, 2],
-      "Convertisseur.MToCm(1.5) → 150. Aucun objet sur le heap.",
+      "Convertisseur.MToCm(1.5) va renvoyer 150. Aucun objet ne sera sur le heap.",
       main([val("slot-cm", "cm", "150")]),
       [],
       [],

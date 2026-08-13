@@ -20,11 +20,11 @@ export const classYieldScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("y0", [6, 7], "Main démarre.", main([]), [], []),
+    step("y0", [6, 7], "Main va démarrer.", main([]), [], []),
     step(
       "y1",
       [8],
-      "foreach appelle Paires() : un itérateur (machine à états) est créé, pas encore de yield.",
+      "foreach va appeler Paires() : un itérateur (machine à états) va être créé, pas encore de yield.",
       main(
         [refSlot("slot-it", "iter", "#I1", "obj-it")],
         [frame("frame-enum", "Paires (iter)", [val("slot-state", "état", "0")])],
@@ -36,7 +36,7 @@ export const classYieldScenario: Scenario = {
     step(
       "y2",
       [2, 8],
-      "MoveNext : yield return 2. Current = 2, n = 2. Paires est suspendu.",
+      "MoveNext va exécuter yield return 2. Current va valoir 2, n va valoir 2. Paires va être suspendu.",
       main([
         refSlot("slot-it", "iter", "#I1", "obj-it"),
         { id: "slot-n", name: "n", value: "2", kind: "value", scopeDepth: 1, scopeLabel: "foreach" },
@@ -48,7 +48,7 @@ export const classYieldScenario: Scenario = {
     step(
       "y3",
       [3, 8],
-      "Tour suivant : yield return 4. Current = 4. Toujours le même itérateur.",
+      "Tour suivant : yield return 4 va s’exécuter. Current va valoir 4. Toujours le même itérateur.",
       main([
         refSlot("slot-it", "iter", "#I1", "obj-it"),
         { id: "slot-n", name: "n", value: "4", kind: "value", scopeDepth: 1, scopeLabel: "foreach" },
@@ -60,7 +60,7 @@ export const classYieldScenario: Scenario = {
     step(
       "y4",
       [8],
-      "Plus de yield : MoveNext = false, foreach s’arrête.",
+      "Plus de yield : MoveNext va valoir false, foreach va s’arrêter.",
       main([refSlot("slot-it", "iter", "#I1", "obj-it")]),
       [obj("obj-it", "IEnumerator<int>", "#I1", [{ label: "Current", value: "4" }])],
       [link("ref-it", "slot-it", "obj-it")],

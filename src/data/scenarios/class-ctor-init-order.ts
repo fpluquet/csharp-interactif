@@ -22,11 +22,11 @@ export const classCtorInitOrderScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("io0", [9, 10], "Main démarre.", main([]), [], []),
+    step("io0", [9, 10], "Main va démarrer.", main([]), [], []),
     step(
       "io1",
       [2, 11],
-      "Allocation : l’initialiseur de champ s’exécute d’abord → N = 10.",
+      "Allocation : l’initialiseur de champ va s’exécuter d’abord → N va valoir 10.",
       main(
         [refSlot("slot-c", "c", "#C1", "obj-c")],
         [{ id: "frame-ctor", method: "Compteur", slots: [refSlot("slot-this", "this", "#C1", "obj-c")] }],
@@ -38,7 +38,7 @@ export const classCtorInitOrderScenario: Scenario = {
     step(
       "io2",
       [5],
-      "Puis le corps du constructeur : N = N + 1 → 11.",
+      "Puis le corps du constructeur : N = N + 1 va donner 11.",
       main(
         [refSlot("slot-c", "c", "#C1", "obj-c")],
         [{ id: "frame-ctor", method: "Compteur", slots: [refSlot("slot-this", "this", "#C1", "obj-c")] }],

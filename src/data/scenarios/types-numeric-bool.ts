@@ -21,7 +21,7 @@ export const typesNumericBoolScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre. La stack est prête pour des types valeur.",
+      narration: "Main va démarrer. La stack va être prête pour des types valeur.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const typesNumericBoolScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "int n = 42 : entier stocké directement dans la frame.",
+      narration: "int n = 42 : l'entier va être stocké directement dans la frame.",
       stack: [
         {
           id: "frame-main",
@@ -61,7 +61,7 @@ export const typesNumericBoolScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "double x = 3.14 : nombre à virgule, toujours sur la stack.",
+      narration: "double x = 3.14 : le nombre à virgule va être sur la stack.",
       stack: [
         {
           id: "frame-main",
@@ -91,7 +91,7 @@ export const typesNumericBoolScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "bool ok = true : vrai/faux, type valeur.",
+      narration: "bool ok = true : le vrai/faux va être stocké comme type valeur.",
       stack: [
         {
           id: "frame-main",
@@ -127,7 +127,7 @@ export const typesNumericBoolScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "char c = 'A' : un caractère Unicode, aussi sur la stack.",
+      narration: "char c = 'A' : le caractère Unicode va aussi être sur la stack.",
       stack: [
         {
           id: "frame-main",
@@ -169,7 +169,7 @@ export const typesNumericBoolScenario: Scenario = {
       highlightLines: [
         6
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

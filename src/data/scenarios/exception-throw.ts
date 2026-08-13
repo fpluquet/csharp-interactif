@@ -28,7 +28,7 @@ export const exceptionThrowScenario: Scenario = {
         10,
         11
       ],
-      narration: "Main démarre. Aucune exception pour l’instant.",
+      narration: "Main va démarrer. Aucune exception pour l’instant.",
       stack: [
         {
           id: "frame-main",
@@ -44,7 +44,7 @@ export const exceptionThrowScenario: Scenario = {
       highlightLines: [
         12
       ],
-      narration: "Appeler() : une nouvelle frame s’empile.",
+      narration: "Appeler() : une nouvelle frame va s’empiler.",
       stack: [
         {
           id: "frame-main",
@@ -66,7 +66,7 @@ export const exceptionThrowScenario: Scenario = {
       highlightLines: [
         7
       ],
-      narration: "Risquer() : encore une frame au sommet.",
+      narration: "Risquer() : une frame de plus va s’empiler au sommet.",
       stack: [
         {
           id: "frame-main",
@@ -93,7 +93,7 @@ export const exceptionThrowScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "throw new InvalidOperationException(\"boom\") : l’exception est levée.",
+      narration: "throw new InvalidOperationException(\"boom\") : l’exception va être levée.",
       stack: [
         {
           id: "frame-main",
@@ -125,7 +125,7 @@ export const exceptionThrowScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "Aucun catch dans Risquer : la frame est dépilée (unwinding).",
+      narration: "Aucun catch dans Risquer : la frame va être dépilée (unwinding).",
       stack: [
         {
           id: "frame-main",
@@ -152,7 +152,7 @@ export const exceptionThrowScenario: Scenario = {
       highlightLines: [
         7
       ],
-      narration: "Appeler non plus : sa frame disparaît. L’exception remonte.",
+      narration: "Appeler non plus : sa frame va disparaître. L’exception va remonter.",
       stack: [
         {
           id: "frame-main",
@@ -174,7 +174,7 @@ export const exceptionThrowScenario: Scenario = {
       highlightLines: [
         12
       ],
-      narration: "Main n’a pas de catch non plus : la stack se vide. Le programme s’arrête sur l’exception.",
+      narration: "Main n’a pas de catch non plus : la stack va se vider. Le programme va s’arrêter sur l’exception.",
       stack: [],
       heap: [],
       refs: [],
@@ -189,7 +189,7 @@ export const exceptionThrowScenario: Scenario = {
       highlightLines: [
         13
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [],
       heap: [],
       refs: []

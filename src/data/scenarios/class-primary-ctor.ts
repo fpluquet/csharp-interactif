@@ -30,11 +30,11 @@ export const classPrimaryCtorScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("pc0", [6, 7], "Main démarre.", main([]), [], []),
+    step("pc0", [6, 7], "Main va démarrer.", main([]), [], []),
     step(
       "pc1",
       [8, 0],
-      "new Compte(\"Ada\") : le primary ctor capture titulaire dans l’objet (pas besoin d’un ctor classique).",
+      "new Compte(\"Ada\") : le primary ctor va capturer titulaire dans l’objet (pas besoin d’un ctor classique).",
       main([refSlot("slot-c", "c", "#C1", "obj-c")]),
       heap,
       refs,
@@ -43,7 +43,7 @@ export const classPrimaryCtorScenario: Scenario = {
     step(
       "pc2",
       [9, 2],
-      "c.Titulaire lit le paramètre capturé → \"Ada\".",
+      "c.Titulaire va lire le paramètre capturé → \"Ada\".",
       main([
         refSlot("slot-c", "c", "#C1", "obj-c"),
         refSlot("slot-n", "n", "#S1", "obj-s", "string"),

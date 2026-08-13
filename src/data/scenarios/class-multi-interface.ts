@@ -31,11 +31,11 @@ export const classMultiInterfaceScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("mi0", [10, 11], "Main démarre.", main([]), [], []),
+    step("mi0", [10, 11], "Main va démarrer.", main([]), [], []),
     step(
       "mi1",
       [12],
-      "new Document : un objet, deux contrats.",
+      "new Document : un objet va être créé, deux contrats.",
       main([refSlot("slot-d", "d", "#D1", "obj-d", "Document")]),
       [doc],
       [link("ref-d", "slot-d", "obj-d")],
@@ -44,7 +44,7 @@ export const classMultiInterfaceScenario: Scenario = {
     step(
       "mi2",
       [13, 14],
-      "i et s sont des alias du même #D1, avec des types déclarés différents.",
+      "i et s vont être des alias du même #D1, avec des types déclarés différents.",
       main([
         refSlot("slot-d", "d", "#D1", "obj-d", "Document"),
         refSlot("slot-i", "i", "#D1", "obj-d", "IImprimable"),
@@ -60,7 +60,7 @@ export const classMultiInterfaceScenario: Scenario = {
     step(
       "mi3",
       [15, 16],
-      "i.Imprimer() et s.Sauver() appellent les méthodes de Document.",
+      "i.Imprimer() et s.Sauver() vont appeler les méthodes de Document.",
       main([
         refSlot("slot-d", "d", "#D1", "obj-d", "Document"),
         refSlot("slot-i", "i", "#D1", "obj-d", "IImprimable"),

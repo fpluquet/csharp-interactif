@@ -30,11 +30,11 @@ export const classCtorValidationScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("cv0", [10, 11], "Main démarre, entre dans le try.", main([]), [], []),
+    step("cv0", [10, 11], "Main va démarrer et entrer dans le try.", main([]), [], []),
     step(
       "cv1",
       [14, 5],
-      "new Personne(-3) : objet alloué, ctor reçoit age = -3.",
+      "new Personne(-3) : l’objet va être alloué, le ctor va recevoir age = -3.",
       main(
         [],
         [
@@ -51,7 +51,7 @@ export const classCtorValidationScenario: Scenario = {
     step(
       "cv2",
       [5],
-      "age < 0 : throw. Age n’est jamais assigné. L’objet n’a pas de référence depuis Main.",
+      "age < 0 : throw va être levé. Age ne va jamais être assigné. L’objet n’aura pas de référence depuis Main.",
       main(
         [],
         [
@@ -75,7 +75,7 @@ export const classCtorValidationScenario: Scenario = {
     step(
       "cv3",
       [16, 18],
-      "Le ctor est dépilé ; catch dans Main. p n’existe pas. L’objet orphelin est candidat au GC.",
+      "Le ctor va être dépilé ; catch dans Main. p n’existera pas. L’objet orphelin va être candidat au GC.",
       main([]),
       [
         {
@@ -100,7 +100,7 @@ export const classCtorValidationScenario: Scenario = {
     step(
       "class-ctor-validation-end",
       [20],
-      "La fonction Main est terminée, le programme s'arrête.",
+      "La fonction Main va se terminer, le programme va s'arrêter.",
       main([]),
       [],
       [],

@@ -30,11 +30,11 @@ export const classObjectToStringScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("ob0", [7, 8], "Main démarre.", main([]), [], []),
+    step("ob0", [7, 8], "Main va démarrer.", main([]), [], []),
     step(
       "ob1",
       [9],
-      "object o = new Chien : type déclaré object, type réel Chien.",
+      "object o = new Chien : type déclaré object, type réel va être Chien.",
       main([refSlot("slot-o", "o", "#C1", "obj-c", "object")]),
       heap,
       refs,
@@ -43,7 +43,7 @@ export const classObjectToStringScenario: Scenario = {
     step(
       "ob2",
       [10, 4],
-      "o.ToString() : liaison virtuelle → Chien.ToString → \"Rex\" (pas le nom du type).",
+      "o.ToString() : la liaison virtuelle va appeler Chien.ToString → \"Rex\" (pas le nom du type).",
       main([
         refSlot("slot-o", "o", "#C1", "obj-c", "object"),
         refSlot("slot-s", "s", "#S1", "obj-s", "string"),

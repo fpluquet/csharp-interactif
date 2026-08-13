@@ -21,7 +21,7 @@ export const datetimePartsScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -38,7 +38,7 @@ export const datetimePartsScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "DateTime est un struct (type valeur) : stocké sur la stack.",
+      narration: "DateTime est un struct (type valeur) : il va être stocké sur la stack.",
       stack: [
         {
           id: "frame-main",
@@ -64,7 +64,7 @@ export const datetimePartsScenario: Scenario = {
         3,
         4
       ],
-      narration: "Year et Month extraient des int.",
+      narration: "Year et Month vont extraire des int.",
       stack: [
         {
           id: "frame-main",
@@ -100,7 +100,7 @@ export const datetimePartsScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "Affiche 2026.",
+      narration: "On va afficher 2026.",
       stack: [
         {
           id: "frame-main",
@@ -138,7 +138,7 @@ export const datetimePartsScenario: Scenario = {
       highlightLines: [
         6
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

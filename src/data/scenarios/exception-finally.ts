@@ -29,7 +29,7 @@ export const exceptionFinallyScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -46,7 +46,7 @@ export const exceptionFinallyScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "throw : exception levée.",
+      narration: "throw : une exception va être levée.",
       stack: [
         {
           id: "frame-main",
@@ -69,7 +69,7 @@ export const exceptionFinallyScenario: Scenario = {
         6,
         8
       ],
-      narration: "catch s'exécute.",
+      narration: "catch va s'exécuter.",
       stack: [
         {
           id: "frame-main",
@@ -95,7 +95,7 @@ export const exceptionFinallyScenario: Scenario = {
         10,
         12
       ],
-      narration: "finally s'exécute ensuite — toujours.",
+      narration: "finally va s'exécuter ensuite — toujours.",
       stack: [
         {
           id: "frame-main",
@@ -115,7 +115,7 @@ export const exceptionFinallyScenario: Scenario = {
       highlightLines: [
         14
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

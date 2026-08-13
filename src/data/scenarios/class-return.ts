@@ -32,7 +32,7 @@ export const classReturnScenario: Scenario = {
         14,
         15
       ],
-      narration: "Main démarre. On va fabriquer un Point via Creer.",
+      narration: "Main va démarrer. On va fabriquer un Point via Creer.",
       stack: [
         {
           id: "frame-main",
@@ -48,7 +48,7 @@ export const classReturnScenario: Scenario = {
       highlightLines: [
         16
       ],
-      narration: "Appel Creer(0, 0) : nouvelle frame avec les paramètres x et y.",
+      narration: "L’appel Creer(0, 0) va empiler une nouvelle frame avec les paramètres x et y.",
       stack: [
         {
           id: "frame-main",
@@ -83,7 +83,7 @@ export const classReturnScenario: Scenario = {
       highlightLines: [
         8
       ],
-      narration: "new Point() dans Creer : objet #P1 sur le heap. p local y pointe.",
+      narration: "new Point() dans Creer va créer l’objet #P1 sur le heap. p local va y pointer.",
       stack: [
         {
           id: "frame-main",
@@ -150,7 +150,7 @@ export const classReturnScenario: Scenario = {
         9,
         10
       ],
-      narration: "p.X et p.Y reçoivent les paramètres. L’objet #P1 est prêt.",
+      narration: "p.X et p.Y vont recevoir les paramètres. L’objet #P1 va être prêt.",
       stack: [
         {
           id: "frame-main",
@@ -216,7 +216,7 @@ export const classReturnScenario: Scenario = {
       highlightLines: [
         11
       ],
-      narration: "return p : on s’apprête à renvoyer la référence vers #P1.",
+      narration: "return p : on va renvoyer la référence vers #P1.",
       stack: [
         {
           id: "frame-main",
@@ -290,7 +290,7 @@ export const classReturnScenario: Scenario = {
       highlightLines: [
         16
       ],
-      narration: "Frame Creer dépilée : x, y, p locaux disparaissent. #P1 vit toujours — origin dans Main y pointe.",
+      narration: "La frame Creer va être dépilée : x, y, p locaux vont disparaître. #P1 va rester vivant — origin dans Main va y pointer.",
       stack: [
         {
           id: "frame-main",
@@ -347,7 +347,7 @@ export const classReturnScenario: Scenario = {
       highlightLines: [
         17
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

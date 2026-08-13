@@ -25,7 +25,7 @@ export const classConstReadonlyScenario: Scenario = {
     step(
       "cr0",
       [2, 7, 8],
-      "Pi est une constante de classe (pas dans les objets). Main démarre.",
+      "Pi est une constante de classe (pas dans les objets). Main va démarrer.",
       [{ id: "frame-static", method: "static", slots: [val("slot-pi", "Cercle.Pi", "3.14")] }, ...main([])],
       [],
       [],
@@ -34,7 +34,7 @@ export const classConstReadonlyScenario: Scenario = {
     step(
       "cr1",
       [9, 4],
-      "new Cercle(1) : Id readonly = 1, propre à #C1.",
+      "new Cercle(1) : Id readonly va valoir 1, propre à #C1.",
       [
         { id: "frame-static", method: "static", slots: [val("slot-pi", "Cercle.Pi", "3.14")] },
         ...main([refSlot("slot-a", "a", "#C1", "obj-a")]),
@@ -46,7 +46,7 @@ export const classConstReadonlyScenario: Scenario = {
     step(
       "cr2",
       [10],
-      "new Cercle(2) : autre Id. Pi reste unique, partagé.",
+      "new Cercle(2) : un autre Id va être assigné. Pi va rester unique, partagé.",
       [
         { id: "frame-static", method: "static", slots: [val("slot-pi", "Cercle.Pi", "3.14")] },
         ...main([
@@ -63,7 +63,7 @@ export const classConstReadonlyScenario: Scenario = {
     step(
       "cr3",
       [11],
-      "Cercle.Pi se lit via la classe, pas via a ou b.",
+      "Cercle.Pi va se lire via la classe, pas via a ou b.",
       [
         { id: "frame-static", method: "static", slots: [val("slot-pi", "Cercle.Pi", "3.14")] },
         ...main([

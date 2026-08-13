@@ -20,7 +20,7 @@ export const stringImmutableScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre. Les string sont des types référence immuables.",
+      narration: "Main va démarrer. Les string sont des types référence immuables.",
       stack: [
         {
           id: "frame-main",
@@ -36,7 +36,7 @@ export const stringImmutableScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "string s = \"Hi\" : objet #S1 sur le heap, s pointe dessus.",
+      narration: "string s = \"Hi\" : objet #S1 va être créé sur le heap, s va pointer dessus.",
       stack: [
         {
           id: "frame-main",
@@ -79,7 +79,7 @@ export const stringImmutableScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "s = s + \"!\" : on ne modifie pas #S1 — on crée un nouvel objet.",
+      narration: "s = s + \"!\" : on ne va pas modifier #S1 — on va créer un nouvel objet.",
       stack: [
         {
           id: "frame-main",
@@ -133,7 +133,7 @@ export const stringImmutableScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "s pointe maintenant vers #S2. #S1 n’est plus référencé.",
+      narration: "s va pointer vers #S2. #S1 ne va plus être référencé.",
       stack: [
         {
           id: "frame-main",
@@ -188,7 +188,7 @@ export const stringImmutableScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "Immuable = pas de mutation in-place. Concaténer = nouvel objet (+ ancien orphelin).",
+      narration: "Immuable = pas de mutation in-place. Concaténer va créer un nouvel objet (+ ancien orphelin).",
       stack: [
         {
           id: "frame-main",
@@ -243,7 +243,7 @@ export const stringImmutableScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

@@ -1,6 +1,6 @@
 import type { HeapObject, RefLink, StackFrame, StackSlot, Step } from "../../types/memory";
 
-export const MAIN_DONE = "La fonction Main est terminée, le programme s'arrête.";
+export const MAIN_DONE = "La fonction Main va se terminer, le programme va s'arrêter.";
 
 export function val(id: string, name: string, value: string): StackSlot {
   return { id, name, value, kind: "value" };

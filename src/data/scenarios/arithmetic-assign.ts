@@ -21,7 +21,7 @@ export const arithmeticAssignScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -38,7 +38,7 @@ export const arithmeticAssignScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "int n = 5.",
+      narration: "int n = 5 : la valeur 5 va être stockée sur la stack.",
       stack: [
         {
           id: "frame-main",
@@ -63,7 +63,7 @@ export const arithmeticAssignScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "n += 3 → n vaut 8.",
+      narration: "n += 3 : n va valoir 8.",
       stack: [
         {
           id: "frame-main",
@@ -88,7 +88,7 @@ export const arithmeticAssignScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "n++ : post-incrément, n devient 9.",
+      narration: "n++ : post-incrément, n va devenir 9.",
       stack: [
         {
           id: "frame-main",
@@ -113,7 +113,7 @@ export const arithmeticAssignScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "Console.WriteLine(n) affiche 9.",
+      narration: "Console.WriteLine(n) : on va afficher 9.",
       stack: [
         {
           id: "frame-main",
@@ -139,7 +139,7 @@ export const arithmeticAssignScenario: Scenario = {
       highlightLines: [
         6
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

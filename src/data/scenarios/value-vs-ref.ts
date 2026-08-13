@@ -19,7 +19,7 @@ export const valueVsRefScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +35,7 @@ export const valueVsRefScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "int n = 5 : la valeur 5 est dans la frame (stack).",
+      narration: "int n = 5 : la valeur 5 va être dans la frame (stack).",
       stack: [
         {
           id: "frame-main",
@@ -59,7 +59,7 @@ export const valueVsRefScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "int[] t = {5} : t sur la stack pointe vers l'objet tableau sur le heap.",
+      narration: "int[] t = {5} : t sur la stack va pointer vers l'objet tableau sur le heap.",
       stack: [
         {
           id: "frame-main",
@@ -108,7 +108,7 @@ export const valueVsRefScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

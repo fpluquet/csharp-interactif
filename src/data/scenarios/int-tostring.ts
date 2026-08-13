@@ -20,7 +20,7 @@ export const intToStringScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const intToStringScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "n = 7 sur la stack.",
+      narration: "n va valoir 7 sur la stack.",
       stack: [
         {
           id: "frame-main",
@@ -61,7 +61,7 @@ export const intToStringScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "ToString() → string \"7\" sur le heap.",
+      narration: "ToString() → une string \"7\" va être créée sur le heap.",
       stack: [
         {
           id: "frame-main",
@@ -110,7 +110,7 @@ export const intToStringScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "Affiche 7.",
+      narration: "On va afficher 7.",
       stack: [
         {
           id: "frame-main",
@@ -161,7 +161,7 @@ export const intToStringScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

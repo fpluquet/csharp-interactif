@@ -30,7 +30,7 @@ export const switchCaseScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -47,7 +47,7 @@ export const switchCaseScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "data = 1.",
+      narration: "data va valoir 1.",
       stack: [
         {
           id: "frame-main",
@@ -72,7 +72,7 @@ export const switchCaseScenario: Scenario = {
         3,
         8
       ],
-      narration: "switch(data) : case 1 correspond.",
+      narration: "switch(data) : le case 1 va correspondre.",
       stack: [
         {
           id: "frame-main",
@@ -97,7 +97,7 @@ export const switchCaseScenario: Scenario = {
         9,
         10
       ],
-      narration: "Affiche un, puis break sort du switch.",
+      narration: "On va afficher un, puis break va sortir du switch.",
       stack: [
         {
           id: "frame-main",
@@ -123,7 +123,7 @@ export const switchCaseScenario: Scenario = {
       highlightLines: [
         15
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

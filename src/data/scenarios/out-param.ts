@@ -25,7 +25,7 @@ export const outParamScenario: Scenario = {
         5,
         6
       ],
-      narration: "Main démarre. out complète le passage par référence vu avec ref.",
+      narration: "Main va démarrer. out va compléter le passage par référence vu avec ref.",
       stack: [
         {
           id: "frame-main",
@@ -41,7 +41,7 @@ export const outParamScenario: Scenario = {
       highlightLines: [
         7
       ],
-      narration: "int n : la case existe, mais n’est pas encore initialisée (non assignée).",
+      narration: "int n : la case va exister, mais n ne va pas encore être initialisée (non assignée).",
       stack: [
         {
           id: "frame-main",
@@ -65,7 +65,7 @@ export const outParamScenario: Scenario = {
       highlightLines: [
         8
       ],
-      narration: "Lire(out n) : on passe un alias vers n — la méthode doit l’écrire.",
+      narration: "Lire(out n) : on va passer un alias vers n — la méthode va devoir l’écrire.",
       stack: [
         {
           id: "frame-main",
@@ -90,7 +90,7 @@ export const outParamScenario: Scenario = {
         0,
         1
       ],
-      narration: "Frame Lire : x est un out — il désigne la même case que n.",
+      narration: "Frame Lire : x va être un out — il va désigner la même case que n.",
       stack: [
         {
           id: "frame-main",
@@ -126,7 +126,7 @@ export const outParamScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "x = 42 : écrire via out met à jour n dans Main.",
+      narration: "x = 42 : écrire via out va mettre à jour n dans Main.",
       stack: [
         {
           id: "frame-main",
@@ -163,7 +163,7 @@ export const outParamScenario: Scenario = {
         3,
         9
       ],
-      narration: "Retour dans Main : n vaut 42. out a bien initialisé l’appelant.",
+      narration: "Retour dans Main : n va valoir 42. out va bien initialiser l’appelant.",
       stack: [
         {
           id: "frame-main",
@@ -187,7 +187,7 @@ export const outParamScenario: Scenario = {
       highlightLines: [
         10
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

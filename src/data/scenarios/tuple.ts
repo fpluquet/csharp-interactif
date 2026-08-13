@@ -20,7 +20,7 @@ export const tupleScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const tupleScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "Tuple ValueTuple : code=1 sur stack ; nom référence une string.",
+      narration: "Tuple ValueTuple : code va valoir 1 sur la stack ; nom va référencer une string.",
       stack: [
         {
           id: "frame-main",
@@ -86,7 +86,7 @@ export const tupleScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "Affiche 1.",
+      narration: "On va afficher 1.",
       stack: [
         {
           id: "frame-main",
@@ -137,7 +137,7 @@ export const tupleScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "Affiche Ada.",
+      narration: "On va afficher Ada.",
       stack: [
         {
           id: "frame-main",
@@ -189,7 +189,7 @@ export const tupleScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

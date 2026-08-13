@@ -21,7 +21,7 @@ export const numericCastScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const numericCastScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "int n = 3.",
+      narration: "int n va valoir 3.",
       stack: [
         {
           id: "frame-main",
@@ -61,7 +61,7 @@ export const numericCastScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "double d = n : conversion implicite, d = 3.0.",
+      narration: "double d = n : conversion implicite, d va valoir 3.0.",
       stack: [
         {
           id: "frame-main",
@@ -91,7 +91,7 @@ export const numericCastScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "double x = 3.9.",
+      narration: "double x va valoir 3.9.",
       stack: [
         {
           id: "frame-main",
@@ -127,7 +127,7 @@ export const numericCastScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "(int)x tronque → m = 3 (pas d'arrondi).",
+      narration: "(int)x va tronquer → m va valoir 3 (pas d'arrondi).",
       stack: [
         {
           id: "frame-main",
@@ -169,7 +169,7 @@ export const numericCastScenario: Scenario = {
       highlightLines: [
         6
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

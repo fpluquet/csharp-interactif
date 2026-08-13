@@ -19,7 +19,7 @@ export const fileReadScenario: Scenario = {
         0,
         1
       ],
-      narration: "Le fichier note.txt existe déjà.",
+      narration: "Le fichier note.txt existe déjà — on va le lire.",
       stack: [
         {
           id: "frame-main",
@@ -42,7 +42,7 @@ export const fileReadScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "ReadAllText copie le contenu vers une string sur le heap.",
+      narration: "ReadAllText va copier le contenu vers une string sur le heap.",
       stack: [
         {
           id: "frame-main",
@@ -91,7 +91,7 @@ export const fileReadScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "Affiche hello.",
+      narration: "On va afficher hello.",
       stack: [
         {
           id: "frame-main",
@@ -142,7 +142,7 @@ export const fileReadScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

@@ -21,7 +21,7 @@ export const referencesScenario: Scenario = {
         0,
         1
       ],
-      narration: "Frame Main. Le heap est encore vide.",
+      narration: "Main va démarrer. Le heap va encore être vide.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const referencesScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "int[] nums = {1,2,3} : l’objet tableau est créé sur le heap.",
+      narration: "int[] nums = {1,2,3} : l’objet tableau va être créé sur le heap.",
       stack: [
         {
           id: "frame-main",
@@ -88,7 +88,7 @@ export const referencesScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "Sur la stack, nums ne contient pas les éléments — seulement une référence.",
+      narration: "Sur la stack, nums ne va pas contenir les éléments — seulement une référence.",
       stack: [
         {
           id: "frame-main",
@@ -139,7 +139,7 @@ export const referencesScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "List<int> notes = new List<int>() : même schéma — référence + objet heap.",
+      narration: "List<int> notes = new List<int>() : même schéma — référence + objet heap vont être créés.",
       stack: [
         {
           id: "frame-main",
@@ -213,7 +213,7 @@ export const referencesScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "notes.Add(12) : on mute l’objet sur le heap. La référence stack ne change pas.",
+      narration: "notes.Add(12) : on va muter l’objet sur le heap. La référence stack ne va pas changer.",
       stack: [
         {
           id: "frame-main",
@@ -291,7 +291,7 @@ export const referencesScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "string msg = \"Bonjour\" : string est aussi un type référence.",
+      narration: "string msg = \"Bonjour\" : un objet string va être créé sur le heap.",
       stack: [
         {
           id: "frame-main",
@@ -392,7 +392,7 @@ export const referencesScenario: Scenario = {
       highlightLines: [
         6
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

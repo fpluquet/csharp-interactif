@@ -24,11 +24,11 @@ export const classOperatorScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("op0", [9, 10], "Main démarre.", main([]), [], []),
+    step("op0", [9, 10], "Main va démarrer.", main([]), [], []),
     step(
       "op1",
       [11, 12],
-      "Deux vecteurs distincts sur le heap.",
+      "Deux vecteurs distincts vont être sur le heap.",
       main([
         refSlot("slot-a", "a", "#V1", "obj-a"),
         refSlot("slot-b", "b", "#V2", "obj-b"),
@@ -48,7 +48,7 @@ export const classOperatorScenario: Scenario = {
     step(
       "op2",
       [13, 5],
-      "a + b → operator+ crée #V3 (4, 6). a et b ne sont pas mutés.",
+      "a + b → operator+ va créer #V3 (4, 6). a et b ne vont pas être mutés.",
       main([
         refSlot("slot-a", "a", "#V1", "obj-a"),
         refSlot("slot-b", "b", "#V2", "obj-b"),

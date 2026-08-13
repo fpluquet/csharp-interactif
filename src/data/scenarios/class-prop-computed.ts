@@ -21,11 +21,11 @@ export const classPropComputedScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("pc0", [7, 8], "Main démarre.", main([]), [], []),
+    step("pc0", [7, 8], "Main va démarrer.", main([]), [], []),
     step(
       "pc1",
       [9],
-      "L et H sont des champs. Aire n’apparaît pas dans l’objet : pas de stockage.",
+      "L et H vont être des champs. Aire n’apparaîtra pas dans l’objet : pas de stockage.",
       main([refSlot("slot-r", "r", "#R1", "obj-r")]),
       [obj("obj-r", "Rectangle", "#R1", [
         { label: "L", value: "4", kind: "value" },
@@ -37,7 +37,7 @@ export const classPropComputedScenario: Scenario = {
     step(
       "pc2",
       [10, 4],
-      "r.Aire exécute L * H → 12. Le résultat est une copie sur la stack.",
+      "r.Aire va exécuter L * H → 12. Le résultat va être une copie sur la stack.",
       main([
         refSlot("slot-r", "r", "#R1", "obj-r"),
         val("slot-a", "a", "12"),

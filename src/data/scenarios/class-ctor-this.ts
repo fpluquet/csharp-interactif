@@ -92,11 +92,11 @@ export const classCtorThisScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("th0", [16, 17], "Main démarre.", main([]), [], []),
+    step("th0", [16, 17], "Main va démarrer.", main([]), [], []),
     step(
       "th1",
       [18],
-      "new Personne(\"Ada\") : objet alloué (valeurs par défaut), puis entrée dans le constructeur à 1 argument.",
+      "new Personne(\"Ada\") : l'objet va être alloué (valeurs par défaut), puis on va entrer dans le constructeur à 1 argument.",
       main([p], [ctor1]),
       [defaults, s],
       refsOuter,
@@ -105,7 +105,7 @@ export const classCtorThisScenario: Scenario = {
     step(
       "th2",
       [10],
-      "Avant le corps : : this(nom, 0). On délègue au constructeur à 2 arguments. Complet n’est pas encore touché.",
+      "Avant le corps : : this(nom, 0). On va déléguer au constructeur à 2 arguments. Complet ne va pas encore être touché.",
       main([p], [ctor1]),
       [defaults, s],
       refsOuter,
@@ -114,7 +114,7 @@ export const classCtorThisScenario: Scenario = {
     step(
       "th3",
       [5, 6],
-      "Frame empilée : Personne(string, int). Même this → #P1. age = 0 (fourni par this).",
+      "La frame va s’empiler : Personne(string, int). Même this → #P1. age va valoir 0 (fourni par this).",
       main([p], [ctor1, ctor2]),
       [defaults, s],
       refsBoth,
@@ -123,7 +123,7 @@ export const classCtorThisScenario: Scenario = {
     step(
       "th4",
       [7],
-      "Nom = nom : le champ de #P1 pointe vers \"Ada\".",
+      "Nom = nom : le champ de #P1 va pointer vers \"Ada\".",
       main([p], [ctor1, ctor2]),
       [personne("→ #S1", "0", "false", true), s],
       refsBothFilled,
@@ -132,7 +132,7 @@ export const classCtorThisScenario: Scenario = {
     step(
       "th5",
       [8],
-      "Age = age : Age devient 0. Fin du constructeur délégué.",
+      "Age = age : Age va devenir 0. Le constructeur délégué va se terminer.",
       main([p], [ctor1, ctor2]),
       [afterInner, s],
       refsBothFilled,
@@ -141,7 +141,7 @@ export const classCtorThisScenario: Scenario = {
     step(
       "th6",
       [10],
-      "Retour de this(nom, 0) : la frame à 2 args disparaît. On reprend le constructeur à 1 arg, juste après la délégation.",
+      "Retour de this(nom, 0) : la frame à 2 args va disparaître. On va reprendre le constructeur à 1 arg, juste après la délégation.",
       main([p], [ctor1]),
       [afterInner, s],
       refsAfterInner,
@@ -150,7 +150,7 @@ export const classCtorThisScenario: Scenario = {
     step(
       "th7",
       [12],
-      "Maintenant seulement le corps : Complet = true. this(...) a déjà fini.",
+      "Maintenant seulement le corps : Complet va valoir true. this(...) va déjà être terminé.",
       main([p], [ctor1]),
       [done, s],
       refsAfterInner,
@@ -159,7 +159,7 @@ export const classCtorThisScenario: Scenario = {
     step(
       "th8",
       [18],
-      "Fin du constructeur externe : plus de this. p pointe vers l’objet initialisé.",
+      "Fin du constructeur externe : plus de this. p va pointer vers l’objet initialisé.",
       main([p]),
       [done, s],
       refsDone,

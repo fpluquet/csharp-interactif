@@ -24,11 +24,11 @@ export const classAutoPropScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("ap0", [5, 6], "Main démarre.", main([]), [], []),
+    step("ap0", [5, 6], "Main va démarrer.", main([]), [], []),
     step(
       "ap1",
       [7],
-      "new Produit() : propriété automatique, valeur par défaut null (backing field caché).",
+      "new Produit() : propriété automatique, la valeur par défaut va être null (backing field caché).",
       main([refSlot("slot-p", "p", "#P1", "obj-p")]),
       [obj("obj-p", "Produit", "#P1", [{ label: "<Nom>", value: "null" }])],
       refs,
@@ -37,7 +37,7 @@ export const classAutoPropScenario: Scenario = {
     step(
       "ap2",
       [8],
-      "p.Nom = \"Stylo\" passe par le set automatique.",
+      "p.Nom = \"Stylo\" va passer par le set automatique.",
       main([refSlot("slot-p", "p", "#P1", "obj-p")]),
       heap,
       refs,

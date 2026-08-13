@@ -25,11 +25,11 @@ export const classDefaultInterfaceScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("di0", [7, 8], "Main démarre.", main([]), [], []),
+    step("di0", [7, 8], "Main va démarrer.", main([]), [], []),
     step(
       "di1",
       [9],
-      "new ConsoleLogger : classe vide, mais elle satisfait ILogger.",
+      "new ConsoleLogger : classe vide, mais elle va satisfaire ILogger.",
       main([refSlot("slot-l", "l", "#L1", "obj-l", "ILogger")]),
       [logger],
       [link("ref-l", "slot-l", "obj-l")],
@@ -38,7 +38,7 @@ export const classDefaultInterfaceScenario: Scenario = {
     step(
       "di2",
       [10, 2],
-      "l.Log(\"ok\") exécute le corps par défaut de l’interface (pas une méthode de la classe).",
+      "l.Log(\"ok\") va exécuter le corps par défaut de l’interface (pas une méthode de la classe).",
       main([refSlot("slot-l", "l", "#L1", "obj-l", "ILogger")]),
       [logger],
       [link("ref-l", "slot-l", "obj-l")],

@@ -20,7 +20,7 @@ export const array2dScenario: Scenario = {
         0,
         1
       ],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +37,7 @@ export const array2dScenario: Scenario = {
       highlightLines: [
         2
       ],
-      narration: "Matrice 2×2 sur le heap.",
+      narration: "Une matrice 2×2 va être créée sur le heap.",
       stack: [
         {
           id: "frame-main",
@@ -92,7 +92,7 @@ export const array2dScenario: Scenario = {
       highlightLines: [
         3
       ],
-      narration: "m[1,0] copie 3 dans v.",
+      narration: "m[1,0] va copier 3 dans v.",
       stack: [
         {
           id: "frame-main",
@@ -154,7 +154,7 @@ export const array2dScenario: Scenario = {
       highlightLines: [
         4
       ],
-      narration: "Affiche 3.",
+      narration: "On va afficher 3.",
       stack: [
         {
           id: "frame-main",
@@ -217,7 +217,7 @@ export const array2dScenario: Scenario = {
       highlightLines: [
         5
       ],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

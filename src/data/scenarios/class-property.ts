@@ -27,7 +27,7 @@ export const classPropertyScenario: Scenario = {
     {
       id: "pr0",
       highlightLines: [10, 11],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
@@ -35,7 +35,7 @@ export const classPropertyScenario: Scenario = {
     {
       id: "pr1",
       highlightLines: [12],
-      narration: "new Personne() : seul le champ privé _age existe dans l’objet (0).",
+      narration: "new Personne() : seul le champ privé _age va exister dans l’objet (0).",
       stack: [
         {
           id: "frame-main",
@@ -59,7 +59,7 @@ export const classPropertyScenario: Scenario = {
     {
       id: "pr2",
       highlightLines: [13, 6],
-      narration: "p.Age = 20 appelle le set : value ≥ 0 → _age devient 20.",
+      narration: "p.Age = 20 va appeler le set : value ≥ 0 → _age va devenir 20.",
       stack: [
         {
           id: "frame-main",
@@ -83,7 +83,7 @@ export const classPropertyScenario: Scenario = {
     {
       id: "pr3",
       highlightLines: [14, 5],
-      narration: "int a = p.Age appelle le get : lit _age sans exposer le champ.",
+      narration: "int a = p.Age : le get va lire _age sans exposer le champ.",
       stack: [
         {
           id: "frame-main",
@@ -108,7 +108,7 @@ export const classPropertyScenario: Scenario = {
     {
       id: "class-property-end",
       highlightLines: [15],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

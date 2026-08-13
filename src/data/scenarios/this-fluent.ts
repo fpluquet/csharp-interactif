@@ -26,7 +26,7 @@ export const thisFluentScenario: Scenario = {
     {
       id: "tf0",
       highlightLines: [10, 11],
-      narration: "Main démarre.",
+      narration: "Main va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
@@ -34,7 +34,7 @@ export const thisFluentScenario: Scenario = {
     {
       id: "tf1",
       highlightLines: [12],
-      narration: "new Compteur() → #C1, Valeur = 0.",
+      narration: "new Compteur() va créer #C1, Valeur va valoir 0.",
       stack: [
         {
           id: "frame-main",
@@ -58,7 +58,7 @@ export const thisFluentScenario: Scenario = {
     {
       id: "tf2",
       highlightLines: [13, 5],
-      narration: "Premier Plus(2) : this → #C1, Valeur devient 2, puis return this.",
+      narration: "Premier Plus(2) : this va pointer vers #C1, Valeur va devenir 2, puis return this va renvoyer this.",
       stack: [
         {
           id: "frame-main",
@@ -100,7 +100,7 @@ export const thisFluentScenario: Scenario = {
     {
       id: "tf3",
       highlightLines: [13, 6],
-      narration: "return this : on renvoie la même référence #C1 (pas une copie).",
+      narration: "return this : on va renvoyer la même référence #C1 (pas une copie).",
       stack: [
         {
           id: "frame-main",
@@ -131,7 +131,7 @@ export const thisFluentScenario: Scenario = {
     {
       id: "tf4",
       highlightLines: [13, 5],
-      narration: "Deuxième .Plus(3) : encore this → #C1 (le résultat du return précédent).",
+      narration: "Deuxième .Plus(3) : this va encore pointer vers #C1 (le résultat du return précédent).",
       stack: [
         {
           id: "frame-main",
@@ -166,7 +166,7 @@ export const thisFluentScenario: Scenario = {
     {
       id: "tf5",
       highlightLines: [13],
-      narration: "Chaîne terminée : un seul objet, Valeur = 5.",
+      narration: "La chaîne va se terminer : un seul objet, Valeur va valoir 5.",
       stack: [
         {
           id: "frame-main",
@@ -190,7 +190,7 @@ export const thisFluentScenario: Scenario = {
     {
       id: "this-fluent-end",
       highlightLines: [14],
-      narration: "La fonction Main est terminée, le programme s'arrête.",
+      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

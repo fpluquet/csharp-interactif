@@ -39,11 +39,11 @@ export const classObjectInitScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("oi0", [6, 7], "Main démarre.", main([]), [], []),
+    step("oi0", [6, 7], "Main va démarrer.", main([]), [], []),
     step(
       "oi1",
       [8],
-      "new Personne : objet alloué, champs aux valeurs par défaut (null / 0).",
+      "new Personne : l’objet va être alloué, champs aux valeurs par défaut (null / 0).",
       main([refSlot("slot-p", "p", "#P1", "obj-p")]),
       [obj("obj-p", "Personne", "#P1", [
         { label: "Nom", value: "null", kind: "ref" },
@@ -55,7 +55,7 @@ export const classObjectInitScenario: Scenario = {
     step(
       "oi2",
       [8],
-      "L’initialiseur assigne Nom puis Age — sans constructeur personnalisé.",
+      "L’initialiseur va assigner Nom puis Age — sans constructeur personnalisé.",
       main([refSlot("slot-p", "p", "#P1", "obj-p")]),
       heap,
       refs,
