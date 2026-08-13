@@ -27,6 +27,9 @@ import { referencesScenario } from "./scenarios/references";
 import { refReassignScenario } from "./scenarios/ref-reassign";
 import { arrayIndexScenario } from "./scenarios/array-index";
 import { array2dScenario } from "./scenarios/array-2d";
+import { array3dScenario } from "./scenarios/array-3d";
+import { array4dScenario } from "./scenarios/array-4d";
+import { arrayJaggedScenario } from "./scenarios/array-jagged";
 import { listOpsScenario } from "./scenarios/list-ops";
 import { tupleScenario } from "./scenarios/tuple";
 import { linqWhereScenario } from "./scenarios/linq-where";
@@ -137,6 +140,9 @@ export const scenarios: Scenario[] = [
   refReassignScenario,
   arrayIndexScenario,
   array2dScenario,
+  array3dScenario,
+  array4dScenario,
+  arrayJaggedScenario,
   listOpsScenario,
   tupleScenario,
   linqWhereScenario,
