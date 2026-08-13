@@ -11,6 +11,9 @@ npm run course
 
 Ouvre http://127.0.0.1:4173/
 
+Le site est aussi publié automatiquement sur GitHub Pages à chaque push sur `main` :
+https://fpluquet.github.io/csharp-interactif/
+
 > Le script `course` fait un build puis un preview. Préférez-le si le dossier parent contient `C#` : le caractère `#` casse le mode `npm run dev` de Vite sous Windows.
 
 Sinon, en chemin sans `#` :

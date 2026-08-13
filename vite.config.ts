@@ -1,7 +1,9 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
 
-// https://vite.dev/config/
+const githubPages = process.env.GITHUB_PAGES === "true";
+
 export default defineConfig({
   plugins: [vue()],
-})
+  base: githubPages ? "/csharp-interactif/" : "/",
+});
