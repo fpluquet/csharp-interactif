@@ -80,6 +80,7 @@ export const stringImmutableScenario: Scenario = {
         3
       ],
       narration: "s = s + \"!\" : on ne va pas modifier #S1 — on va créer un nouvel objet.",
+      highlightExpr: "s + \"!\"",
       stack: [
         {
           id: "frame-main",
@@ -134,6 +135,7 @@ export const stringImmutableScenario: Scenario = {
         3
       ],
       narration: "s va pointer vers #S2. #S1 ne va plus être référencé.",
+      highlightExpr: "s =",
       stack: [
         {
           id: "frame-main",

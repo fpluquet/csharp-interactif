@@ -61,6 +61,7 @@ export const parseThrowScenario: Scenario = {
         4
       ],
       narration: "int n = int.Parse(\"abc\") : on va appeler Parse. n n’existe pas encore.",
+      highlightExpr: "int.Parse(\"abc\")",
       stack: [
         {
           id: "frame-main",

@@ -164,6 +164,7 @@ export const blockScopeScenario: Scenario = {
     {
       id: "bs8",
       highlightLines: [18],
+      highlightExpr: "int i = 0",
       narration: "for (int i = 0; …) : i va appartenir à la portée du for (pas à Main).",
       stack: frame(a(), i),
       heap: [],

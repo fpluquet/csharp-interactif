@@ -9,6 +9,8 @@ const props = defineProps<{
   highlightLines: number[];
   /** Lignes de l’étape suivante (aperçu « à venir »). */
   nextHighlightLines?: number[];
+  /** Sous-expression à exécuter sur la ligne à venir (sinon toute la ligne). */
+  nextHighlightExpr?: string;
   /** Indices de lignes associées à au moins une étape (cliquables). */
   navigableLines?: number[];
   returnFlow?: ReturnFlow;
@@ -39,6 +41,9 @@ function isUpcoming(lineIndex: number) {
 }
 
 function lineTitle(lineIndex: number) {
+  if (isUpcoming(lineIndex) && props.nextHighlightExpr) {
+    return `Prochaine étape — ${props.nextHighlightExpr}`;
+  }
   if (isUpcoming(lineIndex)) {
     return "Prochaine étape — pas encore exécutée";
   }
@@ -176,12 +181,52 @@ function decorate(text: string, showHints: boolean): Token[] {
   });
 }
 
+type LinePart =
+  | { kind: "tokens"; tokens: Token[] }
+  | {
+      kind: "rewrite";
+      before: Token[];
+      call: string;
+      after: Token[];
+      value: string;
+      phase: ReturnFlow["phase"];
+    }
+  | { kind: "expr"; tokens: Token[] };
+
+function splitAroundExpr(tokens: Token[], line: string, expr: string): LinePart[] | null {
+  const at = line.indexOf(expr);
+  if (at < 0) return null;
+
+  const end = at + expr.length;
+  const before: Token[] = [];
+  const focus: Token[] = [];
+  const after: Token[] = [];
+  let pos = 0;
+
+  for (const tok of tokens) {
+    const start = pos;
+    pos += tok.text.length;
+    if (pos <= at) before.push(tok);
+    else if (start >= end) after.push(tok);
+    else focus.push(tok);
+  }
+
+  if (!focus.length) return null;
+  const parts: LinePart[] = [];
+  if (before.length) parts.push({ kind: "tokens", tokens: before });
+  parts.push({ kind: "expr", tokens: focus });
+  if (after.length) parts.push({ kind: "tokens", tokens: after });
+  return parts;
+}
+
 const renderedLines = computed(() => {
   const flow = props.returnFlow;
   const active = new Set([
     ...props.highlightLines,
     ...(props.nextHighlightLines ?? []),
   ]);
+  const expr = props.nextHighlightExpr?.trim() || undefined;
+  const exprLines = new Set(expr ? (props.nextHighlightLines ?? []) : []);
 
   return props.lines.map((line, index) => {
     const showHints = active.has(index);
@@ -189,31 +234,42 @@ const renderedLines = computed(() => {
     const hasHints = tokens.some((tok) => tok.value);
 
     if (
-      !flow ||
-      index !== flow.callLine ||
-      (flow.phase !== "replaces" && flow.phase !== "assigned")
+      flow &&
+      index === flow.callLine &&
+      (flow.phase === "replaces" || flow.phase === "assigned")
     ) {
-      return { index, hasHints, parts: [{ kind: "tokens" as const, tokens }] };
+      const at = line.indexOf(flow.callExpr);
+      if (at >= 0) {
+        return {
+          index,
+          hasHints,
+          hasExpr: false,
+          parts: [
+            {
+              kind: "rewrite" as const,
+              before: decorate(line.slice(0, at), showHints),
+              call: flow.callExpr,
+              after: decorate(line.slice(at + flow.callExpr.length), showHints),
+              value: flow.value,
+              phase: flow.phase,
+            },
+          ] satisfies LinePart[],
+        };
+      }
     }
 
-    const at = line.indexOf(flow.callExpr);
-    if (at < 0) {
-      return { index, hasHints, parts: [{ kind: "tokens" as const, tokens }] };
+    if (expr && exprLines.has(index)) {
+      const split = splitAroundExpr(tokens, line, expr);
+      if (split) {
+        return { index, hasHints, hasExpr: true, parts: split };
+      }
     }
 
     return {
       index,
       hasHints,
-      parts: [
-        {
-          kind: "rewrite" as const,
-          before: decorate(line.slice(0, at), showHints),
-          call: flow.callExpr,
-          after: decorate(line.slice(at + flow.callExpr.length), showHints),
-          value: flow.value,
-          phase: flow.phase,
-        },
-      ],
+      hasExpr: false,
+      parts: [{ kind: "tokens" as const, tokens }] satisfies LinePart[],
     };
   });
 });
@@ -277,7 +333,8 @@ watch(
         class="code-line"
         :data-line-index="row.index"
         :class="{
-          'is-upcoming': isUpcoming(row.index),
+          'is-upcoming': isUpcoming(row.index) && !row.hasExpr,
+          'is-upcoming-expr': isUpcoming(row.index) && row.hasExpr,
           'is-navigable': isNavigable(row.index),
           'has-hints': row.hasHints,
         }"
@@ -315,6 +372,19 @@ watch(
               </template>
               <span v-else>&nbsp;</span>
             </template>
+
+            <span v-else-if="part.kind === 'expr'" class="exec">
+              <span
+                v-for="(tok, ti) in part.tokens"
+                :key="ti"
+                :class="[
+                  `tok tok--${tok.type}`,
+                  { 'has-val': tok.value, 'has-val--ref': tok.valueRef },
+                ]"
+              >
+                <span v-if="tok.value" class="tok__hint">{{ tok.value }}</span>{{ tok.text }}
+              </span>
+            </span>
 
             <template v-else>
               <span
@@ -431,10 +501,22 @@ watch(
     border-left-color: var(--accent);
   }
 
+  &.is-upcoming-expr {
+    border-left-color: var(--accent);
+
+    .tok {
+      opacity: 0.42;
+    }
+
+    .exec .tok {
+      opacity: 1;
+    }
+  }
+
   &.is-navigable {
     cursor: pointer;
 
-    &:hover:not(.is-upcoming) {
+    &:hover:not(.is-upcoming):not(.is-upcoming-expr) {
       background: rgba(107, 163, 240, 0.06);
     }
 
@@ -489,6 +571,16 @@ watch(
   white-space: pre;
   color: var(--text);
   font-family: inherit;
+}
+
+.exec {
+  display: inline;
+  padding: 0.12rem 0.28rem;
+  margin: 0 0.04rem;
+  border-radius: 6px;
+  background: rgba(107, 163, 240, 0.22);
+  box-shadow: inset 0 0 0 1.5px var(--accent);
+  animation: mark-pop 420ms var(--ease);
 }
 
 .rewrite {

@@ -138,6 +138,11 @@ export type VirtualFile = {
 export type Step = {
   id: string;
   highlightLines: number[];
+  /**
+   * Sous-expression de la ligne à exécuter (ex. `new int[] { 2 }`).
+   * Si absent, toute la ligne est considérée.
+   */
+  highlightExpr?: string;
   narration: string;
   stack: StackFrame[];
   heap: HeapObject[];

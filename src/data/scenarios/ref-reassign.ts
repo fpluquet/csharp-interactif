@@ -192,6 +192,7 @@ export const refReassignScenario: Scenario = {
         5
       ],
       narration: "b = new int[]{2} : un nouvel objet #E2 va apparaître sur le heap.",
+      highlightExpr: "new int[] { 2 }",
       stack: [
         {
           id: "frame-main",
@@ -258,6 +259,7 @@ export const refReassignScenario: Scenario = {
         5
       ],
       narration: "Seule la flèche de b va changer vers #E2. a va rester sur #E1.",
+      highlightExpr: "b =",
       stack: [
         {
           id: "frame-main",

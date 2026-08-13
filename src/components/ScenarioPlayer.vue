@@ -63,6 +63,10 @@ const nextHighlightLines = computed(() => {
   if (isLast.value) return [];
   return props.scenario.steps[currentIndex.value + 1]?.highlightLines ?? [];
 });
+
+const nextHighlightExpr = computed(
+  () => upcomingStep.value?.highlightExpr,
+);
 </script>
 
 <template>
@@ -89,6 +93,7 @@ const nextHighlightLines = computed(() => {
           :lines="scenario.code"
           :highlight-lines="currentStep.highlightLines"
           :next-highlight-lines="nextHighlightLines"
+          :next-highlight-expr="nextHighlightExpr"
           :navigable-lines="navigableLines"
           :return-flow="explainedStep.returnFlow"
           :stack="currentStep.stack"
