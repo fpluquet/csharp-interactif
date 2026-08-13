@@ -8,6 +8,11 @@ export function useScenarioPlayer(scenario: Ref<Scenario>) {
   const currentStep = computed<Step>(
     () => scenario.value.steps[currentIndex.value] ?? scenario.value.steps[0],
   );
+  /** Étape suivante : c’est elle qu’on explique (ce qui va s’exécuter). */
+  const upcomingStep = computed<Step | undefined>(() => {
+    if (currentIndex.value >= scenario.value.steps.length - 1) return undefined;
+    return scenario.value.steps[currentIndex.value + 1];
+  });
   const isFirst = computed(() => currentIndex.value <= 0);
   const isLast = computed(
     () => currentIndex.value >= scenario.value.steps.length - 1,
@@ -31,34 +36,41 @@ export function useScenarioPlayer(scenario: Ref<Scenario>) {
     currentIndex.value = index;
   }
 
-  /** Saute à l’étape la plus proche qui met en évidence cette ligne de code. */
+  /**
+   * Saute à l’état où cette ligne est « à exécuter » (un cran avant
+   * l’étape qui l’a déjà jouée).
+   */
   function gotoLine(lineIndex: number) {
-    const matches = scenario.value.steps
-      .map((step, index) => ({ index, step }))
-      .filter(({ step }) => step.highlightLines.includes(lineIndex));
-    if (!matches.length) return;
+    const targets = [
+      ...new Set(
+        scenario.value.steps
+          .map((step, index) => ({ index, step }))
+          .filter(({ step }) => step.highlightLines.includes(lineIndex))
+          .map(({ index }) => Math.max(0, index - 1)),
+      ),
+    ];
+    if (!targets.length) return;
 
-    matches.sort((a, b) => {
-      const da = Math.abs(a.index - currentIndex.value);
-      const db = Math.abs(b.index - currentIndex.value);
+    targets.sort((a, b) => {
+      const da = Math.abs(a - currentIndex.value);
+      const db = Math.abs(b - currentIndex.value);
       if (da !== db) return da - db;
-      return a.index - b.index;
+      return a - b;
     });
 
-    const nearest = matches[0];
-    if (nearest.index !== currentIndex.value) {
-      currentIndex.value = nearest.index;
+    const nearest = targets[0];
+    if (nearest !== currentIndex.value) {
+      currentIndex.value = nearest;
       return;
     }
 
-    // Déjà sur cette ligne : cycle vers l’occurrence suivante, sinon précédente.
-    const later = matches.find((m) => m.index > currentIndex.value);
-    if (later) {
-      currentIndex.value = later.index;
+    const later = targets.find((index) => index > currentIndex.value);
+    if (later !== undefined) {
+      currentIndex.value = later;
       return;
     }
-    const earlier = [...matches].reverse().find((m) => m.index < currentIndex.value);
-    if (earlier) currentIndex.value = earlier.index;
+    const earlier = [...targets].reverse().find((index) => index < currentIndex.value);
+    if (earlier !== undefined) currentIndex.value = earlier;
   }
 
   function reset() {
@@ -102,6 +114,7 @@ export function useScenarioPlayer(scenario: Ref<Scenario>) {
   return {
     currentIndex,
     currentStep,
+    upcomingStep,
     stepCount,
     isFirst,
     isLast,

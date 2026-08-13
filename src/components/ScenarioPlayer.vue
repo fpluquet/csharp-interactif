@@ -27,6 +27,7 @@ const scenarioRef = toRef(props, "scenario");
 const {
   currentIndex,
   currentStep,
+  upcomingStep,
   stepCount,
   isFirst,
   isLast,
@@ -39,6 +40,8 @@ const {
 } = useScenarioPlayer(scenarioRef);
 
 const stepLabel = computed(() => `Étape ${currentIndex.value + 1} / ${stepCount.value}`);
+
+const explainedStep = computed(() => upcomingStep.value ?? currentStep.value);
 
 const showConsole = computed(() =>
   props.scenario.steps.some((s) => s.consoleLines !== undefined),
@@ -87,31 +90,31 @@ const nextHighlightLines = computed(() => {
           :highlight-lines="currentStep.highlightLines"
           :next-highlight-lines="nextHighlightLines"
           :navigable-lines="navigableLines"
-          :return-flow="currentStep.returnFlow"
+          :return-flow="explainedStep.returnFlow"
           :stack="currentStep.stack"
           :heap="currentStep.heap"
           @select-line="gotoLine"
         />
         <Transition name="fade-slide" mode="out-in">
           <ReturnFlowBanner
-            v-if="currentStep.returnFlow"
-            :key="`${currentStep.id}-return`"
-            :flow="currentStep.returnFlow"
+            v-if="explainedStep.returnFlow"
+            :key="`${explainedStep.id}-return`"
+            :flow="explainedStep.returnFlow"
           />
           <ExceptionFlowBanner
-            v-else-if="currentStep.exceptionFlow"
-            :key="`${currentStep.id}-exception`"
-            :flow="currentStep.exceptionFlow"
+            v-else-if="explainedStep.exceptionFlow"
+            :key="`${explainedStep.id}-exception`"
+            :flow="explainedStep.exceptionFlow"
           />
           <LoopFlowBanner
-            v-else-if="currentStep.loopFlow"
-            :key="`${currentStep.id}-loop`"
-            :flow="currentStep.loopFlow"
+            v-else-if="explainedStep.loopFlow"
+            :key="`${explainedStep.id}-loop`"
+            :flow="explainedStep.loopFlow"
           />
           <DispatchFlowBanner
-            v-else-if="currentStep.dispatchFlow"
-            :key="`${currentStep.id}-dispatch`"
-            :flow="currentStep.dispatchFlow"
+            v-else-if="explainedStep.dispatchFlow"
+            :key="`${explainedStep.id}-dispatch`"
+            :flow="explainedStep.dispatchFlow"
           />
         </Transition>
         <ConsolePanel
@@ -123,7 +126,7 @@ const nextHighlightLines = computed(() => {
           :files="currentStep.files ?? []"
         />
         <NarrationBar
-          :text="currentStep.narration"
+          :text="explainedStep.narration"
           :step-label="stepLabel"
         />
       </div>
