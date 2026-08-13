@@ -34,18 +34,11 @@ function isNavigable(lineIndex: number) {
   return navigableSet.value.has(lineIndex);
 }
 
-function isExecuted(lineIndex: number) {
-  return props.highlightLines.includes(lineIndex);
-}
-
 function isUpcoming(lineIndex: number) {
-  return !isExecuted(lineIndex) && nextSet.value.has(lineIndex);
+  return nextSet.value.has(lineIndex);
 }
 
 function lineTitle(lineIndex: number) {
-  if (isExecuted(lineIndex)) {
-    return "Vient d’être exécutée — la mémoire montre l’état après cette ligne";
-  }
   if (isUpcoming(lineIndex)) {
     return "Prochaine étape — pas encore exécutée";
   }
@@ -228,9 +221,13 @@ const renderedLines = computed(() => {
 async function scrollToHighlight() {
   await nextTick();
   const body = bodyRef.value;
-  if (!body || !props.highlightLines.length) return;
+  if (!body) return;
+  const targets = props.nextHighlightLines?.length
+    ? props.nextHighlightLines
+    : props.highlightLines;
+  if (!targets.length) return;
 
-  const targetIndex = Math.min(...props.highlightLines);
+  const targetIndex = Math.min(...targets);
   const line = body.querySelector(
     `[data-line-index="${targetIndex}"]`,
   ) as HTMLElement | null;
@@ -248,7 +245,7 @@ async function scrollToHighlight() {
 }
 
 watch(
-  () => [props.highlightLines.slice(), props.returnFlow?.phase] as const,
+  () => [props.highlightLines.slice(), props.nextHighlightLines?.slice(), props.returnFlow?.phase] as const,
   () => {
     void scrollToHighlight();
   },
@@ -261,13 +258,9 @@ watch(
     <header class="code-panel__header">
       <p class="panel-label">Code C#</p>
       <p class="code-panel__keys">
-        <span class="key key--done">
-          <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5Z" /></svg>
-          exécuté
-        </span>
         <span class="key key--next">
-          <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.4 1.6v6.8L8.2 5Z" /></svg>
-          ensuite
+          <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5Z" /></svg>
+          à exécuter
         </span>
       </p>
     </header>
@@ -284,7 +277,6 @@ watch(
         class="code-line"
         :data-line-index="row.index"
         :class="{
-          'is-executed': isExecuted(row.index),
           'is-upcoming': isUpcoming(row.index),
           'is-navigable': isNavigable(row.index),
           'has-hints': row.hasHints,
@@ -297,19 +289,12 @@ watch(
       >
         <span class="code-line__mark" aria-hidden="true">
           <svg
-            v-if="isExecuted(row.index)"
-            :key="`done-${highlightLines.join(',')}-${row.index}`"
-            class="mark mark--done"
-            viewBox="0 0 10 10"
-          >
-            <path d="M2 1.2v7.6L8.8 5Z" />
-          </svg>
-          <svg
-            v-else-if="isUpcoming(row.index)"
+            v-if="isUpcoming(row.index)"
+            :key="`next-${row.index}`"
             class="mark mark--next"
             viewBox="0 0 10 10"
           >
-            <path d="M2.4 1.6v6.8L8.2 5Z" />
+            <path d="M2 1.2v7.6L8.8 5Z" />
           </svg>
         </span>
         <span class="code-line__num">{{ row.index + 1 }}</span>
@@ -409,15 +394,8 @@ watch(
   }
 }
 
-.key--done svg {
-  fill: var(--stack);
-}
-
 .key--next svg {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1.2;
-  stroke-linejoin: round;
+  fill: var(--accent);
 }
 
 .code-panel__body {
@@ -448,11 +426,6 @@ watch(
     padding-top: 1.2rem;
   }
 
-  &.is-executed {
-    background: rgba(46, 196, 166, 0.12);
-    border-left-color: var(--stack);
-  }
-
   &.is-upcoming {
     background: rgba(107, 163, 240, 0.12);
     border-left-color: var(--accent);
@@ -461,7 +434,7 @@ watch(
   &.is-navigable {
     cursor: pointer;
 
-    &:hover:not(.is-executed) {
+    &:hover:not(.is-upcoming) {
       background: rgba(107, 163, 240, 0.06);
     }
 
@@ -486,18 +459,10 @@ watch(
   display: block;
 }
 
-.mark--done {
-  fill: var(--stack);
-  filter: drop-shadow(0 0 5px rgba(46, 196, 166, 0.55));
-  animation: mark-pop 420ms var(--ease);
-}
-
 .mark--next {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1.25;
-  stroke-linejoin: round;
-  opacity: 0.9;
+  fill: var(--accent);
+  filter: drop-shadow(0 0 5px rgba(107, 163, 240, 0.55));
+  animation: mark-pop 420ms var(--ease);
 }
 
 @keyframes mark-pop {
