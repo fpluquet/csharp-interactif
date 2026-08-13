@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from "vue";
-import type { ReturnFlow } from "../types/memory";
+import { computed, nextTick, ref, toRef, watch } from "vue";
+import { lookupInlineValue, useInlineValues } from "../composables/useInlineValues";
+import type { HeapObject, ReturnFlow, StackFrame } from "../types/memory";
 
 const props = defineProps<{
   lines: string[];
@@ -11,7 +12,14 @@ const props = defineProps<{
   /** Indices de lignes associées à au moins une étape (cliquables). */
   navigableLines?: number[];
   returnFlow?: ReturnFlow;
+  stack?: StackFrame[];
+  heap?: HeapObject[];
 }>();
+
+const bindings = useInlineValues(
+  toRef(() => props.stack ?? []),
+  toRef(() => props.heap ?? []),
+);
 
 const emit = defineEmits<{
   selectLine: [lineIndex: number];
@@ -60,61 +68,160 @@ function onLineKeydown(event: KeyboardEvent, lineIndex: number) {
   }
 }
 
-function tokenize(line: string): { text: string; type: string }[] {
-  const parts = line.split(
-    /(\b(?:static|void|public|private|class|interface|int|bool|double|string|object|char|var|new|true|false|null|List|ref|out|return|if|else|switch|case|default|break|continue|for|while|do|foreach|in|try|catch|finally|throw|using|namespace|virtual|override|abstract|base)\b|"[^"]*"|\d+(?:\.\d+)?[fdm]?|\/\/.*$|[=;{}()[\],.:+*\/%<>!?|&^-])/g,
-  );
+type Token = { text: string; type: string; value?: string; valueRef?: boolean };
 
-  return parts
-    .filter((p) => p !== undefined && p !== "")
-    .map((text) => {
-      if (/^\/\//.test(text)) return { text, type: "comment" };
-      if (/^"(?:[^"]*)"$/.test(text)) return { text, type: "string" };
-      if (
-        /^(static|void|public|private|class|interface|new|ref|out|return|if|else|switch|case|default|break|continue|for|while|do|foreach|in|try|catch|finally|throw|using|namespace|virtual|override|abstract|base)$/.test(
-          text,
-        )
-      ) {
-        return { text, type: "keyword" };
-      }
-      if (/^(int|bool|double|string|object|char|var|List)$/.test(text)) {
-        return { text, type: "type" };
-      }
-      if (/^(true|false|null)$/.test(text)) return { text, type: "bool" };
-      if (/^\d+(?:\.\d+)?[fdm]?$/.test(text)) return { text, type: "number" };
-      return { text, type: "plain" };
-    });
+const KEYWORDS = new Set([
+  "static",
+  "void",
+  "public",
+  "private",
+  "protected",
+  "class",
+  "interface",
+  "record",
+  "new",
+  "ref",
+  "out",
+  "in",
+  "return",
+  "if",
+  "else",
+  "switch",
+  "case",
+  "default",
+  "break",
+  "continue",
+  "for",
+  "while",
+  "do",
+  "foreach",
+  "try",
+  "catch",
+  "finally",
+  "throw",
+  "using",
+  "namespace",
+  "virtual",
+  "override",
+  "abstract",
+  "base",
+  "sealed",
+  "params",
+  "where",
+  "get",
+  "set",
+  "init",
+  "yield",
+  "typeof",
+  "is",
+  "as",
+  "this",
+]);
+
+const TYPES = new Set(["int", "bool", "double", "string", "object", "char", "var", "List", "true", "false", "null"]);
+
+function classifyWord(word: string): string {
+  if (KEYWORDS.has(word)) return "keyword";
+  if (TYPES.has(word) && word !== "true" && word !== "false" && word !== "null") return "type";
+  if (word === "true" || word === "false" || word === "null") return "bool";
+  return "ident";
 }
 
-type LinePart =
-  | { kind: "tokens"; text: string }
-  | { kind: "rewrite"; before: string; call: string; after: string; value: string; phase: ReturnFlow["phase"] };
+function tokenize(line: string): Token[] {
+  const parts = line.split(
+    /(\b(?:static|void|public|private|protected|class|interface|record|int|bool|double|string|object|char|var|new|true|false|null|List|ref|out|in|return|if|else|switch|case|default|break|continue|for|while|do|foreach|try|catch|finally|throw|using|namespace|virtual|override|abstract|base|sealed|params|where|get|set|init|yield|typeof|is|as|this)\b|"[^"]*"|\d+(?:\.\d+)?[fdm]?|\/\/.*$|[=;{}()[\],.:+*\/%<>!?|&^-])/g,
+  );
+
+  const tokens: Token[] = [];
+  for (const text of parts) {
+    if (text === undefined || text === "") continue;
+    if (/^\/\//.test(text)) {
+      tokens.push({ text, type: "comment" });
+      continue;
+    }
+    if (/^"(?:[^"]*)"$/.test(text)) {
+      tokens.push({ text, type: "string" });
+      continue;
+    }
+    if (/^\d+(?:\.\d+)?[fdm]?$/.test(text)) {
+      tokens.push({ text, type: "number" });
+      continue;
+    }
+    if (/^[A-Za-z_][A-Za-z0-9_]*$/.test(text)) {
+      tokens.push({ text, type: classifyWord(text) });
+      continue;
+    }
+    const bits = text.split(/(\b[A-Za-z_][A-Za-z0-9_]*\b)/g);
+    for (const bit of bits) {
+      if (!bit) continue;
+      if (/^[A-Za-z_][A-Za-z0-9_]*$/.test(bit)) {
+        tokens.push({ text: bit, type: classifyWord(bit) });
+      } else {
+        tokens.push({ text: bit, type: "plain" });
+      }
+    }
+  }
+  return tokens;
+}
+
+function decorate(text: string, showHints: boolean): Token[] {
+  const tokens = tokenize(text);
+  if (!showHints) return tokens;
+
+  let receiver: string | undefined;
+  return tokens.map((tok) => {
+    const isName = tok.type === "ident" || tok.text === "this";
+    if (isName) {
+      const found = lookupInlineValue(tok.text, receiver, bindings.value);
+      receiver = tok.text;
+      if (found) return { ...tok, value: found.text, valueRef: found.ref };
+      return tok;
+    }
+    if (tok.text === ".") return tok;
+    receiver = undefined;
+    return tok;
+  });
+}
 
 const renderedLines = computed(() => {
   const flow = props.returnFlow;
+  const active = new Set([
+    ...props.highlightLines,
+    ...(props.nextHighlightLines ?? []),
+  ]);
+
   return props.lines.map((line, index) => {
+    const showHints = active.has(index);
+    const tokens = decorate(line, showHints);
+    const hasHints = tokens.some((tok) => tok.value);
+
     if (
       !flow ||
       index !== flow.callLine ||
       (flow.phase !== "replaces" && flow.phase !== "assigned")
     ) {
-      return { index, parts: [{ kind: "tokens" as const, text: line }] };
+      return { index, hasHints, parts: [{ kind: "tokens" as const, tokens }] };
     }
 
     const at = line.indexOf(flow.callExpr);
     if (at < 0) {
-      return { index, parts: [{ kind: "tokens" as const, text: line }] };
+      return { index, hasHints, parts: [{ kind: "tokens" as const, tokens }] };
     }
 
-    const part: LinePart = {
-      kind: "rewrite",
-      before: line.slice(0, at),
-      call: flow.callExpr,
-      after: line.slice(at + flow.callExpr.length),
-      value: flow.value,
-      phase: flow.phase,
+    return {
+      index,
+      hasHints,
+      parts: [
+        {
+          kind: "rewrite" as const,
+          before: decorate(line.slice(0, at), showHints),
+          call: flow.callExpr,
+          after: decorate(line.slice(at + flow.callExpr.length), showHints),
+          value: flow.value,
+          phase: flow.phase,
+        },
+      ],
     };
-    return { index, parts: [part] };
   });
 });
 
@@ -170,6 +277,7 @@ watch(
           'is-executed': isExecuted(row.index),
           'is-upcoming': isUpcoming(row.index),
           'is-navigable': isNavigable(row.index),
+          'has-hints': row.hasHints,
         }"
         :role="isNavigable(row.index) ? 'button' : undefined"
         :tabindex="isNavigable(row.index) ? 0 : undefined"
@@ -181,22 +289,32 @@ watch(
         <code class="code-line__text">
           <template v-for="(part, pi) in row.parts" :key="pi">
             <template v-if="part.kind === 'tokens'">
-              <template v-if="part.text.length">
+              <template v-if="part.tokens.length">
                 <span
-                  v-for="(tok, ti) in tokenize(part.text)"
+                  v-for="(tok, ti) in part.tokens"
                   :key="ti"
-                  :class="`tok tok--${tok.type}`"
-                >{{ tok.text }}</span>
+                  :class="[
+                    `tok tok--${tok.type}`,
+                    { 'has-val': tok.value, 'has-val--ref': tok.valueRef },
+                  ]"
+                >
+                  <span v-if="tok.value" class="tok__hint">{{ tok.value }}</span>{{ tok.text }}
+                </span>
               </template>
               <span v-else>&nbsp;</span>
             </template>
 
             <template v-else>
               <span
-                v-for="(tok, ti) in tokenize(part.before)"
+                v-for="(tok, ti) in part.before"
                 :key="`b-${ti}`"
-                :class="`tok tok--${tok.type}`"
-              >{{ tok.text }}</span>
+                :class="[
+                  `tok tok--${tok.type}`,
+                  { 'has-val': tok.value, 'has-val--ref': tok.valueRef },
+                ]"
+              >
+                <span v-if="tok.value" class="tok__hint">{{ tok.value }}</span>{{ tok.text }}
+              </span>
 
               <span class="rewrite" :data-phase="part.phase">
                 <span class="rewrite__old" title="Appel d’origine">{{ part.call }}</span>
@@ -205,10 +323,15 @@ watch(
               </span>
 
               <span
-                v-for="(tok, ti) in tokenize(part.after)"
+                v-for="(tok, ti) in part.after"
                 :key="`a-${ti}`"
-                :class="`tok tok--${tok.type}`"
-              >{{ tok.text }}</span>
+                :class="[
+                  `tok tok--${tok.type}`,
+                  { 'has-val': tok.value, 'has-val--ref': tok.valueRef },
+                ]"
+              >
+                <span v-if="tok.value" class="tok__hint">{{ tok.value }}</span>{{ tok.text }}
+              </span>
             </template>
           </template>
         </code>
@@ -247,14 +370,21 @@ watch(
 
 .code-line {
   display: grid;
-  grid-template-columns: 2.2rem 1fr;
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  align-items: end;
   gap: 0.65rem;
   padding: 0.12rem 0.55rem;
   border-radius: var(--radius-sm);
   border-left: 3px solid transparent;
+  overflow: visible;
   transition:
     background var(--duration) var(--ease),
-    border-color var(--duration) var(--ease);
+    border-color var(--duration) var(--ease),
+    padding-top var(--duration) var(--ease);
+
+  &.has-hints {
+    padding-top: 1.2rem;
+  }
 
   &.is-executed {
     background: rgba(46, 196, 166, 0.12);
@@ -288,6 +418,8 @@ watch(
 }
 
 .code-line__text {
+  min-width: 0;
+  overflow: visible;
   white-space: pre;
   color: var(--text);
   font-family: inherit;
@@ -365,5 +497,35 @@ watch(
 .tok--comment {
   color: var(--text-dim);
   font-style: italic;
+}
+
+.tok.has-val {
+  position: relative;
+}
+
+.tok__hint {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.12rem);
+  transform: translateX(-50%);
+  padding: 0.06rem 0.32rem;
+  border-radius: 999px;
+  background: rgba(8, 16, 28, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--stack);
+  font-size: 0.62em;
+  font-weight: 700;
+  font-family: var(--font-code);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  pointer-events: none;
+  max-width: 6.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tok.has-val--ref .tok__hint {
+  color: var(--heap);
 }
 </style>

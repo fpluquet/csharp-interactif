@@ -88,6 +88,8 @@ const nextHighlightLines = computed(() => {
           :next-highlight-lines="nextHighlightLines"
           :navigable-lines="navigableLines"
           :return-flow="currentStep.returnFlow"
+          :stack="currentStep.stack"
+          :heap="currentStep.heap"
           @select-line="gotoLine"
         />
         <Transition name="fade-slide" mode="out-in">
