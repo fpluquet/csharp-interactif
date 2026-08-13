@@ -26,6 +26,5 @@ defineProps<{
   font-size: 1.12rem;
   line-height: 1.45;
   color: var(--text);
-  max-width: 52ch;
 }
 </style>
