@@ -65,6 +65,7 @@ export const outParamScenario: Scenario = {
       highlightLines: [
         8
       ],
+      highlightExpr: "Lire(out n)",
       narration: "Lire(out n) : on va passer un alias vers n — la méthode va devoir l’écrire.",
       stack: [
         {

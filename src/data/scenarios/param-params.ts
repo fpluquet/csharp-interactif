@@ -42,7 +42,7 @@ export const paramParamsScenario: Scenario = {
       ),
       [arr],
       [link("ref-vals", "slot-vals", "obj-a")],
-      { focus: "obj-a" },
+      { focus: "obj-a", highlightExpr: "Somme(2, 5, 3)" },
     ),
     step(
       "pp2",
@@ -68,7 +68,17 @@ export const paramParamsScenario: Scenario = {
       main([val("slot-t", "t", "10")]),
       [{ ...arr, orphan: true }],
       [],
-      { focus: "slot-t" },
+      {
+        focus: "slot-t",
+        returnFlow: {
+          fromMethod: "Somme",
+          callExpr: "Somme(2, 5, 3)",
+          value: "10",
+          targetVar: "t",
+          phase: "assigned",
+          callLine: 9,
+        },
+      },
     ),
     step("param-params-end", [10], MAIN_DONE, main([val("slot-t", "t", "10")]), [], []),
   ],

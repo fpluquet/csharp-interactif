@@ -72,6 +72,7 @@ export const switchCaseScenario: Scenario = {
         3,
         8
       ],
+      highlightExpr: "switch (data)",
       narration: "switch(data) : le case 1 va correspondre.",
       stack: [
         {

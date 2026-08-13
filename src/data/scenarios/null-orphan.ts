@@ -137,6 +137,7 @@ export const nullOrphanScenario: Scenario = {
       highlightLines: [
         3
       ],
+      highlightExpr: "nums = null",
       narration: "La flèche va disparaître. nums va valoir null — plus de lien vers #F1.",
       stack: [
         {

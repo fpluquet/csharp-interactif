@@ -37,6 +37,7 @@ export const pathCombineScenario: Scenario = {
       highlightLines: [
         2
       ],
+      highlightExpr: "Path.Combine(\"data\", \"a.txt\")",
       narration: "Path.Combine va produire data\\\\a.txt (séparateur OS).",
       stack: [
         {

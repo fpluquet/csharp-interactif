@@ -38,6 +38,7 @@ export const datetimePartsScenario: Scenario = {
       highlightLines: [
         2
       ],
+      highlightExpr: "new DateTime(2026, 8, 12)",
       narration: "DateTime est un struct (type valeur) : il va être stocké sur la stack.",
       stack: [
         {

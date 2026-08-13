@@ -59,8 +59,8 @@ export const classMultiInterfaceScenario: Scenario = {
     ),
     step(
       "mi3",
-      [15, 16],
-      "i.Imprimer() et s.Sauver() vont appeler les méthodes de Document.",
+      [15, 6],
+      "i.Imprimer() : type statique IImprimable, objet Document → print.",
       main([
         refSlot("slot-d", "d", "#D1", "obj-d", "Document"),
         refSlot("slot-i", "i", "#D1", "obj-d", "IImprimable"),
@@ -72,7 +72,46 @@ export const classMultiInterfaceScenario: Scenario = {
         link("ref-i", "slot-i", "obj-d"),
         link("ref-s", "slot-s", "obj-d"),
       ],
-      { consoleLines: ["print", "save"] },
+      {
+        consoleLines: ["print"],
+        highlightExpr: "i.Imprimer()",
+        dispatchFlow: {
+          mode: "virtual",
+          callExpr: "i.Imprimer()",
+          staticType: "IImprimable",
+          dynamicType: "Document",
+          chosen: "Document.Imprimer",
+          result: "print",
+        },
+      },
+    ),
+    step(
+      "mi4",
+      [16, 7],
+      "s.Sauver() : même objet, autre contrat → save.",
+      main([
+        refSlot("slot-d", "d", "#D1", "obj-d", "Document"),
+        refSlot("slot-i", "i", "#D1", "obj-d", "IImprimable"),
+        refSlot("slot-s", "s", "#D1", "obj-d", "ISauvegardable"),
+      ]),
+      [doc],
+      [
+        link("ref-d", "slot-d", "obj-d"),
+        link("ref-i", "slot-i", "obj-d"),
+        link("ref-s", "slot-s", "obj-d"),
+      ],
+      {
+        consoleLines: ["print", "save"],
+        highlightExpr: "s.Sauver()",
+        dispatchFlow: {
+          mode: "virtual",
+          callExpr: "s.Sauver()",
+          staticType: "ISauvegardable",
+          dynamicType: "Document",
+          chosen: "Document.Sauver",
+          result: "save",
+        },
+      },
     ),
     step(
       "class-multi-interface-end",

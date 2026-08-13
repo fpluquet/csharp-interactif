@@ -1,9 +1,43 @@
-import type { Scenario } from "../../types/memory";
+import type { Scenario, StackFrame, Step } from "../../types/memory";
+import { MAIN_DONE, frame, main, step, val } from "./ooHelpers";
+
+const n3 = val("slot-n3", "n", "3");
+const n2 = val("slot-n2", "n", "2");
+const n1 = val("slot-n1", "n", "1");
+
+const f3 = (): StackFrame => frame("frame-fact-3", "Fact", [n3]);
+const f2 = (): StackFrame => frame("frame-fact-2", "Fact", [n2]);
+const f1 = (): StackFrame => frame("frame-fact-1", "Fact", [n1]);
+
+function stk(...frames: StackFrame[]) {
+  return main([], frames);
+}
+
+function ret(
+  value: string,
+  phase: "returning" | "replaces" | "assigned",
+  callExpr: string,
+  callLine: number,
+  extra: Partial<Step> = {},
+): Partial<Step> {
+  return {
+    returnFlow: {
+      fromMethod: "Fact",
+      callExpr,
+      value,
+      phase,
+      callLine,
+      ...(phase === "assigned" ? { targetVar: "r" } : {}),
+      ...(phase === "returning" && callLine === 8 ? { targetVar: "r" } : {}),
+    },
+    ...extra,
+  };
+}
 
 export const recursionScenario: Scenario = {
   id: "recursion",
   title: "Récursion courte",
-  subtitle: "Fact(3) : plusieurs frames du même nom, puis retours en cascade.",
+  subtitle: "Fact(3) : empiler un n par appel, sauter le if, cas de base, puis dépiler en multipliant.",
   part: "functions",
   code: [
     "static int Fact(int n)",
@@ -15,427 +49,213 @@ export const recursionScenario: Scenario = {
     "static void Main()",
     "{",
     "    int r = Fact(3);",
-    "}"
+    "}",
   ],
   steps: [
-    {
-      id: "rc0",
-      highlightLines: [
-        6,
-        7
-      ],
-      narration: "Main va démarrer. La récursion va empiler plusieurs frames Fact.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        }
-      ],
-      heap: [],
-      refs: []
-    },
-    {
-      id: "rc1",
-      highlightLines: [
-        8
-      ],
-      narration: "int r = Fact(3) : on va lancer le premier appel.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        }
-      ],
-      heap: [],
-      refs: [],
-      focus: "frame-main"
-    },
-    {
-      id: "rc2",
-      highlightLines: [
-        0,
-        1
-      ],
-      narration: "Fact(3) : frame va s’empiler, n va valoir 3.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        },
-        {
-          id: "frame-fact-3",
-          method: "Fact",
-          slots: [
-            {
-              id: "slot-n3",
-              name: "n",
-              value: "3",
-              kind: "value"
-            }
-          ]
-        }
-      ],
-      heap: [],
-      refs: [],
-      focus: "frame-fact-3"
-    },
-    {
-      id: "rc3",
-      highlightLines: [3],
-      highlightExpr: "Fact(n - 1)",
-      narration: "return n * Fact(n-1) : appel récursif Fact(2) va être lancé — nouvelle frame va s’empiler.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        },
-        {
-          id: "frame-fact-3",
-          method: "Fact",
-          slots: [
-            {
-              id: "slot-n3",
-              name: "n",
-              value: "3",
-              kind: "value"
-            }
-          ]
-        },
-        {
-          id: "frame-fact-2",
-          method: "Fact",
-          slots: [
-            {
-              id: "slot-n2",
-              name: "n",
-              value: "2",
-              kind: "value"
-            }
-          ]
-        }
-      ],
-      heap: [],
-      refs: [],
-      focus: "frame-fact-2"
-    },
-    {
-      id: "rc4",
-      highlightLines: [
-        3
-      ],
-      narration: "Encore Fact(1) : trois frames Fact vont être empilées (n=3,2,1).",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        },
-        {
-          id: "frame-fact-3",
-          method: "Fact",
-          slots: [
-            {
-              id: "slot-n3",
-              name: "n",
-              value: "3",
-              kind: "value"
-            }
-          ]
-        },
-        {
-          id: "frame-fact-2",
-          method: "Fact",
-          slots: [
-            {
-              id: "slot-n2",
-              name: "n",
-              value: "2",
-              kind: "value"
-            }
-          ]
-        },
-        {
-          id: "frame-fact-1",
-          method: "Fact",
-          slots: [
-            {
-              id: "slot-n1",
-              name: "n",
-              value: "1",
-              kind: "value"
-            }
-          ]
-        }
-      ],
-      heap: [],
-      refs: [],
-      focus: "frame-fact-1"
-    },
-    {
-      id: "rc5",
-      highlightLines: [
-        2
-      ],
-      narration: "n <= 1 : cas de base. Fact(1) va retourner 1.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        },
-        {
-          id: "frame-fact-3",
-          method: "Fact",
-          slots: [
-            {
-              id: "slot-n3",
-              name: "n",
-              value: "3",
-              kind: "value"
-            }
-          ]
-        },
-        {
-          id: "frame-fact-2",
-          method: "Fact",
-          slots: [
-            {
-              id: "slot-n2",
-              name: "n",
-              value: "2",
-              kind: "value"
-            }
-          ]
-        },
-        {
-          id: "frame-fact-1",
-          method: "Fact",
-          slots: [
-            {
-              id: "slot-n1",
-              name: "n",
-              value: "1",
-              kind: "value"
-            }
-          ]
-        }
-      ],
-      heap: [],
-      refs: [],
-      focus: "slot-n1",
-      returnFlow: {
-        fromMethod: "Fact",
-        callExpr: "Fact(n - 1)",
-        value: "1",
-        phase: "returning",
-        callLine: 3
-      }
-    },
-    {
-      id: "rc6",
-      highlightLines: [
-        3
-      ],
-      narration: "Fact(1) va disparaître. Dans Fact(2) : n * 1 va devenir 2.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        },
-        {
-          id: "frame-fact-3",
-          method: "Fact",
-          slots: [
-            {
-              id: "slot-n3",
-              name: "n",
-              value: "3",
-              kind: "value"
-            }
-          ]
-        },
-        {
-          id: "frame-fact-2",
-          method: "Fact",
-          slots: [
-            {
-              id: "slot-n2",
-              name: "n",
-              value: "2",
-              kind: "value"
-            }
-          ]
-        }
-      ],
-      heap: [],
-      refs: [],
-      focus: "frame-fact-2",
-      returnFlow: {
-        fromMethod: "Fact",
-        callExpr: "Fact(n - 1)",
-        value: "1",
-        phase: "replaces",
-        callLine: 3
-      }
-    },
-    {
-      id: "rc7",
-      highlightLines: [
-        3
-      ],
-      narration: "Fact(2) va retourner 2. Va remonter vers Fact(3).",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        },
-        {
-          id: "frame-fact-3",
-          method: "Fact",
-          slots: [
-            {
-              id: "slot-n3",
-              name: "n",
-              value: "3",
-              kind: "value"
-            }
-          ]
-        }
-      ],
-      heap: [],
-      refs: [],
-      focus: "frame-fact-3",
-      returnFlow: {
-        fromMethod: "Fact",
-        callExpr: "Fact(n - 1)",
-        value: "2",
-        phase: "returning",
-        callLine: 3
-      }
-    },
-    {
-      id: "rc8",
-      highlightLines: [
-        3
-      ],
-      narration: "Dans Fact(3) : n * 2 va valoir 6. Dernier return va remonter vers Main.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        },
-        {
-          id: "frame-fact-3",
-          method: "Fact",
-          slots: [
-            {
-              id: "slot-n3",
-              name: "n",
-              value: "3",
-              kind: "value"
-            }
-          ]
-        }
-      ],
-      heap: [],
-      refs: [],
-      focus: "slot-n3",
-      returnFlow: {
-        fromMethod: "Fact",
-        callExpr: "Fact(3)",
-        value: "6",
-        targetVar: "r",
-        phase: "returning",
-        callLine: 8
-      }
-    },
-    {
-      id: "rc9",
-      highlightLines: [
-        8
-      ],
-      narration: "Toutes les frames Fact vont disparaître. Fact(3) va être remplacé par 6.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        }
-      ],
-      heap: [],
-      refs: [],
-      focus: "frame-main",
-      returnFlow: {
-        fromMethod: "Fact",
-        callExpr: "Fact(3)",
-        value: "6",
-        targetVar: "r",
-        phase: "replaces",
-        callLine: 8
-      }
-    },
-    {
-      id: "rc10",
-      highlightLines: [
-        8,
-        9
-      ],
-      narration: "r va valoir 6. La récursion va empiler, atteindre le cas de base, dépiler en multipliant.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: [
-            {
-              id: "slot-r",
-              name: "r",
-              value: "6",
-              kind: "value"
-            }
-          ]
-        }
-      ],
-      heap: [],
-      refs: [],
-      focus: "slot-r",
-      returnFlow: {
-        fromMethod: "Fact",
-        callExpr: "Fact(3)",
-        value: "6",
-        targetVar: "r",
-        phase: "assigned",
-        callLine: 8
-      }
-    },
-    {
-      id: "recursion-end",
-      highlightLines: [
-        9
-      ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: [
-            {
-              id: "slot-r",
-              name: "r",
-              value: "6",
-              kind: "value"
-            }
-          ]
-        }
-      ],
-      heap: [],
-      refs: []
-    }
-  ]
+    step(
+      "rc0",
+      [6, 7],
+      "Main va démarrer. On va suivre Fact(3) appel par appel : chaque frame aura son propre n.",
+      main([]),
+      [],
+      [],
+    ),
+    step(
+      "rc-call-3",
+      [8],
+      "int r = Fact(3) : on va d’abord évaluer l’appel. r n’existe pas encore.",
+      main([]),
+      [],
+      [],
+      { highlightExpr: "Fact(3)", focus: "frame-main" },
+    ),
+    step(
+      "rc-enter-3",
+      [0],
+      "Fact s’empile. Le paramètre n va recevoir 3 — une copie de l’argument, dans cette frame seulement.",
+      stk(f3()),
+      [],
+      [],
+      { highlightExpr: "int n", focus: "slot-n3" },
+    ),
+    step(
+      "rc-if-3",
+      [2],
+      "Test : n <= 1 → 3 <= 1 est faux. On ne va pas entrer dans le if, donc pas de return 1. On continue.",
+      stk(f3()),
+      [],
+      [],
+      { highlightExpr: "n <= 1", focus: "slot-n3" },
+    ),
+    step(
+      "rc-arg-3",
+      [3],
+      "Argument d’abord : n - 1 va valoir 2. C’est cette valeur (pas n lui-même) qu’on va passer.",
+      stk(f3()),
+      [],
+      [],
+      { highlightExpr: "n - 1", focus: "slot-n3" },
+    ),
+    step(
+      "rc-call-2",
+      [3],
+      "Fact(2) : nouvel appel, nouvelle frame. Le n de Fact(3) va rester 3, inchangé.",
+      stk(f3()),
+      [],
+      [],
+      { highlightExpr: "Fact(n - 1)", focus: "frame-fact-3" },
+    ),
+    step(
+      "rc-enter-2",
+      [0],
+      "Deuxième Fact. Un autre n va être créé ici, copie de 2 — ce n’est pas le même slot que n = 3 au-dessus.",
+      stk(f3(), f2()),
+      [],
+      [],
+      { highlightExpr: "int n", focus: "slot-n2" },
+    ),
+    step(
+      "rc-if-2",
+      [2],
+      "Test dans Fact(2) : 2 <= 1 est encore faux. On saute encore return 1.",
+      stk(f3(), f2()),
+      [],
+      [],
+      { highlightExpr: "n <= 1", focus: "slot-n2" },
+    ),
+    step(
+      "rc-arg-2",
+      [3],
+      "n - 1 va valoir 1. On va passer 1 au prochain appel.",
+      stk(f3(), f2()),
+      [],
+      [],
+      { highlightExpr: "n - 1", focus: "slot-n2" },
+    ),
+    step(
+      "rc-call-1",
+      [3],
+      "Fact(1) : troisième frame. Trois n distincts vont coexister : 3, 2, et bientôt 1.",
+      stk(f3(), f2()),
+      [],
+      [],
+      { highlightExpr: "Fact(n - 1)", focus: "frame-fact-2" },
+    ),
+    step(
+      "rc-enter-1",
+      [0],
+      "Fact(1) s’empile. n va valoir 1 dans cette frame — copie, toujours pas une alias vers les autres n.",
+      stk(f3(), f2(), f1()),
+      [],
+      [],
+      { highlightExpr: "int n", focus: "slot-n1" },
+    ),
+    step(
+      "rc-if-1",
+      [2],
+      "Test : 1 <= 1 est vrai. Cette fois on va entrer dans le if — c’est le cas de base, plus d’appel récursif.",
+      stk(f3(), f2(), f1()),
+      [],
+      [],
+      { highlightExpr: "n <= 1", focus: "slot-n1" },
+    ),
+    step(
+      "rc-ret-1",
+      [2],
+      "return 1 : Fact(1) va renvoyer 1 vers l’appelant (Fact(2)).",
+      stk(f3(), f2(), f1()),
+      [],
+      [],
+      ret("1", "returning", "Fact(n - 1)", 3, {
+        highlightExpr: "return 1",
+        focus: "slot-n1",
+      }),
+    ),
+    step(
+      "rc-repl-1",
+      [3],
+      "Fact(1) va disparaître. Dans Fact(2), Fact(n - 1) va être remplacé par 1. Il reste n * 1.",
+      stk(f3(), f2()),
+      [],
+      [],
+      ret("1", "replaces", "Fact(n - 1)", 3, { focus: "frame-fact-2" }),
+    ),
+    step(
+      "rc-mul-2",
+      [3],
+      "n vaut 2 dans cette frame : 2 * 1 va valoir 2. Fact(2) va pouvoir retourner.",
+      stk(f3(), f2()),
+      [],
+      [],
+      ret("1", "replaces", "Fact(n - 1)", 3, {
+        highlightExpr: "n *",
+        focus: "slot-n2",
+      }),
+    ),
+    step(
+      "rc-ret-2",
+      [3],
+      "return 2 : Fact(2) va renvoyer 2 vers Fact(3).",
+      stk(f3(), f2()),
+      [],
+      [],
+      ret("2", "returning", "Fact(n - 1)", 3, { focus: "frame-fact-2" }),
+    ),
+    step(
+      "rc-repl-2",
+      [3],
+      "Fact(2) va disparaître. Dans Fact(3), Fact(n - 1) va être remplacé par 2. Il reste n * 2.",
+      stk(f3()),
+      [],
+      [],
+      ret("2", "replaces", "Fact(n - 1)", 3, { focus: "frame-fact-3" }),
+    ),
+    step(
+      "rc-mul-3",
+      [3],
+      "n vaut 3 ici : 3 * 2 va valoir 6. Dernier return, vers Main.",
+      stk(f3()),
+      [],
+      [],
+      ret("2", "replaces", "Fact(n - 1)", 3, {
+        highlightExpr: "n *",
+        focus: "slot-n3",
+      }),
+    ),
+    step(
+      "rc-ret-3",
+      [3],
+      "return 6 : Fact(3) va renvoyer 6 vers Main. Les trois n de la récursion ont fait leur travail.",
+      stk(f3()),
+      [],
+      [],
+      ret("6", "returning", "Fact(3)", 8, { focus: "frame-fact-3" }),
+    ),
+    step(
+      "rc-repl-3",
+      [8],
+      "Plus aucune frame Fact. Dans Main, Fact(3) va être remplacé par 6.",
+      main([]),
+      [],
+      [],
+      ret("6", "replaces", "Fact(3)", 8, { focus: "frame-main" }),
+    ),
+    step(
+      "rc-assign",
+      [8],
+      "Ensuite seulement : 6 va être affecté à r sur la stack de Main.",
+      main([val("slot-r", "r", "6")]),
+      [],
+      [],
+      ret("6", "assigned", "Fact(3)", 8, { focus: "slot-r" }),
+    ),
+    step(
+      "recursion-end",
+      [9],
+      MAIN_DONE,
+      main([val("slot-r", "r", "6")]),
+      [],
+      [],
+    ),
+  ],
 };

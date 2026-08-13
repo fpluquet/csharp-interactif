@@ -48,6 +48,7 @@ export const classReturnScenario: Scenario = {
       highlightLines: [
         16
       ],
+      highlightExpr: "Creer(0, 0)",
       narration: "L’appel Creer(0, 0) va empiler une nouvelle frame avec les paramètres x et y.",
       stack: [
         {

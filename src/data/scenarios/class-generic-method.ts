@@ -27,7 +27,7 @@ export const classGenericMethodScenario: Scenario = {
       ),
       [],
       [],
-      { focus: "frame-p" },
+      { focus: "frame-p", highlightExpr: "Premier(10, 20)" },
     ),
     step(
       "gm2",
@@ -47,7 +47,7 @@ export const classGenericMethodScenario: Scenario = {
       ]),
       [{ id: "obj-s", typeLabel: "string", address: "#S1", fields: [{ label: "chars", value: '"A"' }] }],
       [{ id: "ref-s", fromSlotId: "slot-s", toObjectId: "obj-s" }],
-      { focus: "slot-s" },
+      { focus: "slot-s", highlightExpr: "Premier(\"A\", \"B\")" },
     ),
     step(
       "class-generic-method-end",

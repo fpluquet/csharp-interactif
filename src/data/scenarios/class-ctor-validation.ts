@@ -30,7 +30,8 @@ export const classCtorValidationScenario: Scenario = {
     "}",
   ],
   steps: [
-    step("cv0", [10, 11], "Main va démarrer et entrer dans le try.", main([]), [], []),
+    step("cv0", [10, 11], "Main va démarrer.", main([]), [], []),
+    step("cv-try", [12, 13], "On va entrer dans le try. Le catch attend un ArgumentException.", main([]), [], []),
     step(
       "cv1",
       [14, 5],
@@ -46,7 +47,7 @@ export const classCtorValidationScenario: Scenario = {
       ),
       [obj("obj-p", "Personne", "#P1", [{ label: "Age", value: "0", kind: "value" }])],
       [link("ref-this", "slot-this", "obj-p")],
-      { focus: "frame-ctor" },
+      { focus: "frame-ctor", highlightExpr: "new Personne(-3)" },
     ),
     step(
       "cv2",
@@ -65,6 +66,7 @@ export const classCtorValidationScenario: Scenario = {
       [link("ref-this", "slot-this", "obj-p")],
       {
         focus: "frame-ctor",
+        highlightExpr: "throw new ArgumentException(\"âge\")",
         exceptionFlow: {
           typeName: "ArgumentException",
           message: "âge",

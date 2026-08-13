@@ -74,6 +74,7 @@ export const foreachArrayScenario: Scenario = {
     {
       id: "fe2",
       highlightLines: [3],
+      highlightExpr: "int n in nums",
       narration: "foreach : y aura-t-il un prochain élément ? Oui → n va valoir 10.",
       stack: frame("10"),
       heap,
@@ -102,6 +103,7 @@ export const foreachArrayScenario: Scenario = {
     {
       id: "fe4",
       highlightLines: [3],
+      highlightExpr: "int n in nums",
       narration: "Prochain élément ? Oui → n va valoir 20.",
       stack: frame("20"),
       heap,
@@ -130,6 +132,7 @@ export const foreachArrayScenario: Scenario = {
     {
       id: "fe6",
       highlightLines: [3],
+      highlightExpr: "int n in nums",
       narration: "Plus d'élément → on va quitter le foreach.",
       stack: frame("20"),
       heap,

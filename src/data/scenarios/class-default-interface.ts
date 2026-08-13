@@ -44,6 +44,7 @@ export const classDefaultInterfaceScenario: Scenario = {
       [link("ref-l", "slot-l", "obj-l")],
       {
         consoleLines: ["ok"],
+        highlightExpr: "l.Log(\"ok\")",
         dispatchFlow: {
           mode: "virtual",
           callExpr: "l.Log(\"ok\")",

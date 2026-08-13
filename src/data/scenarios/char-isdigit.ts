@@ -61,6 +61,7 @@ export const charIsDigitScenario: Scenario = {
       highlightLines: [
         3
       ],
+      highlightExpr: "char.IsDigit(c)",
       narration: "IsDigit('5') va retourner true.",
       stack: [
         {

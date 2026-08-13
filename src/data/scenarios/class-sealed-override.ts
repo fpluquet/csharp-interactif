@@ -40,6 +40,7 @@ export const classSealedOverrideScenario: Scenario = {
       [chat, { id: "obj-s", typeLabel: "string", address: "#S1", fields: [{ label: "chars", value: '"Miaou"' }] }],
       [link("ref-a", "slot-a", "obj-c"), link("ref-s", "slot-s", "obj-s")],
       {
+        highlightExpr: "a.Crier()",
         dispatchFlow: {
           mode: "virtual",
           callExpr: "a.Crier()",

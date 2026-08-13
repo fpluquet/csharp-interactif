@@ -67,6 +67,7 @@ export const ifElseScenario: Scenario = {
       highlightLines: [
         3
       ],
+      highlightExpr: "age >= 18",
       narration: "age >= 18 → true : on va entrer dans le if.",
       stack: [
         {

@@ -66,6 +66,7 @@ export const exceptionCatchScenario: Scenario = {
       highlightLines: [
         9
       ],
+      highlightExpr: "Risquer()",
       narration: "La frame Risquer va s’empiler au-dessus de Main.",
       stack: [
         {
@@ -135,8 +136,7 @@ export const exceptionCatchScenario: Scenario = {
       id: "ec5",
       highlightLines: [
         11,
-        12,
-        13
+        12
       ],
       narration: "Main a un catch compatible : l’exception va être attrapée. ex va recevoir le message. La stack va rester.",
       stack: [
@@ -185,6 +185,52 @@ export const exceptionCatchScenario: Scenario = {
     {
       id: "ec6",
       highlightLines: [
+        13
+      ],
+      highlightExpr: "ex.Message",
+      narration: "On va afficher ex.Message : boom.",
+      stack: [
+        {
+          id: "frame-main",
+          method: "Main",
+          slots: [
+            {
+              id: "slot-ex",
+              name: "ex",
+              value: "→ #EX1",
+              kind: "ref",
+              targetId: "obj-ex"
+            }
+          ]
+        }
+      ],
+      heap: [
+        {
+          id: "obj-ex",
+          typeLabel: "InvalidOperationException",
+          address: "#EX1",
+          fields: [
+            {
+              label: "Message",
+              value: "\"boom\""
+            }
+          ]
+        }
+      ],
+      refs: [
+        {
+          id: "ref-ex",
+          fromSlotId: "slot-ex",
+          toObjectId: "obj-ex"
+        }
+      ],
+      consoleLines: [
+        "boom"
+      ]
+    },
+    {
+      id: "ec7",
+      highlightLines: [
         15
       ],
       narration: "Après le catch, l’exécution va reprendre dans Main. Contrairement au throw non géré, le programme va continuer.",
@@ -197,7 +243,10 @@ export const exceptionCatchScenario: Scenario = {
       ],
       heap: [],
       refs: [],
-      focus: "frame-main"
+      focus: "frame-main",
+      consoleLines: [
+        "boom"
+      ]
     },
     {
       id: "exception-catch-end",
@@ -213,7 +262,10 @@ export const exceptionCatchScenario: Scenario = {
         }
       ],
       heap: [],
-      refs: []
+      refs: [],
+      consoleLines: [
+        "boom"
+      ]
     }
   ]
 };

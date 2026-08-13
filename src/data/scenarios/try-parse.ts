@@ -37,6 +37,7 @@ export const tryParseScenario: Scenario = {
     {
       id: "tp1",
       highlightLines: [2],
+      highlightExpr: "int.TryParse(\"7\", out int n)",
       narration:
         "TryParse(\"7\") va réussir : ok va valoir true, n va valoir 7 via out. Pas d’exception.",
       stack: frame("true", "7"),
@@ -66,6 +67,7 @@ export const tryParseScenario: Scenario = {
     {
       id: "tp4",
       highlightLines: [5],
+      highlightExpr: "int.TryParse(\"abc\", out n)",
       narration:
         "TryParse(\"abc\") va échouer : ok va passer à false, n va être remis à 0 (défaut de out). Toujours pas d’exception.",
       stack: frame("false", "0"),

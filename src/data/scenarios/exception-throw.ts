@@ -44,6 +44,7 @@ export const exceptionThrowScenario: Scenario = {
       highlightLines: [
         12
       ],
+      highlightExpr: "Appeler()",
       narration: "Appeler() : une nouvelle frame va s’empiler.",
       stack: [
         {
@@ -66,6 +67,7 @@ export const exceptionThrowScenario: Scenario = {
       highlightLines: [
         7
       ],
+      highlightExpr: "Risquer()",
       narration: "Risquer() : une frame de plus va s’empiler au sommet.",
       stack: [
         {
@@ -188,7 +190,7 @@ export const exceptionThrowScenario: Scenario = {
       highlightLines: [
         13
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme s’est arrêté : l’exception n’a été attrapée nulle part.",
       stack: [],
       heap: [],
       refs: []

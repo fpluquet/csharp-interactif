@@ -92,6 +92,7 @@ export const linqWhereScenario: Scenario = {
       highlightLines: [
         3
       ],
+      highlightExpr: "nums.Where(n => n % 2 == 0).ToArray()",
       narration: "Where + ToArray → un nouveau tableau {2,4} va être créé. nums restera intact.",
       stack: [
         {

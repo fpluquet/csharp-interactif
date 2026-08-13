@@ -29,7 +29,7 @@ export const classStaticMethodScenario: Scenario = {
       ),
       [],
       [],
-      { focus: "frame-carre" },
+      { focus: "frame-carre", highlightExpr: "MathUtil.Carre(4)" },
     ),
     step(
       "sm2",
@@ -38,7 +38,17 @@ export const classStaticMethodScenario: Scenario = {
       main([val("slot-x", "x", "16")]),
       [],
       [],
-      { focus: "slot-x" },
+      {
+        focus: "slot-x",
+        returnFlow: {
+          fromMethod: "MathUtil.Carre",
+          callExpr: "MathUtil.Carre(4)",
+          value: "16",
+          targetVar: "x",
+          phase: "assigned",
+          callLine: 7,
+        },
+      },
     ),
     step("class-static-method-end", [8], MAIN_DONE, main([val("slot-x", "x", "16")]), [], []),
   ],

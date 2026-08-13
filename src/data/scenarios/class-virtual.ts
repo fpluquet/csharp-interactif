@@ -120,6 +120,7 @@ export const classVirtualScenario: Scenario = {
     {
       id: "pv2",
       highlightLines: [26, 2, 8],
+      highlightExpr: "a1.Info()",
       narration:
         "a1.Info() : pas virtual + new dans Chien → liaison statique va choisir Animal.Info.",
       stack: main([sA1]),
@@ -147,6 +148,7 @@ export const classVirtualScenario: Scenario = {
     {
       id: "pv4",
       highlightLines: [27, 3, 9],
+      highlightExpr: "a1.Crier()",
       narration:
         "a1.Crier() : virtual + override → liaison dynamique va choisir Chien.Crier.",
       stack: main([sA1]),
@@ -188,6 +190,7 @@ export const classVirtualScenario: Scenario = {
     {
       id: "pv7",
       highlightLines: [30, 14],
+      highlightExpr: "a2.Crier()",
       narration:
         "a2.Crier() : Chat override Crier va renvoyer Miaou (autre redéfinition du même virtual).",
       stack: main([sA1, sA2]),
@@ -236,6 +239,7 @@ export const classVirtualScenario: Scenario = {
     {
       id: "pv10",
       highlightLines: [32, 2, 15],
+      highlightExpr: "chat.Info()",
       narration:
         "chat.Info() : Chat n’a pas redéfini Info → va hériter Animal.Info (même avec type statique Chat).",
       stack: main([sA1, sA2, sChat]),
@@ -286,6 +290,7 @@ export const classVirtualScenario: Scenario = {
     {
       id: "pv13",
       highlightLines: [35, 3, 20],
+      highlightExpr: "a3.Crier()",
       narration:
         "a3.Crier() : virtual, mais Vache n’override pas → va utiliser la version de base Animal.Crier.",
       stack: main([sA1, sA2, sChat, sA3]),
@@ -340,6 +345,7 @@ export const classVirtualScenario: Scenario = {
     {
       id: "pv16",
       highlightLines: [38, 8],
+      highlightExpr: "c.Info()",
       narration:
         "c.Info() : type statique Chien → va choisir Chien.Info (new). Même objet qu’a1.Info(), autre résultat.",
       stack: main([sA1, sA2, sChat, sA3, sC]),

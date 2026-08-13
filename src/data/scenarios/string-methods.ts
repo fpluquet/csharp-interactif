@@ -79,6 +79,7 @@ export const stringMethodsScenario: Scenario = {
       highlightLines: [
         3
       ],
+      highlightExpr: "s.Length",
       narration: "s.Length va valoir 4 (propriété, int sur stack).",
       stack: [
         {
@@ -128,6 +129,7 @@ export const stringMethodsScenario: Scenario = {
       highlightLines: [
         4
       ],
+      highlightExpr: "s.ToUpper()",
       narration: "ToUpper() va créer #S2 \"CIAO\". s va rester inchangé.",
       stack: [
         {
@@ -200,6 +202,7 @@ export const stringMethodsScenario: Scenario = {
       highlightLines: [
         5
       ],
+      highlightExpr: "s.Contains(\"ia\")",
       narration: "Contains(\"ia\") va retourner true.",
       stack: [
         {

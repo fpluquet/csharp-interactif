@@ -72,6 +72,7 @@ export const paramsPassScenario: Scenario = {
       highlightLines: [
         13
       ],
+      highlightExpr: "ModifierValeur(a)",
       narration: "ModifierValeur(a) : appel — une nouvelle frame va s’empiler.",
       stack: [
         {
@@ -194,6 +195,7 @@ export const paramsPassScenario: Scenario = {
       highlightLines: [
         15
       ],
+      highlightExpr: "ModifierRef(ref a)",
       narration: "ModifierRef(ref a) : on va passer une référence vers a, pas une copie.",
       stack: [
         {

@@ -31,11 +31,11 @@ export const classYieldScenario: Scenario = {
       ),
       [obj("obj-it", "IEnumerator<int>", "#I1", [{ label: "Current", value: "∅" }])],
       [link("ref-it", "slot-it", "obj-it")],
-      { focus: "obj-it" },
+      { focus: "obj-it", highlightExpr: "Paires()" },
     ),
     step(
       "y2",
-      [2, 8],
+      [2, 8, 9],
       "MoveNext va exécuter yield return 2. Current va valoir 2, n va valoir 2. Paires va être suspendu.",
       main([
         refSlot("slot-it", "iter", "#I1", "obj-it"),
@@ -47,7 +47,7 @@ export const classYieldScenario: Scenario = {
     ),
     step(
       "y3",
-      [3, 8],
+      [3, 8, 9],
       "Tour suivant : yield return 4 va s’exécuter. Current va valoir 4. Toujours le même itérateur.",
       main([
         refSlot("slot-it", "iter", "#I1", "obj-it"),

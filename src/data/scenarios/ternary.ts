@@ -61,6 +61,7 @@ export const ternaryScenario: Scenario = {
       highlightLines: [
         3
       ],
+      highlightExpr: "age >= 18",
       narration: "age >= 18 va être true → on va prendre \"majeur\". La string va être sur le heap.",
       stack: [
         {

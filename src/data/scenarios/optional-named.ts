@@ -169,7 +169,15 @@ export const optionalNamedScenario: Scenario = {
       ],
       heap: [],
       refs: [],
-      focus: "slot-y"
+      focus: "slot-y",
+      returnFlow: {
+        fromMethod: "Ajouter",
+        callExpr: "Ajouter(a: 2, b: 3)",
+        value: "5",
+        targetVar: "y",
+        phase: "assigned",
+        callLine: 8
+      }
     },
     {
       id: "optional-named-end",

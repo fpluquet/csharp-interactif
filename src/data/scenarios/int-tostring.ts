@@ -61,6 +61,7 @@ export const intToStringScenario: Scenario = {
       highlightLines: [
         3
       ],
+      highlightExpr: "n.ToString()",
       narration: "ToString() → une string \"7\" va être créée sur le heap.",
       stack: [
         {

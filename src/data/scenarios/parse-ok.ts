@@ -80,6 +80,7 @@ export const parseOkScenario: Scenario = {
       highlightLines: [
         3
       ],
+      highlightExpr: "int.Parse(s)",
       narration: "int.Parse(s) → n va valoir 42 sur la stack.",
       stack: [
         {

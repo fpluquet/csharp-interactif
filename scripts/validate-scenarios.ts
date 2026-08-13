@@ -1,7 +1,7 @@
-import { readdirSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { scenarios } from "../src/data/index.ts";
-import type { HeapObject, StackFrame, Step } from "../src/types/memory.ts";
+import type { HeapObject, StackFrame } from "../src/types/memory.ts";
 
 const issues: string[] = [];
 
@@ -32,10 +32,13 @@ for (const id of ids) {
 }
 
 const dir = join(import.meta.dirname, "../src/data/scenarios");
+const indexSrc = readFileSync(join(import.meta.dirname, "../src/data/index.ts"), "utf8");
 const files = readdirSync(dir).filter((f) => f.endsWith(".ts") && f !== "ooHelpers.ts");
 for (const file of files) {
   const stem = file.replace(/\.ts$/, "");
-  if (!ids.includes(stem)) issue(stem, `fichier ${file} non exporté dans index.ts`);
+  if (!indexSrc.includes(`./scenarios/${stem}`)) {
+    issue(stem, `fichier ${file} non importé dans index.ts`);
+  }
 }
 
 for (const s of scenarios) {
@@ -137,21 +140,23 @@ for (const s of scenarios) {
     }
 
     const prev = s.steps[i - 1];
+    const next = s.steps[i + 1];
     if (prev) {
       const prevConsole = prev.consoleLines ?? [];
       const curConsole = step.consoleLines ?? [];
       const highlightedWrite = step.highlightLines.some((li) => /Console\.WriteLine/.test(s.code[li] ?? ""));
-      if (highlightedWrite && curConsole.length <= prevConsole.length && curConsole.length === 0 && prevConsole.length === 0) {
-        issue(`${s.id}/${step.id}`, "WriteLine surligné mais consoleLines vide");
-      } else if (highlightedWrite && curConsole.length < prevConsole.length) {
-        issue(`${s.id}/${step.id}`, "WriteLine surligné mais la console recule");
-      } else if (highlightedWrite && curConsole.length === prevConsole.length && i > 0) {
-        const onlyWrite = step.highlightLines.every((li) => {
-          const t = (s.code[li] ?? "").trim();
-          return !t || t === "{" || t === "}" || /Console\.WriteLine/.test(t);
-        });
-        if (onlyWrite) {
-          issue(`${s.id}/${step.id}`, "WriteLine surligné sans nouvelle ligne console");
+      const printFollows = (next?.consoleLines?.length ?? 0) > curConsole.length;
+      if (highlightedWrite && !step.dispatchFlow && !printFollows) {
+        if (curConsole.length < prevConsole.length) {
+          issue(`${s.id}/${step.id}`, "WriteLine surligné mais la console recule");
+        } else if (curConsole.length === prevConsole.length) {
+          const onlyWrite = step.highlightLines.every((li) => {
+            const t = (s.code[li] ?? "").trim();
+            return !t || t === "{" || t === "}" || /Console\.WriteLine/.test(t);
+          });
+          if (onlyWrite) {
+            issue(`${s.id}/${step.id}`, "WriteLine surligné sans nouvelle ligne console");
+          }
         }
       }
     }

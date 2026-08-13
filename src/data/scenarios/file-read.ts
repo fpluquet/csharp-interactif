@@ -42,6 +42,7 @@ export const fileReadScenario: Scenario = {
       highlightLines: [
         2
       ],
+      highlightExpr: "File.ReadAllText(\"note.txt\")",
       narration: "ReadAllText va copier le contenu vers une string sur le heap.",
       stack: [
         {

@@ -89,6 +89,7 @@ export const directoryListScenario: Scenario = {
       highlightLines: [
         4
       ],
+      highlightExpr: "Directory.GetFiles(\"tmp\")",
       narration: "GetFiles va renvoyer un tableau d'1 chemin.",
       stack: [
         {

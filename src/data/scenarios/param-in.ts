@@ -31,7 +31,7 @@ export const paramInScenario: Scenario = {
       ),
       [],
       [],
-      { focus: "frame-t" },
+      { focus: "frame-t", highlightExpr: "Triple(in n)" },
     ),
     step(
       "in3",
@@ -40,7 +40,17 @@ export const paramInScenario: Scenario = {
       main([val("slot-n", "n", "4"), val("slot-t", "t", "12")]),
       [],
       [],
-      { focus: "slot-t" },
+      {
+        focus: "slot-t",
+        returnFlow: {
+          fromMethod: "Triple",
+          callExpr: "Triple(in n)",
+          value: "12",
+          targetVar: "t",
+          phase: "assigned",
+          callLine: 8,
+        },
+      },
     ),
     step(
       "param-in-end",
