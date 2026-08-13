@@ -1,10 +1,31 @@
-import type { Scenario } from "../../types/memory";
+import type { Scenario, StackSlot } from "../../types/memory";
 import { MAIN_DONE, link, main, refSlot, step, strObj, val } from "./ooHelpers";
+
+const aNull: StackSlot = {
+  id: "slot-a",
+  name: "a",
+  value: "null",
+  kind: "ref",
+  declaredType: "string?",
+};
+const bAda = refSlot("slot-b", "b", "#S1", "obj-b", "string?");
+const na: StackSlot = { ...val("slot-na", "na", "null"), declaredType: "int?" };
+const nb: StackSlot = { ...val("slot-nb", "nb", "3"), declaredType: "int?" };
+const defaut = refSlot("slot-defaut", "defaut", "#S2", "obj-def", "string");
+const meme = refSlot("slot-meme", "meme", "#S1", "obj-b", "string");
+const n: StackSlot = { ...val("slot-n", "n", "0"), declaredType: "int" };
+
+const ada = strObj("obj-b", "#S1", "Ada");
+const anon = strObj("obj-def", "#S2", "anonyme");
+
+const rB = [link("ref-b", "slot-b", "obj-b")];
+const rDef = [...rB, link("ref-defaut", "slot-defaut", "obj-def")];
+const rAll = [...rDef, link("ref-meme", "slot-meme", "obj-b")];
 
 export const classNullableScenario: Scenario = {
   id: "class-nullable",
   title: "?. et ??",
-  subtitle: "string? peut être null : ?. court-circuite, ?? fournit un défaut.",
+  subtitle: "?. court-circuite si null ; ?? prend la gauche si elle existe, sinon un défaut. On peut les enchaîner.",
   part: "oo-nullable",
   code: [
     "static void Main()",
@@ -13,77 +34,83 @@ export const classNullableScenario: Scenario = {
     "    string? b = \"Ada\";",
     "    int? na = a?.Length;",
     "    int? nb = b?.Length;",
-    "    string n = a ?? \"anonyme\";",
+    "    string defaut = a ?? \"anonyme\";",
+    "    string meme = b ?? \"anonyme\";",
+    "    int n = a?.Length ?? 0;",
     "}",
   ],
   steps: [
-    step("nu0", [0, 1], "Main va démarrer.", main([]), [], []),
+    step("nu0", [0, 1], "Main va démarrer. On va comparer ?. et ?? quand la valeur est null, et quand elle ne l’est pas.", main([]), [], []),
     step(
-      "nu1",
-      [2, 3],
-      "a va valoir null (pas d’objet). b va pointer vers \"Ada\".",
-      main([
-        { id: "slot-a", name: "a", value: "null", kind: "ref", declaredType: "string?" },
-        refSlot("slot-b", "b", "#S1", "obj-b", "string?"),
-      ]),
-      [strObj("obj-b", "#S1", "Ada")],
-      [link("ref-b", "slot-b", "obj-b")],
+      "nu-a",
+      [2],
+      "string? a = null : a va valoir null. Pas d’objet sur le heap.",
+      main([aNull]),
+      [],
+      [],
+      { focus: "slot-a" },
     ),
     step(
-      "nu2",
+      "nu-b",
+      [3],
+      "string? b = \"Ada\" : b va pointer vers un objet string. a reste null — deux cas côte à côte.",
+      main([aNull, bAda]),
+      [ada],
+      rB,
+      { focus: "slot-b" },
+    ),
+    step(
+      "nu-a-len",
       [4],
-      "a?.Length : a va être null → na va valoir null, Length ne va pas être appelé.",
-      main([
-        { id: "slot-a", name: "a", value: "null", kind: "ref", declaredType: "string?" },
-        refSlot("slot-b", "b", "#S1", "obj-b", "string?"),
-        val("slot-na", "na", "null"),
-      ]),
-      [strObj("obj-b", "#S1", "Ada")],
-      [link("ref-b", "slot-b", "obj-b")],
-      { focus: "slot-na" },
+      "a?.Length : a est null → on ne va pas appeler Length (pas de NullReferenceException). na (int?) va valoir null.",
+      main([aNull, bAda, na]),
+      [ada],
+      rB,
+      { highlightExpr: "a?.Length", focus: "slot-na" },
     ),
     step(
-      "nu3",
+      "nu-b-len",
       [5],
-      "b?.Length : b non null → nb va valoir 3.",
-      main([
-        { id: "slot-a", name: "a", value: "null", kind: "ref", declaredType: "string?" },
-        refSlot("slot-b", "b", "#S1", "obj-b", "string?"),
-        val("slot-na", "na", "null"),
-        val("slot-nb", "nb", "3"),
-      ]),
-      [strObj("obj-b", "#S1", "Ada")],
-      [link("ref-b", "slot-b", "obj-b")],
-      { focus: "slot-nb" },
+      "b?.Length : b n’est pas null → Length va être appelé. nb va valoir 3.",
+      main([aNull, bAda, na, nb]),
+      [ada],
+      rB,
+      { highlightExpr: "b?.Length", focus: "slot-nb" },
     ),
     step(
-      "nu4",
+      "nu-a-coalesce",
       [6],
-      "a ?? \"anonyme\" : a va être null → n va valoir \"anonyme\".",
-      main([
-        { id: "slot-a", name: "a", value: "null", kind: "ref", declaredType: "string?" },
-        refSlot("slot-b", "b", "#S1", "obj-b", "string?"),
-        val("slot-na", "na", "null"),
-        val("slot-nb", "nb", "3"),
-        refSlot("slot-n", "n", "#S2", "obj-n", "string"),
-      ]),
-      [strObj("obj-b", "#S1", "Ada"), strObj("obj-n", "#S2", "anonyme")],
-      [link("ref-b", "slot-b", "obj-b"), link("ref-n", "slot-n", "obj-n")],
-      { focus: "slot-n" },
+      "a ?? \"anonyme\" : a est null → on va prendre le défaut. Une string \"anonyme\" va apparaître sur le heap.",
+      main([aNull, bAda, na, nb, defaut]),
+      [ada, anon],
+      rDef,
+      { highlightExpr: "a ?? \"anonyme\"", focus: "slot-defaut" },
+    ),
+    step(
+      "nu-b-coalesce",
+      [7],
+      "b ?? \"anonyme\" : b n’est pas null → on garde b. meme va pointer vers le même #S1. \"anonyme\" à droite ne va même pas être évalué.",
+      main([aNull, bAda, na, nb, defaut, meme]),
+      [ada, anon],
+      rAll,
+      { highlightExpr: "b ?? \"anonyme\"", focus: "slot-meme" },
+    ),
+    step(
+      "nu-combo",
+      [8],
+      "a?.Length ?? 0 : ?. donne null, puis ?? 0. n est un int (plus un int?) : on a un vrai 0, utilisable sans test.",
+      main([aNull, bAda, na, nb, defaut, meme, n]),
+      [ada, anon],
+      rAll,
+      { highlightExpr: "a?.Length ?? 0", focus: "slot-n" },
     ),
     step(
       "class-nullable-end",
-      [7],
+      [9],
       MAIN_DONE,
-      main([
-        { id: "slot-a", name: "a", value: "null", kind: "ref", declaredType: "string?" },
-        refSlot("slot-b", "b", "#S1", "obj-b", "string?"),
-        val("slot-na", "na", "null"),
-        val("slot-nb", "nb", "3"),
-        refSlot("slot-n", "n", "#S2", "obj-n", "string"),
-      ]),
-      [strObj("obj-b", "#S1", "Ada"), strObj("obj-n", "#S2", "anonyme")],
-      [link("ref-b", "slot-b", "obj-b"), link("ref-n", "slot-n", "obj-n")],
+      main([aNull, bAda, na, nb, defaut, meme, n]),
+      [ada, anon],
+      rAll,
     ),
   ],
 };

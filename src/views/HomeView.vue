@@ -82,9 +82,8 @@ function selectScenario(id: string) {
 
 <style scoped lang="scss">
 .home {
-  width: min(1280px, calc(100% - 2.5rem));
-  margin: 0 auto;
-  padding: 1.75rem 0 2.5rem;
+  width: 100%;
+  padding: 1.75rem 1.25rem 2.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -180,7 +179,7 @@ function selectScenario(id: string) {
 
 @media (max-width: 800px) {
   .home {
-    width: min(100% - 1.25rem, 1280px);
+    padding-inline: 0.75rem;
   }
 
   .home__hero {
