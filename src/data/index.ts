@@ -59,12 +59,46 @@ import { thisShadowScenario } from "./scenarios/this-shadow";
 import { thisPassScenario } from "./scenarios/this-pass";
 import { thisFluentScenario } from "./scenarios/this-fluent";
 import { classCtorScenario } from "./scenarios/class-ctor";
+import { classCtorDefaultScenario } from "./scenarios/class-ctor-default";
+import { classCtorOverloadScenario } from "./scenarios/class-ctor-overload";
+import { classCtorThisScenario } from "./scenarios/class-ctor-this";
+import { classCtorInitOrderScenario } from "./scenarios/class-ctor-init-order";
+import { classCtorValidationScenario } from "./scenarios/class-ctor-validation";
 import { classPropertyScenario } from "./scenarios/class-property";
+import { classAutoPropScenario } from "./scenarios/class-auto-prop";
+import { classPropComputedScenario } from "./scenarios/class-prop-computed";
 import { classStaticMemberScenario } from "./scenarios/class-static-member";
+import { classStaticMethodScenario } from "./scenarios/class-static-method";
+import { classStaticCtorScenario } from "./scenarios/class-static-ctor";
+import { classStaticClassScenario } from "./scenarios/class-static-class";
+import { classConstReadonlyScenario } from "./scenarios/class-const-readonly";
 import { classHeritageScenario } from "./scenarios/class-heritage";
+import { classProtectedScenario } from "./scenarios/class-protected";
+import { classSealedScenario } from "./scenarios/class-sealed";
+import { classHeritageChainScenario } from "./scenarios/class-heritage-chain";
+import { classObjectToStringScenario } from "./scenarios/class-object-tostring";
 import { classVirtualScenario } from "./scenarios/class-virtual";
+import { classAbstractScenario } from "./scenarios/class-abstract";
+import { classBaseCallScenario } from "./scenarios/class-base-call";
+import { classSealedOverrideScenario } from "./scenarios/class-sealed-override";
+import { classIsAsScenario } from "./scenarios/class-is-as";
 import { classInterfaceScenario } from "./scenarios/class-interface";
+import { classMultiInterfaceScenario } from "./scenarios/class-multi-interface";
 import { classGenericScenario } from "./scenarios/class-generic";
+import { classGenericMethodScenario } from "./scenarios/class-generic-method";
+import { classGenericWhereScenario } from "./scenarios/class-generic-where";
+import { classGenericInterfaceScenario } from "./scenarios/class-generic-interface";
+import { classOperatorScenario } from "./scenarios/class-operator";
+import { classYieldScenario } from "./scenarios/class-yield";
+import { classRecordScenario } from "./scenarios/class-record";
+import { classPrimaryCtorScenario } from "./scenarios/class-primary-ctor";
+import { classNullableScenario } from "./scenarios/class-nullable";
+import { classInitOnlyScenario } from "./scenarios/class-init-only";
+import { classDefaultInterfaceScenario } from "./scenarios/class-default-interface";
+import { classPatternScenario } from "./scenarios/class-pattern";
+import { classObjectInitScenario } from "./scenarios/class-object-init";
+import { paramInScenario } from "./scenarios/param-in";
+import { paramParamsScenario } from "./scenarios/param-params";
 import type { Scenario } from "../types/memory";
 
 export const scenarios: Scenario[] = [
@@ -119,6 +153,8 @@ export const scenarios: Scenario[] = [
   recursionScenario,
   optionalNamedScenario,
   overloadScenario,
+  paramInScenario,
+  paramParamsScenario,
   // Exceptions
   exceptionThrowScenario,
   exceptionCatchScenario,
@@ -139,20 +175,54 @@ export const scenarios: Scenario[] = [
   thisFluentScenario,
   classReturnScenario,
   classGraphScenario,
+  classObjectInitScenario,
   // OO · 03 Constructeurs
   classCtorScenario,
+  classCtorDefaultScenario,
+  classCtorOverloadScenario,
+  classCtorThisScenario,
+  classCtorInitOrderScenario,
+  classCtorValidationScenario,
   // OO · 04 Encapsulation
   classPropertyScenario,
+  classAutoPropScenario,
+  classPropComputedScenario,
   // OO · 05 Membres statiques
   classStaticMemberScenario,
+  classStaticMethodScenario,
+  classStaticCtorScenario,
+  classStaticClassScenario,
+  classConstReadonlyScenario,
   // OO · 07 Héritage
   classHeritageScenario,
+  classProtectedScenario,
+  classSealedScenario,
+  classHeritageChainScenario,
+  classObjectToStringScenario,
   // OO · 08 Polymorphisme
   classVirtualScenario,
+  classAbstractScenario,
+  classBaseCallScenario,
+  classSealedOverrideScenario,
+  classIsAsScenario,
   // OO · 09 Interfaces
   classInterfaceScenario,
+  classMultiInterfaceScenario,
   // OO · 10 Génériques
   classGenericScenario,
+  classGenericMethodScenario,
+  classGenericWhereScenario,
+  classGenericInterfaceScenario,
+  // OO · 11 Concepts avancés
+  classOperatorScenario,
+  classYieldScenario,
+  // OO · 12–17 C# moderne
+  classRecordScenario,
+  classPrimaryCtorScenario,
+  classNullableScenario,
+  classInitOnlyScenario,
+  classDefaultInterfaceScenario,
+  classPatternScenario,
 ];
 
 export function getScenario(id: string): Scenario | undefined {

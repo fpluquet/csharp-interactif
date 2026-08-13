@@ -11,7 +11,7 @@ export const PART_ORDER: ScenarioPart[] = [
   "functions",
   "exceptions",
   "files",
-  // Syllabus OO (Q2) — chapitres 02 → 10
+  // Syllabus OO (Q2) — chapitres 02 → 17
   "oo-classes",
   "oo-constructors",
   "oo-encapsulation",
@@ -20,6 +20,13 @@ export const PART_ORDER: ScenarioPart[] = [
   "oo-polymorphism",
   "oo-interfaces",
   "oo-generics",
+  "oo-advanced",
+  "oo-records",
+  "oo-primary-ctors",
+  "oo-nullable",
+  "oo-init",
+  "oo-modern-interfaces",
+  "oo-pattern",
 ];
 
 export const PART_LABELS: Record<ScenarioPart, string> = {
@@ -41,4 +48,11 @@ export const PART_LABELS: Record<ScenarioPart, string> = {
   "oo-polymorphism": "OO · 08 Polymorphisme",
   "oo-interfaces": "OO · 09 Interfaces",
   "oo-generics": "OO · 10 Génériques",
+  "oo-advanced": "OO · 11 Concepts avancés",
+  "oo-records": "OO · 12 Records",
+  "oo-primary-ctors": "OO · 13 Primary constructors",
+  "oo-nullable": "OO · 14 Nullable",
+  "oo-init": "OO · 15 Propriétés init",
+  "oo-modern-interfaces": "OO · 16 Interfaces modernes",
+  "oo-pattern": "OO · 17 Pattern matching",
 };

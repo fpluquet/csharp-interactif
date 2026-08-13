@@ -18,7 +18,14 @@ export type ScenarioPart =
   | "oo-heritage"
   | "oo-polymorphism"
   | "oo-interfaces"
-  | "oo-generics";
+  | "oo-generics"
+  | "oo-advanced"
+  | "oo-records"
+  | "oo-primary-ctors"
+  | "oo-nullable"
+  | "oo-init"
+  | "oo-modern-interfaces"
+  | "oo-pattern";
 
 export type StackSlot = {
   id: string;

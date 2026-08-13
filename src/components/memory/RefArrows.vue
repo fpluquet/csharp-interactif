@@ -67,22 +67,107 @@ function toLocal(rect: DOMRect, root: DOMRect): Box {
   };
 }
 
+type RouteMode = "side" | "vertical";
+
+type Anchors = {
+  start: Point;
+  end: Point;
+  mode: RouteMode;
+};
+
+function clamp(n: number, min: number, max: number) {
+  return Math.min(Math.max(n, min), max);
+}
+
 /**
- * Courbe start→end : sortie horizontale, arrivée dans l’axe de la tangente
- * (la pointe suit le dernier segment, pas un plat forcé).
+ * Ancrages : toujours partir du côté valeur (droite du champ),
+ * sauf vraie cible clairement à gauche. Si la cible est empilée
+ * sous/sur la source (chevauchement X), on arrive par le bord haut/bas.
  */
-function buildCurve(start: Point, end: Point): Omit<DrawnPath, "id" | "color"> {
+function pickAnchors(
+  fromBox: Box,
+  toBox: Box,
+  exitY: number,
+  entryY: number,
+  entryT = 0.5,
+): Anchors {
+  const gapRight = toBox.left - fromBox.right;
+  const gapLeft = fromBox.left - toBox.right;
+  const overlapsX = fromBox.left < toBox.right - 4 && toBox.left < fromBox.right + 4;
+
+  if (gapRight >= -8) {
+    return {
+      start: { x: fromBox.right, y: exitY },
+      end: { x: toBox.left, y: entryY },
+      mode: "side",
+    };
+  }
+
+  // Cible clairement à gauche, sans empilement.
+  if (gapLeft >= -8 && !overlapsX) {
+    return {
+      start: { x: fromBox.left, y: exitY },
+      end: { x: toBox.right, y: entryY },
+      mode: "side",
+    };
+  }
+
+  // Empilement vertical (ex. Personne.Adresse → Adresse en dessous).
+  const start = { x: fromBox.right, y: exitY };
+  const padX = Math.min(18, toBox.width * 0.22);
+  const entryX = clamp(
+    toBox.left + padX + (toBox.width - padX * 2) * entryT,
+    toBox.left + 12,
+    toBox.right - 12,
+  );
+
+  if (toBox.top >= fromBox.cy - 2) {
+    return { start, end: { x: entryX, y: toBox.top }, mode: "vertical" };
+  }
+  if (toBox.bottom <= fromBox.cy + 2) {
+    return { start, end: { x: entryX, y: toBox.bottom }, mode: "vertical" };
+  }
+
+  // Chevauchement fort : on force quand même départ droite → bord gauche.
+  return {
+    start,
+    end: { x: toBox.left, y: entryY },
+    mode: "side",
+  };
+}
+
+/**
+ * Courbe start→end : sortie horizontale, arrivée dans l’axe de la tangente.
+ */
+function buildCurve(
+  start: Point,
+  end: Point,
+  mode: RouteMode,
+): Omit<DrawnPath, "id" | "color"> {
   const dx = end.x - start.x;
   const dy = end.y - start.y;
-  const signX = dx >= 0 ? 1 : -1;
-  const adx = Math.max(Math.abs(dx), 48);
 
-  const c1 = { x: start.x + signX * adx * 0.42, y: start.y };
-  // Approche depuis la trajectoire de la courbe (pas un plat y = end.y).
-  const c2 = {
-    x: end.x - signX * adx * 0.36,
-    y: start.y + dy * 0.78,
-  };
+  let c1: Point;
+  let c2: Point;
+
+  if (mode === "vertical") {
+    // Sortie à droite du champ, puis plongée vers le bord haut/bas.
+    const out = clamp(36 + Math.abs(dx) * 0.25, 36, 72);
+    const signY = dy >= 0 ? 1 : -1;
+    c1 = { x: start.x + out, y: start.y };
+    c2 = {
+      x: end.x,
+      y: end.y - signY * Math.max(28, Math.abs(dy) * 0.42),
+    };
+  } else {
+    const signX = dx >= 0 ? 1 : -1;
+    const adx = Math.max(Math.abs(dx), 48);
+    c1 = { x: start.x + signX * adx * 0.42, y: start.y };
+    c2 = {
+      x: end.x - signX * adx * 0.36,
+      y: start.y + dy * 0.78,
+    };
+  }
 
   // Tangente finale du cubic = end − c2.
   const tx = end.x - c2.x;
@@ -145,7 +230,7 @@ function buildPaths() {
     });
   }
 
-  // Répartit les points d’arrivée sur le bord gauche de chaque objet cible.
+  // Répartit les arrivées par cible (bord latéral ou haut/bas).
   const byTarget = new Map<string, Prepared[]>();
   for (const item of prepared) {
     const list = byTarget.get(item.toId) ?? [];
@@ -153,10 +238,11 @@ function buildPaths() {
     byTarget.set(item.toId, list);
   }
   for (const list of byTarget.values()) {
-    list.sort((a, b) => a.fromBox.cy - b.fromBox.cy);
+    list.sort((a, b) => a.fromBox.cx - b.fromBox.cx || a.fromBox.cy - b.fromBox.cy);
   }
 
   const entryY = new Map<string, number>();
+  const entryT = new Map<string, number>();
   for (const list of byTarget.values()) {
     const box = list[0].toBox;
     const pad = Math.min(14, box.height * 0.2);
@@ -164,6 +250,7 @@ function buildPaths() {
     list.forEach((item, index) => {
       const t = list.length <= 1 ? 0.5 : (index + 0.5) / list.length;
       entryY.set(item.id, box.top + pad + usable * t);
+      entryT.set(item.id, t);
     });
   }
 
@@ -188,20 +275,15 @@ function buildPaths() {
   const next: DrawnPath[] = [];
 
   for (const item of prepared) {
-    const start: Point = {
-      x: item.fromBox.right,
-      y: exitY.get(item.id) ?? item.fromBox.cy,
-    };
-    const end: Point = {
-      x: item.toBox.left,
-      y: entryY.get(item.id) ?? item.toBox.cy,
-    };
+    const anchors = pickAnchors(
+      item.fromBox,
+      item.toBox,
+      exitY.get(item.id) ?? item.fromBox.cy,
+      entryY.get(item.id) ?? item.toBox.cy,
+      entryT.get(item.id) ?? 0.5,
+    );
 
-    const leftToRight = end.x >= start.x - 8;
-    const s = leftToRight ? start : { x: item.fromBox.left, y: start.y };
-    const e = leftToRight ? end : { x: item.toBox.right, y: end.y };
-
-    const curve = buildCurve(s, e);
+    const curve = buildCurve(anchors.start, anchors.end, anchors.mode);
     next.push({
       id: item.id,
       color: colorById.get(item.id) ?? orangeTone(0, 1),
