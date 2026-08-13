@@ -1,18 +1,36 @@
 import type { Scenario } from "../../types/memory";
 import { MAIN_DONE, link, main, obj, refSlot, step, val } from "./ooHelpers";
 
+function ndKeys(...dims: number[]): string[] {
+  const keys: string[] = [];
+  const acc: number[] = [];
+  function rec() {
+    if (acc.length === dims.length) {
+      keys.push(`[${acc.join(",")}]`);
+      return;
+    }
+    const n = dims[acc.length] ?? 0;
+    for (let i = 0; i < n; i++) {
+      acc.push(i);
+      rec();
+      acc.pop();
+    }
+  }
+  rec();
+  return keys;
+}
+
 function hyper(cells: Record<string, string>) {
-  const keys = ["[0,0,0,0]", "[0,0,0,1]", "[1,0,0,0]", "[1,0,0,1]"];
   return obj(
     "obj-t",
     "int[,,,]",
     "#T1",
-    keys.map((label) => ({ label, value: cells[label] ?? "0" })),
+    ndKeys(2, 2, 2, 2).map((label) => ({ label, value: cells[label] ?? "0" })),
   );
 }
 
 const zeros = hyper({});
-const written = hyper({ "[1,0,0,1]": "9" });
+const written = hyper({ "[1,0,1,0]": "9" });
 const slotT = refSlot("slot-t", "t", "#T1", "obj-t", "int[,,,]");
 const refs = [link("ref-t", "slot-t", "obj-t")];
 
@@ -24,9 +42,9 @@ export const array4dScenario: Scenario = {
   code: [
     "static void Main()",
     "{",
-    "    int[,,,] t = new int[2, 1, 1, 2];",
-    "    t[1, 0, 0, 1] = 9;",
-    "    int v = t[1, 0, 0, 1];",
+    "    int[,,,] t = new int[2, 2, 2, 2];",
+    "    t[1, 0, 1, 0] = 9;",
+    "    int v = t[1, 0, 1, 0];",
     "    Console.WriteLine(t.Rank);",
     "    Console.WriteLine(v);",
     "}",
@@ -35,7 +53,7 @@ export const array4dScenario: Scenario = {
     step(
       "d40",
       [0, 1],
-      "Main va démarrer. 4D = 3 virgules dans le type. On garde des tailles petites pour lire le heap.",
+      "Main va démarrer. 4D = 3 virgules dans le type. 2×2×2×2 = 16 cases, toutes visibles sur le heap.",
       main([]),
       [],
       [],
@@ -44,20 +62,20 @@ export const array4dScenario: Scenario = {
     step(
       "d4-new",
       [2],
-      "new int[2, 1, 1, 2] : 2×1×1×2 = 4 cases, un seul objet. Les dimensions 1 sont « plates » mais comptent dans l’index.",
+      "new int[2, 2, 2, 2] : un seul objet, 16 cases à 0. Les 4 indices existent vraiment — aucune dimension n’est « sautée ».",
       main([slotT]),
       [zeros],
       refs,
-      { highlightExpr: "new int[2, 1, 1, 2]", focus: "obj-t", consoleLines: [] },
+      { highlightExpr: "new int[2, 2, 2, 2]", focus: "obj-t", consoleLines: [] },
     ),
     step(
       "d4-set",
       [3],
-      "t[1, 0, 0, 1] = 9 : quatre indices, dans l’ordre des dimensions. Les 0 du milieu sont obligatoires.",
+      "t[1, 0, 1, 0] = 9 : quatre indices, dans l’ordre des dimensions. Les 15 autres cases restent 0.",
       main([slotT]),
       [written],
       refs,
-      { highlightExpr: "t[1, 0, 0, 1]", focus: "obj-t", consoleLines: [] },
+      { highlightExpr: "t[1, 0, 1, 0]", focus: "obj-t", consoleLines: [] },
     ),
     step(
       "d4-get",
@@ -66,12 +84,12 @@ export const array4dScenario: Scenario = {
       main([slotT, val("slot-v", "v", "9")]),
       [written],
       refs,
-      { highlightExpr: "t[1, 0, 0, 1]", focus: "slot-v", consoleLines: [] },
+      { highlightExpr: "t[1, 0, 1, 0]", focus: "slot-v", consoleLines: [] },
     ),
     step(
       "d4-rank",
       [5],
-      "t.Rank va valoir 4 : le nombre de dimensions, pas le nombre de cases (Length vaudrait 4).",
+      "t.Rank va valoir 4 : le nombre de dimensions, pas le nombre de cases (Length vaudrait 16).",
       main([slotT, val("slot-v", "v", "9")]),
       [written],
       refs,
