@@ -260,6 +260,16 @@ watch(
   <section class="code-panel panel">
     <header class="code-panel__header">
       <p class="panel-label">Code C#</p>
+      <p class="code-panel__keys">
+        <span class="key key--done">
+          <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5Z" /></svg>
+          exécuté
+        </span>
+        <span class="key key--next">
+          <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.4 1.6v6.8L8.2 5Z" /></svg>
+          ensuite
+        </span>
+      </p>
     </header>
 
     <div
@@ -285,6 +295,23 @@ watch(
         @click="onLineClick(row.index)"
         @keydown="onLineKeydown($event, row.index)"
       >
+        <span class="code-line__mark" aria-hidden="true">
+          <svg
+            v-if="isExecuted(row.index)"
+            :key="`done-${highlightLines.join(',')}-${row.index}`"
+            class="mark mark--done"
+            viewBox="0 0 10 10"
+          >
+            <path d="M2 1.2v7.6L8.8 5Z" />
+          </svg>
+          <svg
+            v-else-if="isUpcoming(row.index)"
+            class="mark mark--next"
+            viewBox="0 0 10 10"
+          >
+            <path d="M2.4 1.6v6.8L8.2 5Z" />
+          </svg>
+        </span>
         <span class="code-line__num">{{ row.index + 1 }}</span>
         <code class="code-line__text">
           <template v-for="(part, pi) in row.parts" :key="pi">
@@ -353,9 +380,44 @@ watch(
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.75rem;
   padding: 0.85rem 1.1rem 0.55rem;
   border-bottom: 1px solid var(--border-soft);
   flex-shrink: 0;
+}
+
+.code-panel__keys {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+
+  svg {
+    width: 0.7rem;
+    height: 0.7rem;
+    flex-shrink: 0;
+  }
+}
+
+.key--done svg {
+  fill: var(--stack);
+}
+
+.key--next svg {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
 }
 
 .code-panel__body {
@@ -370,10 +432,10 @@ watch(
 
 .code-line {
   display: grid;
-  grid-template-columns: 2.2rem minmax(0, 1fr);
+  grid-template-columns: 0.9rem 2rem minmax(0, 1fr);
   align-items: end;
-  gap: 0.65rem;
-  padding: 0.12rem 0.55rem;
+  gap: 0.35rem;
+  padding: 0.12rem 0.55rem 0.12rem 0.35rem;
   border-radius: var(--radius-sm);
   border-left: 3px solid transparent;
   overflow: visible;
@@ -407,6 +469,45 @@ watch(
       outline: 2px solid rgba(107, 163, 240, 0.55);
       outline-offset: 1px;
     }
+  }
+}
+
+.code-line__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.65em;
+  color: transparent;
+}
+
+.mark {
+  width: 0.72rem;
+  height: 0.72rem;
+  display: block;
+}
+
+.mark--done {
+  fill: var(--stack);
+  filter: drop-shadow(0 0 5px rgba(46, 196, 166, 0.55));
+  animation: mark-pop 420ms var(--ease);
+}
+
+.mark--next {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.25;
+  stroke-linejoin: round;
+  opacity: 0.9;
+}
+
+@keyframes mark-pop {
+  from {
+    opacity: 0;
+    transform: translateX(-3px) scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
