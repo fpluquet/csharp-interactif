@@ -21,20 +21,17 @@ export const classMultiInterfaceScenario: Scenario = {
     "    public void Sauver() { Console.WriteLine(\"save\"); }",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Document d = new Document();",
-    "    IImprimable i = d;",
-    "    ISauvegardable s = d;",
-    "    i.Imprimer();",
-    "    s.Sauver();",
-    "}",
+    "Document d = new Document();",
+    "IImprimable i = d;",
+    "ISauvegardable s = d;",
+    "i.Imprimer();",
+    "s.Sauver();",
   ],
   steps: [
-    step("mi0", [10, 11], "Main va démarrer.", main([]), [], []),
+    step("mi0", [10], "Le programme va démarrer.", main([]), [], []),
     step(
       "mi1",
-      [12],
+      [10],
       "new Document : un objet va être créé, deux contrats.",
       main([refSlot("slot-d", "d", "#D1", "obj-d", "Document")]),
       [doc],
@@ -43,7 +40,7 @@ export const classMultiInterfaceScenario: Scenario = {
     ),
     step(
       "mi2",
-      [13, 14],
+      [11, 12],
       "i et s vont être des alias du même #D1, avec des types déclarés différents.",
       main([
         refSlot("slot-d", "d", "#D1", "obj-d", "Document"),
@@ -59,7 +56,7 @@ export const classMultiInterfaceScenario: Scenario = {
     ),
     step(
       "mi3",
-      [15, 6],
+      [13, 6],
       "i.Imprimer() : type statique IImprimable, objet Document → print.",
       main([
         refSlot("slot-d", "d", "#D1", "obj-d", "Document"),
@@ -87,7 +84,7 @@ export const classMultiInterfaceScenario: Scenario = {
     ),
     step(
       "mi4",
-      [16, 7],
+      [14, 7],
       "s.Sauver() : même objet, autre contrat → save.",
       main([
         refSlot("slot-d", "d", "#D1", "obj-d", "Document"),
@@ -115,7 +112,7 @@ export const classMultiInterfaceScenario: Scenario = {
     ),
     step(
       "class-multi-interface-end",
-      [17],
+      [14],
       MAIN_DONE,
       main([
         refSlot("slot-d", "d", "#D1", "obj-d", "Document"),

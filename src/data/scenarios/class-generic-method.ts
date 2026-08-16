@@ -7,19 +7,16 @@ export const classGenericMethodScenario: Scenario = {
   subtitle: "Premier<T> infère T à l’appel : int ici, sans classe générique.",
   part: "oo-generics",
   code: [
-    "static T Premier<T>(T a, T b) => a;",
+    "T Premier<T>(T a, T b) => a;",
     "",
-    "static void Main()",
-    "{",
-    "    int x = Premier(10, 20);",
-    "    string s = Premier(\"A\", \"B\");",
-    "}",
+    "int x = Premier(10, 20);",
+    "string s = Premier(\"A\", \"B\");",
   ],
   steps: [
-    step("gm0", [2, 3], "Main va démarrer.", main([]), [], []),
+    step("gm0", [2], "Le programme va démarrer.", main([]), [], []),
     step(
       "gm1",
-      [4, 0],
+      [2, 0],
       "Premier(10, 20) : T va être int. Frame avec a=10, b=20, va retourner a.",
       main(
         [],
@@ -31,7 +28,7 @@ export const classGenericMethodScenario: Scenario = {
     ),
     step(
       "gm2",
-      [4],
+      [2],
       "x va valoir 10.",
       main([val("slot-x", "x", "10")]),
       [],
@@ -39,7 +36,7 @@ export const classGenericMethodScenario: Scenario = {
     ),
     step(
       "gm3",
-      [5],
+      [3],
       "Premier(\"A\", \"B\") : T va être string. Même méthode, autre instanciation.",
       main([
         val("slot-x", "x", "10"),
@@ -51,7 +48,7 @@ export const classGenericMethodScenario: Scenario = {
     ),
     step(
       "class-generic-method-end",
-      [6],
+      [3],
       MAIN_DONE,
       main([
         val("slot-x", "x", "10"),

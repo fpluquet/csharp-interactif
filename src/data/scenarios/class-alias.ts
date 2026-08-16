@@ -11,23 +11,19 @@ export const classAliasScenario: Scenario = {
     "    public int Valeur;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Compteur a = new Compteur();",
-    "    a.Valeur = 1;",
-    "    Compteur b = a;",
-    "    b.Valeur = 9;",
-    "    // a.Valeur vaut aussi 9",
-    "}"
+    "Compteur a = new Compteur();",
+    "a.Valeur = 1;",
+    "Compteur b = a;",
+    "b.Valeur = 9;",
+    "// a.Valeur vaut aussi 9"
   ],
   steps: [
     {
       id: "ca0",
       highlightLines: [
-        5,
-        6
+        5
       ],
-      narration: "Main va démarrer. On va partager un même objet Compteur.",
+      narration: "Le programme va démarrer. On va partager un même objet Compteur.",
       stack: [
         {
           id: "frame-main",
@@ -41,7 +37,7 @@ export const classAliasScenario: Scenario = {
     {
       id: "ca1",
       highlightLines: [
-        7
+        5
       ],
       narration: "new Compteur() : l'objet #C1 va être sur le heap, a va y pointer.",
       stack: [
@@ -85,7 +81,7 @@ export const classAliasScenario: Scenario = {
     {
       id: "ca2",
       highlightLines: [
-        8
+        6
       ],
       narration: "a.Valeur = 1 : on va muter le champ de #C1 via a.",
       stack: [
@@ -129,7 +125,7 @@ export const classAliasScenario: Scenario = {
     {
       id: "ca3",
       highlightLines: [
-        9
+        7
       ],
       narration: "Compteur b = a : on va copier la référence, pas l’objet. Deux flèches vers #C1.",
       stack: [
@@ -185,7 +181,7 @@ export const classAliasScenario: Scenario = {
     {
       id: "ca4",
       highlightLines: [
-        10
+        8
       ],
       narration: "b.Valeur = 9 : mutation via b. a va aussi « voir » 9 — même objet.",
       stack: [
@@ -241,7 +237,7 @@ export const classAliasScenario: Scenario = {
     {
       id: "ca5",
       highlightLines: [
-        11
+        9
       ],
       narration: "a.Valeur va valoir 9. Alias = deux noms pour un seul objet sur le heap.",
       stack: [
@@ -297,9 +293,9 @@ export const classAliasScenario: Scenario = {
     {
       id: "class-alias-end",
       highlightLines: [
-        12
+        9
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

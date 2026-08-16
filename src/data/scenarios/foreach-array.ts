@@ -43,20 +43,17 @@ export const foreachArrayScenario: Scenario = {
   subtitle: "Prochain élément → corps → prochain… jusqu’à épuisement.",
   part: "control",
   code: [
-    "static void Main()",
+    "int[] nums = { 10, 20 };",
+    "foreach (int n in nums)",
     "{",
-    "    int[] nums = { 10, 20 };",
-    "    foreach (int n in nums)",
-    "    {",
-    "        Console.WriteLine(n);",
-    "    }",
+    "    Console.WriteLine(n);",
     "}",
   ],
   steps: [
     {
       id: "fe0",
-      highlightLines: [0, 1],
-      narration: "Main va démarrer.",
+      highlightLines: [0],
+      narration: "Le programme va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
@@ -64,7 +61,7 @@ export const foreachArrayScenario: Scenario = {
     },
     {
       id: "fe1",
-      highlightLines: [2],
+      highlightLines: [0],
       narration: "Le tableau {10, 20} va être créé sur le heap.",
       stack: frame(),
       heap,
@@ -73,7 +70,7 @@ export const foreachArrayScenario: Scenario = {
     },
     {
       id: "fe2",
-      highlightLines: [3],
+      highlightLines: [1],
       highlightExpr: "int n in nums",
       narration: "foreach : y aura-t-il un prochain élément ? Oui → n va valoir 10.",
       stack: frame("10"),
@@ -92,7 +89,7 @@ export const foreachArrayScenario: Scenario = {
     },
     {
       id: "fe3",
-      highlightLines: [5],
+      highlightLines: [3],
       narration: "Corps (tour 1) : on va afficher 10.",
       stack: frame("10"),
       heap,
@@ -102,7 +99,7 @@ export const foreachArrayScenario: Scenario = {
     },
     {
       id: "fe4",
-      highlightLines: [3],
+      highlightLines: [1],
       highlightExpr: "int n in nums",
       narration: "Prochain élément ? Oui → n va valoir 20.",
       stack: frame("20"),
@@ -121,7 +118,7 @@ export const foreachArrayScenario: Scenario = {
     },
     {
       id: "fe5",
-      highlightLines: [5],
+      highlightLines: [3],
       narration: "Corps (tour 2) : on va afficher 20.",
       stack: frame("20"),
       heap,
@@ -131,7 +128,7 @@ export const foreachArrayScenario: Scenario = {
     },
     {
       id: "fe6",
-      highlightLines: [3],
+      highlightLines: [1],
       highlightExpr: "int n in nums",
       narration: "Plus d'élément → on va quitter le foreach.",
       stack: frame("20"),
@@ -148,8 +145,8 @@ export const foreachArrayScenario: Scenario = {
     },
     {
       id: "foreach-array-end",
-      highlightLines: [7],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      highlightLines: [4],
+      narration: "Le programme va s'arrêter.",
       stack: frame("20"),
       heap,
       refs,

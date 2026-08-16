@@ -54,30 +54,27 @@ export const classYieldScenario: Scenario = {
     "Paires() crée un itérateur : chaque MoveNext reprend, yield return donne une valeur et met en pause.",
   part: "oo-advanced",
   code: [
-    "static IEnumerable<int> Paires()",
+    "IEnumerable<int> Paires()",
     "{",
     "    yield return 2;",
     "    yield return 4;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    foreach (int n in Paires())",
-    "        Console.WriteLine(n);",
-    "}",
+    "foreach (int n in Paires())",
+    "    Console.WriteLine(n);",
   ],
   steps: [
     step(
       "y0",
-      [6, 7],
-      "Main va démarrer. On va voir qu’un yield ne construit pas toute la séquence d’un coup.",
+      [6],
+      "Le programme va démarrer. On va voir qu’un yield ne construit pas toute la séquence d’un coup.",
       main([]),
       [],
       [],
     ),
     step(
       "y-call",
-      [8],
+      [6],
       "foreach (in Paires()) : on va d’abord appeler Paires(). Ce n’est pas un return de 2 puis 4 tout de suite.",
       main([]),
       [],
@@ -86,7 +83,7 @@ export const classYieldScenario: Scenario = {
     ),
     step(
       "y-create",
-      [8],
+      [6],
       "Paires() va renvoyer un itérateur sur le heap. Le corps n’a pas tourné : pas de yield, Current vide, état = départ. foreach le garde en coulisse (e).",
       main([e]),
       [enumerateur("∅", "départ")],
@@ -95,7 +92,7 @@ export const classYieldScenario: Scenario = {
     ),
     step(
       "y-move1",
-      [8],
+      [6],
       "foreach va demander le premier élément : MoveNext() sur le même itérateur.",
       main([e]),
       [enumerateur("∅", "départ")],
@@ -122,7 +119,7 @@ export const classYieldScenario: Scenario = {
     ),
     step(
       "y-n1",
-      [8],
+      [6],
       "MoveNext a renvoyé true. foreach copie Current dans n : n va valoir 2.",
       main([e, nSlot("2")]),
       [enumerateur("2", "suspendu après 2")],
@@ -135,7 +132,7 @@ export const classYieldScenario: Scenario = {
     ),
     step(
       "y-write1",
-      [9],
+      [7],
       "Corps du foreach (tour 1) : on va afficher 2. Paires reste en pause — on n’a pas encore exécuté yield return 4.",
       main([e, nSlot("2")]),
       [enumerateur("2", "suspendu après 2")],
@@ -147,7 +144,7 @@ export const classYieldScenario: Scenario = {
     ),
     step(
       "y-move2",
-      [8],
+      [6],
       "Tour suivant : foreach va rappeler MoveNext sur le même e. On ne recrée pas Paires().",
       main([e, nSlot("2")]),
       [enumerateur("2", "suspendu après 2")],
@@ -186,7 +183,7 @@ export const classYieldScenario: Scenario = {
     ),
     step(
       "y-n2",
-      [8],
+      [6],
       "true encore : n va être mis à jour avec Current → 4.",
       main([e, nSlot("4")]),
       [enumerateur("4", "suspendu après 4")],
@@ -200,7 +197,7 @@ export const classYieldScenario: Scenario = {
     ),
     step(
       "y-write2",
-      [9],
+      [7],
       "Corps (tour 2) : on va afficher 4.",
       main([e, nSlot("4")]),
       [enumerateur("4", "suspendu après 4")],
@@ -212,7 +209,7 @@ export const classYieldScenario: Scenario = {
     ),
     step(
       "y-move3",
-      [8],
+      [6],
       "foreach va demander un troisième élément : encore MoveNext, toujours le même itérateur.",
       main([e, nSlot("4")]),
       [enumerateur("4", "suspendu après 4")],
@@ -234,7 +231,7 @@ export const classYieldScenario: Scenario = {
     ),
     step(
       "y-false",
-      [8],
+      [6],
       "Plus de yield : MoveNext va renvoyer false. L’itérateur est terminé. foreach ne va pas refaire le corps.",
       main([e, nSlot("4")]),
       [enumerateur("4", "terminé")],
@@ -248,7 +245,7 @@ export const classYieldScenario: Scenario = {
     ),
     step(
       "y-done",
-      [10],
+      [6],
       "On quitte le foreach. n (portée de boucle) et l’itérateur n’ont plus besoin de rester.",
       main([]),
       [],
@@ -258,6 +255,6 @@ export const classYieldScenario: Scenario = {
         consoleLines: ["2", "4"],
       },
     ),
-    step("class-yield-end", [10], MAIN_DONE, main([]), [], [], { consoleLines: ["2", "4"] }),
+    step("class-yield-end", [7], MAIN_DONE, main([]), [], [], { consoleLines: ["2", "4"] }),
   ],
 };

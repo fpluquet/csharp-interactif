@@ -78,30 +78,27 @@ export const classVirtualScenario: Scenario = {
     "    // ni Info ni Crier redéfinis",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Animal a1 = new Chien();",
-    "    Console.WriteLine(a1.Info());",
-    "    Console.WriteLine(a1.Crier());",
+    "Animal a1 = new Chien();",
+    "Console.WriteLine(a1.Info());",
+    "Console.WriteLine(a1.Crier());",
     "",
-    "    Animal a2 = new Chat();",
-    "    Console.WriteLine(a2.Crier());",
-    "    Chat chat = new Chat();",
-    "    Console.WriteLine(chat.Info());",
+    "Animal a2 = new Chat();",
+    "Console.WriteLine(a2.Crier());",
+    "Chat chat = new Chat();",
+    "Console.WriteLine(chat.Info());",
     "",
-    "    Animal a3 = new Vache();",
-    "    Console.WriteLine(a3.Crier());",
+    "Animal a3 = new Vache();",
+    "Console.WriteLine(a3.Crier());",
     "",
-    "    Chien c = (Chien)a1;",
-    "    Console.WriteLine(c.Info());",
-    "}",
+    "Chien c = (Chien)a1;",
+    "Console.WriteLine(c.Info());",
   ],
   steps: [
     {
       id: "pv0",
-      highlightLines: [23, 24],
+      highlightLines: [23],
       narration:
-        "Main va démarrer. Trois dérivés : Chien (override + new), Chat (override seulement), Vache (rien).",
+        "Le programme va démarrer. Trois dérivés : Chien (override + new), Chat (override seulement), Vache (rien).",
       stack: main([]),
       heap: [],
       refs: [],
@@ -109,7 +106,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv1",
-      highlightLines: [25],
+      highlightLines: [23],
       narration: "a1 va avoir le type statique Animal, objet réel Chien (#C1).",
       stack: main([sA1]),
       heap: [objChien],
@@ -119,7 +116,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv2",
-      highlightLines: [26, 2, 8],
+      highlightLines: [24, 2, 8],
       highlightExpr: "a1.Info()",
       narration:
         "a1.Info() : pas virtual + new dans Chien → liaison statique va choisir Animal.Info.",
@@ -138,7 +135,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv3",
-      highlightLines: [26],
+      highlightLines: [24],
       narration: "On va afficher Animal.",
       stack: main([sA1]),
       heap: [objChien],
@@ -147,7 +144,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv4",
-      highlightLines: [27, 3, 9],
+      highlightLines: [25, 3, 9],
       highlightExpr: "a1.Crier()",
       narration:
         "a1.Crier() : virtual + override → liaison dynamique va choisir Chien.Crier.",
@@ -167,7 +164,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv5",
-      highlightLines: [27],
+      highlightLines: [25],
       narration: "On va afficher Wouf.",
       stack: main([sA1]),
       heap: [objChien],
@@ -176,7 +173,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv6",
-      highlightLines: [29],
+      highlightLines: [27],
       narration: "a2 va être un Animal pointant vers un Chat (#C2).",
       stack: main([sA1, sA2]),
       heap: [objChien, objChat],
@@ -189,7 +186,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv7",
-      highlightLines: [30, 14],
+      highlightLines: [28, 14],
       highlightExpr: "a2.Crier()",
       narration:
         "a2.Crier() : Chat override Crier va renvoyer Miaou (autre redéfinition du même virtual).",
@@ -212,7 +209,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv8",
-      highlightLines: [30],
+      highlightLines: [28],
       narration: "On va afficher Miaou.",
       stack: main([sA1, sA2]),
       heap: [objChien, objChat],
@@ -224,7 +221,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv9",
-      highlightLines: [31],
+      highlightLines: [29],
       narration: "chat va être une variable de type Chat (même objet #C2).",
       stack: main([sA1, sA2, sChat]),
       heap: [objChien, objChat],
@@ -238,7 +235,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv10",
-      highlightLines: [32, 2, 15],
+      highlightLines: [30, 2, 15],
       highlightExpr: "chat.Info()",
       narration:
         "chat.Info() : Chat n’a pas redéfini Info → va hériter Animal.Info (même avec type statique Chat).",
@@ -261,7 +258,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv11",
-      highlightLines: [32],
+      highlightLines: [30],
       narration: "On va afficher Animal — pas de version Chat.Info.",
       stack: main([sA1, sA2, sChat]),
       heap: [objChien, objChat],
@@ -274,7 +271,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv12",
-      highlightLines: [34],
+      highlightLines: [32],
       narration: "a3 va être un Animal pointant vers une Vache (#C3) qui ne redéfinit rien.",
       stack: main([sA1, sA2, sChat, sA3]),
       heap: [objChien, objChat, objVache],
@@ -289,7 +286,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv13",
-      highlightLines: [35, 3, 20],
+      highlightLines: [33, 3, 20],
       highlightExpr: "a3.Crier()",
       narration:
         "a3.Crier() : virtual, mais Vache n’override pas → va utiliser la version de base Animal.Crier.",
@@ -314,7 +311,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv14",
-      highlightLines: [35],
+      highlightLines: [33],
       narration: "On va afficher ... — le virtual va « tomber » sur la classe de base.",
       stack: main([sA1, sA2, sChat, sA3]),
       heap: [objChien, objChat, objVache],
@@ -328,7 +325,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv15",
-      highlightLines: [37],
+      highlightLines: [35],
       narration: "Le cast va donner à c le type statique Chien, même objet que a1 (#C1).",
       stack: main([sA1, sA2, sChat, sA3, sC]),
       heap: [objChien, objChat, objVache],
@@ -344,7 +341,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv16",
-      highlightLines: [38, 8],
+      highlightLines: [36, 8],
       highlightExpr: "c.Info()",
       narration:
         "c.Info() : type statique Chien → va choisir Chien.Info (new). Même objet qu’a1.Info(), autre résultat.",
@@ -369,7 +366,7 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "pv17",
-      highlightLines: [38],
+      highlightLines: [36],
       narration: "On va afficher Chien. Récap : new suit le type statique ; virtual suit le type réel (ou la base si pas d’override).",
       stack: main([sA1, sA2, sChat, sA3, sC]),
       heap: [objChien, objChat, objVache],
@@ -384,8 +381,8 @@ export const classVirtualScenario: Scenario = {
     },
     {
       id: "class-virtual-end",
-      highlightLines: [39],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      highlightLines: [36],
+      narration: "Le programme va s'arrêter.",
       stack: main([sA1, sA2, sChat, sA3, sC]),
       heap: [objChien, objChat, objVache],
       refs: [

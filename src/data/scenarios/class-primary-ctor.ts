@@ -23,17 +23,14 @@ export const classPrimaryCtorScenario: Scenario = {
     "    public int Solde { get; set; } = 100;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Compte c = new Compte(\"Ada\");",
-    "    string n = c.Titulaire;",
-    "}",
+    "Compte c = new Compte(\"Ada\");",
+    "string n = c.Titulaire;",
   ],
   steps: [
-    step("pc0", [6, 7], "Main va démarrer.", main([]), [], []),
+    step("pc0", [6], "Le programme va démarrer.", main([]), [], []),
     step(
       "pc1",
-      [8, 0],
+      [6, 0],
       "new Compte(\"Ada\") : le primary ctor va capturer titulaire dans l’objet (pas besoin d’un ctor classique).",
       main([refSlot("slot-c", "c", "#C1", "obj-c")]),
       heap,
@@ -42,7 +39,7 @@ export const classPrimaryCtorScenario: Scenario = {
     ),
     step(
       "pc2",
-      [9, 2],
+      [7, 2],
       "c.Titulaire va lire le paramètre capturé → \"Ada\".",
       main([
         refSlot("slot-c", "c", "#C1", "obj-c"),
@@ -54,7 +51,7 @@ export const classPrimaryCtorScenario: Scenario = {
     ),
     step(
       "class-primary-ctor-end",
-      [10],
+      [7],
       MAIN_DONE,
       main([
         refSlot("slot-c", "c", "#C1", "obj-c"),

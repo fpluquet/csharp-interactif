@@ -12,24 +12,21 @@ export const classGenericScenario: Scenario = {
     "    public Boite(T valeur) { Valeur = valeur; }",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Boite<int> b = new Boite<int>(42);",
-    "    int x = b.Valeur;",
-    "}",
+    "Boite<int> b = new Boite<int>(42);",
+    "int x = b.Valeur;",
   ],
   steps: [
     {
       id: "ge0",
-      highlightLines: [6, 7],
-      narration: "Main va démarrer.",
+      highlightLines: [6],
+      narration: "Le programme va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
     },
     {
       id: "ge1",
-      highlightLines: [8],
+      highlightLines: [6],
       narration: "new Boite<int>(42) : l’objet va être typé Boite<int>, Valeur va être un int (stack dans l’objet).",
       stack: [
         {
@@ -53,7 +50,7 @@ export const classGenericScenario: Scenario = {
     },
     {
       id: "ge2",
-      highlightLines: [9],
+      highlightLines: [7],
       narration: "Lecture de b.Valeur : le int va être copié vers x sur la stack.",
       stack: [
         {
@@ -78,8 +75,8 @@ export const classGenericScenario: Scenario = {
     },
     {
       id: "class-generic-end",
-      highlightLines: [10],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      highlightLines: [7],
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

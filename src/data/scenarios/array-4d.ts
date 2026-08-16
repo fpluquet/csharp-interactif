@@ -40,20 +40,17 @@ export const array4dScenario: Scenario = {
   subtitle: "int[,,,] : toujours un seul objet. Chaque virgule ajoute une dimension, le Rank augmente.",
   part: "collections",
   code: [
-    "static void Main()",
-    "{",
-    "    int[,,,] t = new int[2, 2, 2, 2];",
-    "    t[1, 0, 1, 0] = 9;",
-    "    int v = t[1, 0, 1, 0];",
-    "    Console.WriteLine(t.Rank);",
-    "    Console.WriteLine(v);",
-    "}",
+    "int[,,,] t = new int[2, 2, 2, 2];",
+    "t[1, 0, 1, 0] = 9;",
+    "int v = t[1, 0, 1, 0];",
+    "Console.WriteLine(t.Rank);",
+    "Console.WriteLine(v);",
   ],
   steps: [
     step(
       "d40",
-      [0, 1],
-      "Main va démarrer. 4D = 3 virgules dans le type. 2×2×2×2 = 16 cases, toutes visibles sur le heap.",
+      [0],
+      "Le programme va démarrer. 4D = 3 virgules dans le type. 2×2×2×2 = 16 cases, toutes visibles sur le heap.",
       main([]),
       [],
       [],
@@ -61,7 +58,7 @@ export const array4dScenario: Scenario = {
     ),
     step(
       "d4-new",
-      [2],
+      [0],
       "new int[2, 2, 2, 2] : un seul objet, 16 cases à 0. Les 4 indices existent vraiment — aucune dimension n’est « sautée ».",
       main([slotT]),
       [zeros],
@@ -70,7 +67,7 @@ export const array4dScenario: Scenario = {
     ),
     step(
       "d4-set",
-      [3],
+      [1],
       "t[1, 0, 1, 0] = 9 : quatre indices, dans l’ordre des dimensions. Les 15 autres cases restent 0.",
       main([slotT]),
       [written],
@@ -79,7 +76,7 @@ export const array4dScenario: Scenario = {
     ),
     step(
       "d4-get",
-      [4],
+      [2],
       "Lecture : même quadruplet d’indices → v va valoir 9.",
       main([slotT, val("slot-v", "v", "9")]),
       [written],
@@ -88,7 +85,7 @@ export const array4dScenario: Scenario = {
     ),
     step(
       "d4-rank",
-      [5],
+      [3],
       "t.Rank va valoir 4 : le nombre de dimensions, pas le nombre de cases (Length vaudrait 16).",
       main([slotT, val("slot-v", "v", "9")]),
       [written],
@@ -97,7 +94,7 @@ export const array4dScenario: Scenario = {
     ),
     step(
       "d4-print",
-      [6],
+      [4],
       "On va afficher 9.",
       main([slotT, val("slot-v", "v", "9")]),
       [written],
@@ -106,7 +103,7 @@ export const array4dScenario: Scenario = {
     ),
     step(
       "array-4d-end",
-      [7],
+      [4],
       MAIN_DONE,
       main([slotT, val("slot-v", "v", "9")]),
       [written],

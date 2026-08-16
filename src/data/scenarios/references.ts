@@ -6,22 +6,18 @@ export const referencesScenario: Scenario = {
   subtitle: "La stack garde une adresse ; les données vivent sur le heap.",
   part: "collections",
   code: [
-    "static void Main()",
-    "{",
-    "    int[] nums = { 1, 2, 3 };",
-    "    List<int> notes = new List<int>();",
-    "    notes.Add(12);",
-    "    string msg = \"Bonjour\";",
-    "}"
+    "int[] nums = { 1, 2, 3 };",
+    "List<int> notes = new List<int>();",
+    "notes.Add(12);",
+    "string msg = \"Bonjour\";"
   ],
   steps: [
     {
       id: "r0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer. Le heap va encore être vide.",
+      narration: "Le programme va démarrer. Le heap va encore être vide.",
       stack: [
         {
           id: "frame-main",
@@ -34,7 +30,7 @@ export const referencesScenario: Scenario = {
     },
     {
       id: "r1",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "{ 1, 2, 3 }",
       narration: "int[] nums = {1,2,3} : l’objet tableau va être créé sur le heap.",
       stack: [
@@ -84,7 +80,7 @@ export const referencesScenario: Scenario = {
     },
     {
       id: "r2",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "nums",
       narration: "Sur la stack, nums ne va pas contenir les éléments — seulement une référence.",
       stack: [
@@ -135,7 +131,7 @@ export const referencesScenario: Scenario = {
     {
       id: "r3",
       highlightLines: [
-        3
+        1
       ],
       narration: "List<int> notes = new List<int>() : même schéma — référence + objet heap vont être créés.",
       stack: [
@@ -209,7 +205,7 @@ export const referencesScenario: Scenario = {
     {
       id: "r4",
       highlightLines: [
-        4
+        2
       ],
       narration: "notes.Add(12) : on va muter l’objet sur le heap. La référence stack ne va pas changer.",
       stack: [
@@ -287,7 +283,7 @@ export const referencesScenario: Scenario = {
     {
       id: "r5",
       highlightLines: [
-        5
+        3
       ],
       narration: "string msg = \"Bonjour\" : un objet string va être créé sur le heap.",
       stack: [
@@ -388,9 +384,9 @@ export const referencesScenario: Scenario = {
     {
       id: "references-end",
       highlightLines: [
-        6
+        3
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

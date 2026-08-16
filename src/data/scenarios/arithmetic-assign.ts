@@ -6,22 +6,18 @@ export const arithmeticAssignScenario: Scenario = {
   subtitle: "+= et ++ modifient la case sur la stack.",
   part: "operators",
   code: [
-    "static void Main()",
-    "{",
-    "    int n = 5;",
-    "    n += 3;",
-    "    n++;",
-    "    Console.WriteLine(n);",
-    "}"
+    "int n = 5;",
+    "n += 3;",
+    "n++;",
+    "Console.WriteLine(n);"
   ],
   steps: [
     {
       id: "aa0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -36,7 +32,7 @@ export const arithmeticAssignScenario: Scenario = {
     {
       id: "aa1",
       highlightLines: [
-        2
+        0
       ],
       narration: "int n = 5 : la valeur 5 va être stockée sur la stack.",
       stack: [
@@ -61,7 +57,7 @@ export const arithmeticAssignScenario: Scenario = {
     {
       id: "aa2",
       highlightLines: [
-        3
+        1
       ],
       narration: "n += 3 : n va valoir 8.",
       stack: [
@@ -86,7 +82,7 @@ export const arithmeticAssignScenario: Scenario = {
     {
       id: "aa3",
       highlightLines: [
-        4
+        2
       ],
       narration: "n++ : post-incrément, n va devenir 9.",
       stack: [
@@ -111,7 +107,7 @@ export const arithmeticAssignScenario: Scenario = {
     {
       id: "aa4",
       highlightLines: [
-        5
+        3
       ],
       narration: "Console.WriteLine(n) : on va afficher 9.",
       stack: [
@@ -137,9 +133,9 @@ export const arithmeticAssignScenario: Scenario = {
     {
       id: "arithmetic-assign-end",
       highlightLines: [
-        6
+        3
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

@@ -6,25 +6,21 @@ export const optionalNamedScenario: Scenario = {
   subtitle: "Un défaut comble l'absent ; le nom clarifie l'appel.",
   part: "functions",
   code: [
-    "static int Ajouter(int a, int b = 1)",
+    "int Ajouter(int a, int b = 1)",
     "{",
     "    return a + b;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    int x = Ajouter(5);",
-    "    int y = Ajouter(a: 2, b: 3);",
-    "}"
+    "int x = Ajouter(5);",
+    "int y = Ajouter(a: 2, b: 3);"
   ],
   steps: [
     {
       id: "on0",
       highlightLines: [
-        5,
-        6
+        5
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +33,7 @@ export const optionalNamedScenario: Scenario = {
     },
     {
       id: "on1",
-      highlightLines: [7],
+      highlightLines: [5],
       highlightExpr: "Ajouter(5)",
       narration: "Ajouter(5) : b va prendre la valeur par défaut 1.",
       stack: [
@@ -72,7 +68,7 @@ export const optionalNamedScenario: Scenario = {
     {
       id: "on2",
       highlightLines: [
-        7
+        5
       ],
       narration: "return 6 → x va valoir 6.",
       stack: [
@@ -97,12 +93,12 @@ export const optionalNamedScenario: Scenario = {
         value: "6",
         targetVar: "x",
         phase: "assigned",
-        callLine: 7
+        callLine: 5
       }
     },
     {
       id: "on3",
-      highlightLines: [8],
+      highlightLines: [6],
       highlightExpr: "Ajouter(a: 2, b: 3)",
       narration: "Ajouter(a: 2, b: 3) : on va utiliser des paramètres nommés.",
       stack: [
@@ -144,7 +140,7 @@ export const optionalNamedScenario: Scenario = {
     {
       id: "on4",
       highlightLines: [
-        8
+        6
       ],
       narration: "return 5 → y va valoir 5.",
       stack: [
@@ -176,15 +172,15 @@ export const optionalNamedScenario: Scenario = {
         value: "5",
         targetVar: "y",
         phase: "assigned",
-        callLine: 8
+        callLine: 6
       }
     },
     {
       id: "optional-named-end",
       highlightLines: [
-        9
+        6
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

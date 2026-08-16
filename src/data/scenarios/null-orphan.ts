@@ -6,21 +6,17 @@ export const nullOrphanScenario: Scenario = {
   subtitle: "Couper la flèche laisse un objet orphelin — candidat au GC.",
   part: "memory",
   code: [
-    "static void Main()",
-    "{",
-    "    int[] nums = { 1, 2, 3 };",
-    "    nums = null;",
-    "    // plus aucune référence vers le tableau",
-    "}"
+    "int[] nums = { 1, 2, 3 };",
+    "nums = null;",
+    "// plus aucune référence vers le tableau"
   ],
   steps: [
     {
       id: "no0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer. Le heap va démarrer vide.",
+      narration: "Le programme va démarrer. Le heap va démarrer vide.",
       stack: [
         {
           id: "frame-main",
@@ -34,7 +30,7 @@ export const nullOrphanScenario: Scenario = {
     {
       id: "no1",
       highlightLines: [
-        2
+        0
       ],
       narration: "int[] nums = {1,2,3} : un objet va être créé sur le heap, avec une flèche depuis nums.",
       stack: [
@@ -84,7 +80,7 @@ export const nullOrphanScenario: Scenario = {
     },
     {
       id: "no2",
-      highlightLines: [3],
+      highlightLines: [1],
       highlightExpr: "null",
       narration: "nums = null : on va couper la seule référence vivante.",
       stack: [
@@ -135,7 +131,7 @@ export const nullOrphanScenario: Scenario = {
     {
       id: "no3",
       highlightLines: [
-        3
+        1
       ],
       highlightExpr: "nums = null",
       narration: "La flèche va disparaître. nums va valoir null — plus de lien vers #F1.",
@@ -181,7 +177,7 @@ export const nullOrphanScenario: Scenario = {
     {
       id: "no4",
       highlightLines: [
-        4
+        2
       ],
       narration: "Objet orphelin : plus aucune variable ne le référencera. Le GC pourra le récupérer plus tard.",
       stack: [
@@ -226,9 +222,9 @@ export const nullOrphanScenario: Scenario = {
     {
       id: "null-orphan-end",
       highlightLines: [
-        5
+        2
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

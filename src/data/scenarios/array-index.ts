@@ -6,21 +6,17 @@ export const arrayIndexScenario: Scenario = {
   subtitle: "Modifier nums[i] change l'objet heap, pas la référence.",
   part: "collections",
   code: [
-    "static void Main()",
-    "{",
-    "    int[] nums = { 1, 2, 3 };",
-    "    nums[1] = 9;",
-    "    Console.WriteLine(nums[1]);",
-    "}"
+    "int[] nums = { 1, 2, 3 };",
+    "nums[1] = 9;",
+    "Console.WriteLine(nums[1]);"
   ],
   steps: [
     {
       id: "ai0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const arrayIndexScenario: Scenario = {
     {
       id: "ai1",
       highlightLines: [
-        2
+        0
       ],
       narration: "Un tableau {1,2,3} va être créé sur le heap.",
       stack: [
@@ -86,7 +82,7 @@ export const arrayIndexScenario: Scenario = {
     {
       id: "ai2",
       highlightLines: [
-        3
+        1
       ],
       narration: "nums[1] = 9 : on va muter la case [1] de #A1.",
       stack: [
@@ -138,7 +134,7 @@ export const arrayIndexScenario: Scenario = {
     {
       id: "ai3",
       highlightLines: [
-        4
+        2
       ],
       narration: "On va afficher 9.",
       stack: [
@@ -191,9 +187,9 @@ export const arrayIndexScenario: Scenario = {
     {
       id: "array-index-end",
       highlightLines: [
-        5
+        2
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

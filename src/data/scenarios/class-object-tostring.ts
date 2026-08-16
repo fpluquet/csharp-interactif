@@ -23,17 +23,14 @@ export const classObjectToStringScenario: Scenario = {
     "    public override string ToString() => Nom;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    object o = new Chien(\"Rex\");",
-    "    string s = o.ToString();",
-    "}",
+    "object o = new Chien(\"Rex\");",
+    "string s = o.ToString();",
   ],
   steps: [
-    step("ob0", [7, 8], "Main va démarrer.", main([]), [], []),
+    step("ob0", [7], "Le programme va démarrer.", main([]), [], []),
     step(
       "ob1",
-      [9],
+      [7],
       "object o = new Chien : le type déclaré va être object, le type réel Chien.",
       main([refSlot("slot-o", "o", "#C1", "obj-c", "object")]),
       heap,
@@ -42,7 +39,7 @@ export const classObjectToStringScenario: Scenario = {
     ),
     step(
       "ob2",
-      [10, 4],
+      [8, 4],
       "o.ToString() : la liaison virtuelle va appeler Chien.ToString → \"Rex\" (pas le nom du type).",
       main([
         refSlot("slot-o", "o", "#C1", "obj-c", "object"),
@@ -65,7 +62,7 @@ export const classObjectToStringScenario: Scenario = {
     ),
     step(
       "class-object-tostring-end",
-      [11],
+      [8],
       MAIN_DONE,
       main([
         refSlot("slot-o", "o", "#C1", "obj-c", "object"),

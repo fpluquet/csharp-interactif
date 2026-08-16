@@ -24,26 +24,23 @@ export const thisPassScenario: Scenario = {
     "    }",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Joueur alice = new Joueur();",
-    "    alice.Nom = \"Alice\";",
-    "    Equipe e = new Equipe();",
-    "    alice.Rejoindre(e);",
-    "}",
+    "Joueur alice = new Joueur();",
+    "alice.Nom = \"Alice\";",
+    "Equipe e = new Equipe();",
+    "alice.Rejoindre(e);",
   ],
   steps: [
     {
       id: "tp0",
-      highlightLines: [18, 19],
-      narration: "Main va démarrer.",
+      highlightLines: [18],
+      narration: "Le programme va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
     },
     {
       id: "tp1",
-      highlightLines: [20, 21],
+      highlightLines: [18, 19],
       narration: "Alice va être créée sur le heap (#J1).",
       stack: [
         {
@@ -78,7 +75,7 @@ export const thisPassScenario: Scenario = {
     },
     {
       id: "tp2",
-      highlightLines: [22],
+      highlightLines: [20],
       narration: "Equipe e va pointer vers #E1 (Membre encore null).",
       stack: [
         {
@@ -121,7 +118,7 @@ export const thisPassScenario: Scenario = {
     },
     {
       id: "tp3",
-      highlightLines: [23, 4],
+      highlightLines: [21, 4],
       narration: "alice.Rejoindre(e) : this va être Alice (#J1), parametre equipe va être #E1.",
       stack: [
         {
@@ -284,8 +281,8 @@ export const thisPassScenario: Scenario = {
     },
     {
       id: "this-pass-end",
-      highlightLines: [24],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      highlightLines: [21],
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

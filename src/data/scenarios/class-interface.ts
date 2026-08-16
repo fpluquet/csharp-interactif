@@ -18,24 +18,21 @@ export const classInterfaceScenario: Scenario = {
     "    public double Aire() => 3.14 * Rayon * Rayon;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    IForme f = new Cercle(2);",
-    "    double a = f.Aire();",
-    "}",
+    "IForme f = new Cercle(2);",
+    "double a = f.Aire();",
   ],
   steps: [
     {
       id: "if0",
-      highlightLines: [12, 13],
-      narration: "Main va démarrer.",
+      highlightLines: [12],
+      narration: "Le programme va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
     },
     {
       id: "if1",
-      highlightLines: [14],
+      highlightLines: [12],
       narration: "IForme f = new Cercle(2) : f va avoir le type interface, l’objet va être un Cercle.",
       stack: [
         {
@@ -59,7 +56,7 @@ export const classInterfaceScenario: Scenario = {
     },
     {
       id: "if2",
-      highlightLines: [15, 9],
+      highlightLines: [13, 9],
       narration: "f.Aire() va appeler l’implémentation de Cercle → 12.56.",
       stack: [
         {
@@ -84,8 +81,8 @@ export const classInterfaceScenario: Scenario = {
     },
     {
       id: "class-interface-end",
-      highlightLines: [16],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      highlightLines: [13],
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

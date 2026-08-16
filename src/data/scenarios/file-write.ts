@@ -6,17 +6,13 @@ export const fileWriteScenario: Scenario = {
   subtitle: "WriteAllText crée/écrase le fichier virtuel.",
   part: "files",
   code: [
-    "static void Main()",
-    "{",
-    "    File.WriteAllText(\"out.txt\", \"OK\");",
-    "}"
+    "File.WriteAllText(\"out.txt\", \"OK\");"
   ],
   steps: [
     {
       id: "fw0",
       highlightLines: [
-        0,
-        1
+        0
       ],
       narration: "out.txt n'existera pas encore.",
       stack: [
@@ -33,9 +29,10 @@ export const fileWriteScenario: Scenario = {
     {
       id: "fw1",
       highlightLines: [
-        2
+        0
       ],
       narration: "WriteAllText va créer out.txt avec OK.",
+      highlightExpr: "File.WriteAllText(\"out.txt\", \"OK\")",
       stack: [
         {
           id: "frame-main",
@@ -55,9 +52,9 @@ export const fileWriteScenario: Scenario = {
     {
       id: "file-write-end",
       highlightLines: [
-        3
+        0
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

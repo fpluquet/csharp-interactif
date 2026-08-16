@@ -6,22 +6,18 @@ export const valueCopyScenario: Scenario = {
   subtitle: "Affecter copie la valeur — deux cases indépendantes.",
   part: "variables",
   code: [
-    "static void Main()",
-    "{",
-    "    int a = 10;",
-    "    int b = a;",
-    "    b = 20;",
-    "    // a vaut toujours 10",
-    "}"
+    "int a = 10;",
+    "int b = a;",
+    "b = 20;",
+    "// a vaut toujours 10"
   ],
   steps: [
     {
       id: "v0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Frame Main va être prête. On va voir comment vont se comporter les types valeur.",
+      narration: "Le programme va démarrer. On va voir comment vont se comporter les types valeur.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const valueCopyScenario: Scenario = {
     {
       id: "v1",
       highlightLines: [
-        2
+        0
       ],
       narration: "int a = 10 : a va contenir directement la valeur 10 sur la stack.",
       stack: [
@@ -59,7 +55,7 @@ export const valueCopyScenario: Scenario = {
     {
       id: "v2",
       highlightLines: [
-        3
+        1
       ],
       narration: "int b = a : on va copier la valeur. b va recevoir 10, pas un lien vers a.",
       stack: [
@@ -89,7 +85,7 @@ export const valueCopyScenario: Scenario = {
     {
       id: "v3",
       highlightLines: [
-        4
+        2
       ],
       narration: "b = 20 : seule la case b va changer. a va rester intacte.",
       stack: [
@@ -119,7 +115,7 @@ export const valueCopyScenario: Scenario = {
     {
       id: "v4",
       highlightLines: [
-        5
+        3
       ],
       narration: "Deux variables, deux valeurs. Modifier l’une ne va pas affecter l’autre.",
       stack: [
@@ -149,9 +145,9 @@ export const valueCopyScenario: Scenario = {
     {
       id: "value-copy-end",
       highlightLines: [
-        6
+        3
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

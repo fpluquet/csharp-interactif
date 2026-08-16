@@ -6,21 +6,17 @@ export const intToStringScenario: Scenario = {
   subtitle: "ToString alloue une string sur le heap.",
   part: "native-methods",
   code: [
-    "static void Main()",
-    "{",
-    "    int n = 7;",
-    "    string s = n.ToString();",
-    "    Console.WriteLine(s);",
-    "}"
+    "int n = 7;",
+    "string s = n.ToString();",
+    "Console.WriteLine(s);"
   ],
   steps: [
     {
       id: "it0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const intToStringScenario: Scenario = {
     {
       id: "it1",
       highlightLines: [
-        2
+        0
       ],
       narration: "n va valoir 7 sur la stack.",
       stack: [
@@ -59,7 +55,7 @@ export const intToStringScenario: Scenario = {
     {
       id: "it2",
       highlightLines: [
-        3
+        1
       ],
       highlightExpr: "n.ToString()",
       narration: "ToString() → une string \"7\" va être créée sur le heap.",
@@ -109,7 +105,7 @@ export const intToStringScenario: Scenario = {
     {
       id: "it3",
       highlightLines: [
-        4
+        2
       ],
       narration: "On va afficher 7.",
       stack: [
@@ -160,9 +156,9 @@ export const intToStringScenario: Scenario = {
     {
       id: "int-tostring-end",
       highlightLines: [
-        5
+        2
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

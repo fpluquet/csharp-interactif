@@ -6,29 +6,25 @@ export const nestedCallsScenario: Scenario = {
   subtitle: "f(g(x)) : deux frames empilées, retours en cascade.",
   part: "functions",
   code: [
-    "static int Increment(int n)",
+    "int Increment(int n)",
     "{",
     "    return n + 1;",
     "}",
     "",
-    "static int Double(int n)",
+    "int Double(int n)",
     "{",
     "    return n * 2;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    int r = Double(Increment(3));",
-    "}"
+    "int r = Double(Increment(3));"
   ],
   steps: [
     {
       id: "nc0",
       highlightLines: [
-        10,
-        11
+        10
       ],
-      narration: "Main va démarrer. L'expression Double(Increment(3)) va s'évaluer de l'intérieur.",
+      narration: "Le programme va démarrer. L'expression Double(Increment(3)) va s'évaluer de l'intérieur.",
       stack: [
         {
           id: "frame-main",
@@ -41,7 +37,7 @@ export const nestedCallsScenario: Scenario = {
     },
     {
       id: "nc1",
-      highlightLines: [12],
+      highlightLines: [10],
       highlightExpr: "Increment(3)",
       narration: "On va commencer par l'appel intérieur : Increment(3).",
       stack: [
@@ -118,13 +114,13 @@ export const nestedCallsScenario: Scenario = {
         callExpr: "Increment(3)",
         value: "4",
         phase: "returning",
-        callLine: 12
+        callLine: 10
       }
     },
     {
       id: "nc4",
       highlightLines: [
-        12
+        10
       ],
       narration: "Increment va disparaître. Increment(3) va être remplacé par 4 → il restera Double(4).",
       stack: [
@@ -142,7 +138,7 @@ export const nestedCallsScenario: Scenario = {
         callExpr: "Increment(3)",
         value: "4",
         phase: "replaces",
-        callLine: 12
+        callLine: 10
       }
     },
     {
@@ -209,13 +205,13 @@ export const nestedCallsScenario: Scenario = {
         value: "8",
         targetVar: "r",
         phase: "returning",
-        callLine: 12
+        callLine: 10
       }
     },
     {
       id: "nc7",
       highlightLines: [
-        12
+        10
       ],
       narration: "Double va disparaître. L'appel entier va être remplacé par 8.",
       stack: [
@@ -234,14 +230,13 @@ export const nestedCallsScenario: Scenario = {
         value: "8",
         targetVar: "r",
         phase: "replaces",
-        callLine: 12
+        callLine: 10
       }
     },
     {
       id: "nc8",
       highlightLines: [
-        12,
-        13
+        10
       ],
       narration: "8 va être affecté à r. Les deux frames d'appel auront disparu.",
       stack: [
@@ -267,15 +262,15 @@ export const nestedCallsScenario: Scenario = {
         value: "8",
         targetVar: "r",
         phase: "assigned",
-        callLine: 12
+        callLine: 10
       }
     },
     {
       id: "nested-calls-end",
       highlightLines: [
-        13
+        10
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

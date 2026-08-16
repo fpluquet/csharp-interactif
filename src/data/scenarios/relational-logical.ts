@@ -6,21 +6,17 @@ export const relationalLogicalScenario: Scenario = {
   subtitle: "&& court-circuite : la 2ᵉ condition n'est pas évaluée.",
   part: "operators",
   code: [
-    "static void Main()",
-    "{",
-    "    int a = 0;",
-    "    bool ok = a != 0 && 10 / a > 1;",
-    "    Console.WriteLine(ok);",
-    "}"
+    "int a = 0;",
+    "bool ok = a != 0 && 10 / a > 1;",
+    "Console.WriteLine(ok);"
   ],
   steps: [
     {
       id: "rl0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const relationalLogicalScenario: Scenario = {
     {
       id: "rl1",
       highlightLines: [
-        2
+        0
       ],
       narration: "a va valoir 0.",
       stack: [
@@ -59,7 +55,7 @@ export const relationalLogicalScenario: Scenario = {
     {
       id: "rl2",
       highlightLines: [
-        3
+        1
       ],
       narration: "a != 0 va être false → && ne va pas évaluer 10/a. ok va valoir false. Pas d'exception.",
       stack: [
@@ -90,7 +86,7 @@ export const relationalLogicalScenario: Scenario = {
     {
       id: "rl3",
       highlightLines: [
-        4
+        2
       ],
       narration: "Console va afficher false.",
       stack: [
@@ -122,9 +118,9 @@ export const relationalLogicalScenario: Scenario = {
     {
       id: "relational-logical-end",
       highlightLines: [
-        5
+        2
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

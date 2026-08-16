@@ -14,21 +14,18 @@ export const tryParseScenario: Scenario = {
   subtitle: "TryParse renvoie false si ça échoue — pas d’exception, out vaut 0.",
   part: "conversions",
   code: [
-    "static void Main()",
-    "{",
-    "    bool ok = int.TryParse(\"7\", out int n);",
-    "    Console.WriteLine(ok);",
-    "    Console.WriteLine(n);",
-    "    ok = int.TryParse(\"abc\", out n);",
-    "    Console.WriteLine(ok);",
-    "    Console.WriteLine(n);",
-    "}",
+    "bool ok = int.TryParse(\"7\", out int n);",
+    "Console.WriteLine(ok);",
+    "Console.WriteLine(n);",
+    "ok = int.TryParse(\"abc\", out n);",
+    "Console.WriteLine(ok);",
+    "Console.WriteLine(n);",
   ],
   steps: [
     {
       id: "tp0",
-      highlightLines: [0, 1],
-      narration: "Main va démarrer. On va voir un TryParse qui réussit, puis un qui échoue.",
+      highlightLines: [0],
+      narration: "Le programme va démarrer. On va voir un TryParse qui réussit, puis un qui échoue.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
@@ -36,7 +33,7 @@ export const tryParseScenario: Scenario = {
     },
     {
       id: "tp1",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "int.TryParse(\"7\", out int n)",
       narration:
         "TryParse(\"7\") va réussir : ok va valoir true, n va valoir 7 via out. Pas d’exception.",
@@ -48,7 +45,7 @@ export const tryParseScenario: Scenario = {
     },
     {
       id: "tp2",
-      highlightLines: [3],
+      highlightLines: [1],
       narration: "On va afficher True.",
       stack: frame("true", "7"),
       heap: [],
@@ -57,7 +54,7 @@ export const tryParseScenario: Scenario = {
     },
     {
       id: "tp3",
-      highlightLines: [4],
+      highlightLines: [2],
       narration: "On va afficher 7.",
       stack: frame("true", "7"),
       heap: [],
@@ -66,7 +63,7 @@ export const tryParseScenario: Scenario = {
     },
     {
       id: "tp4",
-      highlightLines: [5],
+      highlightLines: [3],
       highlightExpr: "int.TryParse(\"abc\", out n)",
       narration:
         "TryParse(\"abc\") va échouer : ok va passer à false, n va être remis à 0 (défaut de out). Toujours pas d’exception.",
@@ -78,7 +75,7 @@ export const tryParseScenario: Scenario = {
     },
     {
       id: "tp5",
-      highlightLines: [6],
+      highlightLines: [4],
       narration: "On va afficher False : le booléen dit que la conversion a échoué.",
       stack: frame("false", "0"),
       heap: [],
@@ -88,7 +85,7 @@ export const tryParseScenario: Scenario = {
     },
     {
       id: "tp6",
-      highlightLines: [7],
+      highlightLines: [5],
       narration: "On va afficher 0 : out a quand même écrit une valeur (le défaut), pas « rien ».",
       stack: frame("false", "0"),
       heap: [],
@@ -98,8 +95,8 @@ export const tryParseScenario: Scenario = {
     },
     {
       id: "try-parse-end",
-      highlightLines: [8],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      highlightLines: [5],
+      narration: "Le programme va s'arrêter.",
       stack: frame("false", "0"),
       heap: [],
       refs: [],

@@ -16,18 +16,15 @@ export const classOperatorScenario: Scenario = {
     "        => new Vecteur(a.X + b.X, a.Y + b.Y);",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Vecteur a = new Vecteur(1, 2);",
-    "    Vecteur b = new Vecteur(3, 4);",
-    "    Vecteur c = a + b;",
-    "}",
+    "Vecteur a = new Vecteur(1, 2);",
+    "Vecteur b = new Vecteur(3, 4);",
+    "Vecteur c = a + b;",
   ],
   steps: [
-    step("op0", [9, 10], "Main va démarrer.", main([]), [], []),
+    step("op0", [9], "Le programme va démarrer.", main([]), [], []),
     step(
       "op1",
-      [11, 12],
+      [9, 10],
       "Deux vecteurs distincts vont être sur le heap.",
       main([
         refSlot("slot-a", "a", "#V1", "obj-a"),
@@ -47,7 +44,7 @@ export const classOperatorScenario: Scenario = {
     ),
     step(
       "op2",
-      [13, 5],
+      [11, 5],
       "a + b → operator+ va créer #V3 (4, 6). a et b ne vont pas être mutés.",
       main([
         refSlot("slot-a", "a", "#V1", "obj-a"),
@@ -77,7 +74,7 @@ export const classOperatorScenario: Scenario = {
     ),
     step(
       "class-operator-end",
-      [14],
+      [11],
       MAIN_DONE,
       main([
         refSlot("slot-a", "a", "#V1", "obj-a"),

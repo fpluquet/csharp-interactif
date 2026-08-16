@@ -6,21 +6,17 @@ export const charIsDigitScenario: Scenario = {
   subtitle: "Tester un caractère sans allouer sur le heap.",
   part: "native-methods",
   code: [
-    "static void Main()",
-    "{",
-    "    char c = '5';",
-    "    bool digit = char.IsDigit(c);",
-    "    Console.WriteLine(digit);",
-    "}"
+    "char c = '5';",
+    "bool digit = char.IsDigit(c);",
+    "Console.WriteLine(digit);"
   ],
   steps: [
     {
       id: "ci0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const charIsDigitScenario: Scenario = {
     {
       id: "ci1",
       highlightLines: [
-        2
+        0
       ],
       narration: "c = '5' va être stocké sur la stack.",
       stack: [
@@ -59,7 +55,7 @@ export const charIsDigitScenario: Scenario = {
     {
       id: "ci2",
       highlightLines: [
-        3
+        1
       ],
       highlightExpr: "char.IsDigit(c)",
       narration: "IsDigit('5') va retourner true.",
@@ -91,7 +87,7 @@ export const charIsDigitScenario: Scenario = {
     {
       id: "ci3",
       highlightLines: [
-        4
+        2
       ],
       narration: "On va afficher True.",
       stack: [
@@ -123,9 +119,9 @@ export const charIsDigitScenario: Scenario = {
     {
       id: "char-isdigit-end",
       highlightLines: [
-        5
+        2
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

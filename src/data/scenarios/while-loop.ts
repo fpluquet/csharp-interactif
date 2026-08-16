@@ -14,21 +14,18 @@ export const whileLoopScenario: Scenario = {
   subtitle: "Test → corps → post (i++) → test… jusqu’à faux.",
   part: "control",
   code: [
-    "static void Main()",
+    "int i = 0;",
+    "while (i < 2)",
     "{",
-    "    int i = 0;",
-    "    while (i < 2)",
-    "    {",
-    "        Console.WriteLine(i);",
-    "        i++;",
-    "    }",
+    "    Console.WriteLine(i);",
+    "    i++;",
     "}",
   ],
   steps: [
     {
       id: "wl0",
-      highlightLines: [0, 1],
-      narration: "Main va démarrer.",
+      highlightLines: [0],
+      narration: "Le programme va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
@@ -36,7 +33,7 @@ export const whileLoopScenario: Scenario = {
     },
     {
       id: "wl1",
-      highlightLines: [2],
+      highlightLines: [0],
       narration: "Avant la boucle : i va valoir 0 (préparation hors while).",
       stack: i("0"),
       heap: [],
@@ -46,7 +43,7 @@ export const whileLoopScenario: Scenario = {
     },
     {
       id: "wl2",
-      highlightLines: [3],
+      highlightLines: [1],
       highlightExpr: "i < 2",
       narration: "Test : i < 2 → 0 < 2 vrai → on va entrer.",
       stack: i("0"),
@@ -63,7 +60,7 @@ export const whileLoopScenario: Scenario = {
     },
     {
       id: "wl3",
-      highlightLines: [5],
+      highlightLines: [3],
       narration: "Corps (tour 1) : on va afficher 0.",
       stack: i("0"),
       heap: [],
@@ -73,7 +70,7 @@ export const whileLoopScenario: Scenario = {
     },
     {
       id: "wl4",
-      highlightLines: [6],
+      highlightLines: [4],
       narration: "Post dans le corps : i++ va donner 1, puis retour au test.",
       stack: i("1"),
       heap: [],
@@ -84,7 +81,7 @@ export const whileLoopScenario: Scenario = {
     },
     {
       id: "wl5",
-      highlightLines: [3],
+      highlightLines: [1],
       highlightExpr: "i < 2",
       narration: "Test : 1 < 2 vrai → on va faire encore un tour.",
       stack: i("1"),
@@ -101,7 +98,7 @@ export const whileLoopScenario: Scenario = {
     },
     {
       id: "wl6",
-      highlightLines: [5],
+      highlightLines: [3],
       narration: "Corps (tour 2) : on va afficher 1.",
       stack: i("1"),
       heap: [],
@@ -111,7 +108,7 @@ export const whileLoopScenario: Scenario = {
     },
     {
       id: "wl7",
-      highlightLines: [6],
+      highlightLines: [4],
       narration: "Post : i++ va donner 2.",
       stack: i("2"),
       heap: [],
@@ -122,7 +119,7 @@ export const whileLoopScenario: Scenario = {
     },
     {
       id: "wl8",
-      highlightLines: [3],
+      highlightLines: [1],
       highlightExpr: "i < 2",
       narration: "Test : 2 < 2 faux → le while va se terminer.",
       stack: i("2"),
@@ -139,8 +136,8 @@ export const whileLoopScenario: Scenario = {
     },
     {
       id: "while-loop-end",
-      highlightLines: [8],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      highlightLines: [5],
+      narration: "Le programme va s'arrêter.",
       stack: i("2"),
       heap: [],
       refs: [],

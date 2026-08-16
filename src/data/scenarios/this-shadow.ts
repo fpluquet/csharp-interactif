@@ -29,24 +29,21 @@ export const thisShadowScenario: Scenario = {
     "    }",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Personne p = new Personne();",
-    "    p.Initialiser(\"Ada\", 25);",
-    "}",
+    "Personne p = new Personne();",
+    "p.Initialiser(\"Ada\", 25);",
   ],
   steps: [
     {
       id: "ts0",
-      highlightLines: [11, 12],
-      narration: "Main va démarrer.",
+      highlightLines: [11],
+      narration: "Le programme va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
     },
     {
       id: "ts1",
-      highlightLines: [13],
+      highlightLines: [11],
       narration: "new Personne() va créer #P1 (champs par défaut).",
       stack: [
         {
@@ -63,7 +60,7 @@ export const thisShadowScenario: Scenario = {
     },
     {
       id: "ts2",
-      highlightLines: [14, 5],
+      highlightLines: [12, 5],
       narration:
         "p.Initialiser(\"Ada\", 25) : une frame va s'empiler avec this → #P1, et les paramètres nom / age (mêmes noms que les champs).",
       stack: [
@@ -158,7 +155,7 @@ export const thisShadowScenario: Scenario = {
     },
     {
       id: "ts4",
-      highlightLines: [14],
+      highlightLines: [12],
       narration: "Fin d’Initialiser : this et les paramètres vont disparaître ; #P1 va garder ses valeurs.",
       stack: [
         {
@@ -194,8 +191,8 @@ export const thisShadowScenario: Scenario = {
     },
     {
       id: "this-shadow-end",
-      highlightLines: [15],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      highlightLines: [12],
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

@@ -137,6 +137,10 @@ export type VirtualFile = {
 
 export type Step = {
   id: string;
+  /**
+   * Lignes surlignées. Tableau vide sur la dernière étape : le lecteur
+   * affiche le marqueur « fin du programme », pas une instruction.
+   */
   highlightLines: number[];
   /**
    * Sous-expression de la ligne à exécuter (ex. `new int[] { 2 }`).

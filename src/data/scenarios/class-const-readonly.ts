@@ -14,18 +14,15 @@ export const classConstReadonlyScenario: Scenario = {
     "    public Cercle(int id) { Id = id; }",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Cercle a = new Cercle(1);",
-    "    Cercle b = new Cercle(2);",
-    "    double p = Cercle.Pi;",
-    "}",
+    "Cercle a = new Cercle(1);",
+    "Cercle b = new Cercle(2);",
+    "double p = Cercle.Pi;",
   ],
   steps: [
     step(
       "cr0",
-      [2, 7, 8],
-      "Pi est une constante de classe (pas dans les objets). Main va démarrer.",
+      [2, 7],
+      "Pi est une constante de classe (pas dans les objets). Le programme va démarrer.",
       [{ id: "frame-static", method: "static", slots: [val("slot-pi", "Cercle.Pi", "3.14")] }, ...main([])],
       [],
       [],
@@ -33,7 +30,7 @@ export const classConstReadonlyScenario: Scenario = {
     ),
     step(
       "cr1",
-      [9, 4],
+      [7, 4],
       "new Cercle(1) : Id readonly va valoir 1, propre à #C1.",
       [
         { id: "frame-static", method: "static", slots: [val("slot-pi", "Cercle.Pi", "3.14")] },
@@ -45,7 +42,7 @@ export const classConstReadonlyScenario: Scenario = {
     ),
     step(
       "cr2",
-      [10],
+      [8],
       "new Cercle(2) : un autre Id va être assigné. Pi va rester unique, partagé.",
       [
         { id: "frame-static", method: "static", slots: [val("slot-pi", "Cercle.Pi", "3.14")] },
@@ -62,7 +59,7 @@ export const classConstReadonlyScenario: Scenario = {
     ),
     step(
       "cr3",
-      [11],
+      [9],
       "Cercle.Pi va se lire via la classe, pas via a ou b.",
       [
         { id: "frame-static", method: "static", slots: [val("slot-pi", "Cercle.Pi", "3.14")] },
@@ -81,7 +78,7 @@ export const classConstReadonlyScenario: Scenario = {
     ),
     step(
       "class-const-readonly-end",
-      [12],
+      [9],
       MAIN_DONE,
       [
         { id: "frame-static", method: "static", slots: [val("slot-pi", "Cercle.Pi", "3.14")] },

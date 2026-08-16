@@ -6,12 +6,9 @@ export const localsScenario: Scenario = {
   subtitle: "La stack empile les variables du programme.",
   part: "variables",
   code: [
-    "static void Main()",
-    "{",
-    "    int a = 5;",
-    "    bool ok = true;",
-    "    double pi = 3.14;",
-    "}"
+    "int a = 5;",
+    "bool ok = true;",
+    "double pi = 3.14;"
   ],
   steps: [
     {
@@ -19,7 +16,7 @@ export const localsScenario: Scenario = {
       highlightLines: [
         0
       ],
-      narration: "On va entrer dans Main. La stack va démarrer vide.",
+      narration: "Le programme va démarrer. La stack va démarrer vide.",
       stack: [],
       heap: [],
       refs: []
@@ -27,8 +24,7 @@ export const localsScenario: Scenario = {
     {
       id: "l1",
       highlightLines: [
-        0,
-        1
+        0
       ],
       narration: "Une frame Main va apparaître : c'est le cadre d'exécution de la méthode.",
       stack: [
@@ -45,7 +41,7 @@ export const localsScenario: Scenario = {
     {
       id: "l2",
       highlightLines: [
-        2
+        0
       ],
       narration: "int a = 5 : la valeur 5 va être stockée directement sur la stack.",
       stack: [
@@ -69,7 +65,7 @@ export const localsScenario: Scenario = {
     {
       id: "l3",
       highlightLines: [
-        3
+        1
       ],
       narration: "bool ok = true : un autre type valeur va s'ajouter dans la même frame.",
       stack: [
@@ -99,7 +95,7 @@ export const localsScenario: Scenario = {
     {
       id: "l4",
       highlightLines: [
-        4
+        2
       ],
       narration: "double pi = 3.14 : les locaux vont s'empiler dans la frame courante.",
       stack: [
@@ -135,9 +131,9 @@ export const localsScenario: Scenario = {
     {
       id: "l5",
       highlightLines: [
-        5
+        2
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [],
       heap: [],
       refs: []

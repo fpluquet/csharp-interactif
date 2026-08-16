@@ -16,16 +16,13 @@ export const classStaticCtorScenario: Scenario = {
     "    }",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    int v = Config.Version;",
-    "}",
+    "int v = Config.Version;",
   ],
   steps: [
-    step("sc0", [9, 10], "Main va démarrer. Config n’est pas encore initialisée.", main([]), [], []),
+    step("sc0", [9], "Le programme va démarrer. Config n’est pas encore initialisée.", main([]), [], []),
     step(
       "sc1",
-      [11, 3, 5],
+      [9, 3, 5],
       "Premier accès à Config.Version : le constructeur statique va s’exécuter (Version = 2).",
       [
         { id: "frame-static", method: "static Config", slots: [val("slot-ver", "Config.Version", "2")] },
@@ -37,7 +34,7 @@ export const classStaticCtorScenario: Scenario = {
     ),
     step(
       "sc2",
-      [11],
+      [9],
       "Ensuite la lecture va donner v = 2. Le cctor ne se relancera plus.",
       [
         { id: "frame-static", method: "static", slots: [val("slot-ver", "Config.Version", "2")] },
@@ -49,7 +46,7 @@ export const classStaticCtorScenario: Scenario = {
     ),
     step(
       "class-ctor-static-end",
-      [12],
+      [9],
       MAIN_DONE,
       [
         { id: "frame-static", method: "static", slots: [val("slot-ver", "Config.Version", "2")] },

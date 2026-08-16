@@ -6,21 +6,17 @@ export const tupleScenario: Scenario = {
   subtitle: "(int, string) regroupe deux valeurs (souvent sur la stack).",
   part: "collections",
   code: [
-    "static void Main()",
-    "{",
-    "    (int code, string nom) t = (1, \"Ada\");",
-    "    Console.WriteLine(t.code);",
-    "    Console.WriteLine(t.nom);",
-    "}"
+    "(int code, string nom) t = (1, \"Ada\");",
+    "Console.WriteLine(t.code);",
+    "Console.WriteLine(t.nom);"
   ],
   steps: [
     {
       id: "tu0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const tupleScenario: Scenario = {
     {
       id: "tu1",
       highlightLines: [
-        2
+        0
       ],
       narration: "Tuple ValueTuple : code va valoir 1 sur la stack ; nom va référencer une string.",
       stack: [
@@ -84,7 +80,7 @@ export const tupleScenario: Scenario = {
     {
       id: "tu2",
       highlightLines: [
-        3
+        1
       ],
       narration: "On va afficher 1.",
       stack: [
@@ -135,7 +131,7 @@ export const tupleScenario: Scenario = {
     {
       id: "tu3",
       highlightLines: [
-        4
+        2
       ],
       narration: "On va afficher Ada.",
       stack: [
@@ -187,9 +183,9 @@ export const tupleScenario: Scenario = {
     {
       id: "tuple-end",
       highlightLines: [
-        5
+        2
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

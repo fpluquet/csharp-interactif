@@ -6,20 +6,16 @@ export const valueVsRefScenario: Scenario = {
   subtitle: "Valeur sur la stack, objet sur le heap — côte à côte.",
   part: "memory",
   code: [
-    "static void Main()",
-    "{",
-    "    int n = 5;",
-    "    int[] t = { 5 };",
-    "}"
+    "int n = 5;",
+    "int[] t = { 5 };"
   ],
   steps: [
     {
       id: "vv0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -33,7 +29,7 @@ export const valueVsRefScenario: Scenario = {
     {
       id: "vv1",
       highlightLines: [
-        2
+        0
       ],
       narration: "int n = 5 : la valeur 5 va être dans la frame (stack).",
       stack: [
@@ -57,7 +53,7 @@ export const valueVsRefScenario: Scenario = {
     {
       id: "vv2",
       highlightLines: [
-        3
+        1
       ],
       narration: "int[] t = {5} : t sur la stack va pointer vers l'objet tableau sur le heap.",
       stack: [
@@ -106,9 +102,9 @@ export const valueVsRefScenario: Scenario = {
     {
       id: "value-vs-ref-end",
       highlightLines: [
-        4
+        1
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

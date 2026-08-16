@@ -6,30 +6,26 @@ export const multiCallsScenario: Scenario = {
   subtitle: "La stack monte puis redescend ; le return remplace l’appel.",
   part: "functions",
   code: [
-    "static int Double(int n)",
+    "int Double(int n)",
     "{",
     "    return n * 2;",
     "}",
     "",
-    "static int Ajouter(int a, int b)",
+    "int Ajouter(int a, int b)",
     "{",
     "    return a + b;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    int x = Double(3);",
-    "    int y = Ajouter(x, 4);",
-    "}"
+    "int x = Double(3);",
+    "int y = Ajouter(x, 4);"
   ],
   steps: [
     {
       id: "m0",
       highlightLines: [
-        10,
-        11
+        10
       ],
-      narration: "Main va démarrer. La call stack ne va contenir qu'une frame.",
+      narration: "Le programme va démarrer. La call stack ne va contenir qu'une frame.",
       stack: [
         {
           id: "frame-main",
@@ -42,7 +38,7 @@ export const multiCallsScenario: Scenario = {
     },
     {
       id: "m1",
-      highlightLines: [12],
+      highlightLines: [10],
       highlightExpr: "Double(3)",
       narration: "int x = Double(3) : l’expression contient un appel — on va l’évaluer.",
       stack: [
@@ -120,13 +116,13 @@ export const multiCallsScenario: Scenario = {
         value: "6",
         targetVar: "x",
         phase: "returning",
-        callLine: 12
+        callLine: 10
       }
     },
     {
       id: "m4",
       highlightLines: [
-        12
+        10
       ],
       narration: "La frame Double va disparaître. Dans Main, Double(3) va être remplacé par 6.",
       stack: [
@@ -145,13 +141,13 @@ export const multiCallsScenario: Scenario = {
         value: "6",
         targetVar: "x",
         phase: "replaces",
-        callLine: 12
+        callLine: 10
       }
     },
     {
       id: "m5",
       highlightLines: [
-        12
+        10
       ],
       narration: "Ensuite seulement : 6 va être affecté à x sur la stack.",
       stack: [
@@ -177,12 +173,12 @@ export const multiCallsScenario: Scenario = {
         value: "6",
         targetVar: "x",
         phase: "assigned",
-        callLine: 12
+        callLine: 10
       }
     },
     {
       id: "m6",
-      highlightLines: [13],
+      highlightLines: [11],
       highlightExpr: "Ajouter(x, 4)",
       narration: "int y = Ajouter(x, 4) : nouvel appel va être évalué.",
       stack: [
@@ -293,13 +289,13 @@ export const multiCallsScenario: Scenario = {
         value: "10",
         targetVar: "y",
         phase: "returning",
-        callLine: 13
+        callLine: 11
       }
     },
     {
       id: "m9",
       highlightLines: [
-        13
+        11
       ],
       narration: "Ajouter va disparaître. Ajouter(x, 4) va être remplacé par 10 dans l'expression.",
       stack: [
@@ -325,14 +321,13 @@ export const multiCallsScenario: Scenario = {
         value: "10",
         targetVar: "y",
         phase: "replaces",
-        callLine: 13
+        callLine: 11
       }
     },
     {
       id: "m10",
       highlightLines: [
-        13,
-        14
+        11
       ],
       narration: "10 va être affecté à y. Main va garder x = 6 et y = 10.",
       stack: [
@@ -364,15 +359,15 @@ export const multiCallsScenario: Scenario = {
         value: "10",
         targetVar: "y",
         phase: "assigned",
-        callLine: 13
+        callLine: 11
       }
     },
     {
       id: "multi-calls-end",
       highlightLines: [
-        14
+        11
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

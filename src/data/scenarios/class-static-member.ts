@@ -17,12 +17,9 @@ export const classStaticMemberScenario: Scenario = {
     "    }",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Etudiant a = new Etudiant(\"Ada\");",
-    "    Etudiant b = new Etudiant(\"Alan\");",
-    "    int n = Etudiant.Total;",
-    "}",
+    "Etudiant a = new Etudiant(\"Ada\");",
+    "Etudiant b = new Etudiant(\"Alan\");",
+    "int n = Etudiant.Total;",
   ],
   steps: [
     {
@@ -42,8 +39,8 @@ export const classStaticMemberScenario: Scenario = {
     },
     {
       id: "st1",
-      highlightLines: [11, 12],
-      narration: "Main va démarrer. Total est déjà là, partagé.",
+      highlightLines: [11],
+      narration: "Le programme va démarrer. Total est déjà là, partagé.",
       stack: [
         {
           id: "frame-static",
@@ -57,7 +54,7 @@ export const classStaticMemberScenario: Scenario = {
     },
     {
       id: "st2",
-      highlightLines: [13, 7],
+      highlightLines: [11, 7],
       narration: "new Etudiant(\"Ada\") va créer l’objet #E1 et Total++ va donner 1.",
       stack: [
         {
@@ -97,7 +94,7 @@ export const classStaticMemberScenario: Scenario = {
     },
     {
       id: "st3",
-      highlightLines: [14, 7],
+      highlightLines: [12, 7],
       narration: "new Etudiant(\"Alan\") va créer l’objet #E2, Total va passer à 2.",
       stack: [
         {
@@ -154,7 +151,7 @@ export const classStaticMemberScenario: Scenario = {
     },
     {
       id: "st4",
-      highlightLines: [15],
+      highlightLines: [13],
       narration: "Etudiant.Total va se lire via la classe (pas via a ou b).",
       stack: [
         {
@@ -212,8 +209,8 @@ export const classStaticMemberScenario: Scenario = {
     },
     {
       id: "class-static-member-end",
-      highlightLines: [16],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      highlightLines: [13],
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-static",

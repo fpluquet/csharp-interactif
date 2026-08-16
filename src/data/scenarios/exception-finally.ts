@@ -6,30 +6,26 @@ export const exceptionFinallyScenario: Scenario = {
   subtitle: "finally s'exécute toujours, après catch ou non.",
   part: "exceptions",
   code: [
-    "static void Main()",
+    "try",
     "{",
-    "    try",
-    "    {",
-    "        throw new Exception(\"x\");",
-    "    }",
-    "    catch",
-    "    {",
-    "        Console.WriteLine(\"catch\");",
-    "    }",
-    "    finally",
-    "    {",
-    "        Console.WriteLine(\"finally\");",
-    "    }",
+    "    throw new Exception(\"x\");",
+    "}",
+    "catch",
+    "{",
+    "    Console.WriteLine(\"catch\");",
+    "}",
+    "finally",
+    "{",
+    "    Console.WriteLine(\"finally\");",
     "}"
   ],
   steps: [
     {
       id: "ef0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -43,7 +39,7 @@ export const exceptionFinallyScenario: Scenario = {
     },
     {
       id: "ef1",
-      highlightLines: [2, 3],
+      highlightLines: [0, 1],
       narration: "On va entrer dans le try. catch et finally attendent.",
       stack: [
         {
@@ -59,7 +55,7 @@ export const exceptionFinallyScenario: Scenario = {
     {
       id: "ef2",
       highlightLines: [
-        4
+        2
       ],
       highlightExpr: "throw new Exception(\"x\")",
       narration: "throw : une exception va être levée.",
@@ -82,8 +78,8 @@ export const exceptionFinallyScenario: Scenario = {
     {
       id: "ef3",
       highlightLines: [
-        6,
-        8
+        4,
+        6
       ],
       narration: "catch va s'exécuter.",
       stack: [
@@ -108,8 +104,8 @@ export const exceptionFinallyScenario: Scenario = {
     {
       id: "ef4",
       highlightLines: [
-        10,
-        12
+        8,
+        10
       ],
       narration: "finally va s'exécuter ensuite — toujours.",
       stack: [
@@ -129,9 +125,9 @@ export const exceptionFinallyScenario: Scenario = {
     {
       id: "exception-finally-end",
       highlightLines: [
-        14
+        11
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

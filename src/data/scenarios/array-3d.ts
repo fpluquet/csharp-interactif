@@ -22,21 +22,18 @@ export const array3dScenario: Scenario = {
   subtitle: "int[,,] : un seul objet, trois indices [i, j, k]. Toutes les cases ont la même taille.",
   part: "collections",
   code: [
-    "static void Main()",
-    "{",
-    "    int[,,] c = new int[2, 2, 2];",
-    "    c[0, 1, 0] = 7;",
-    "    int v = c[0, 1, 0];",
-    "    Console.WriteLine(v);",
-    "}",
+    "int[,,] c = new int[2, 2, 2];",
+    "c[0, 1, 0] = 7;",
+    "int v = c[0, 1, 0];",
+    "Console.WriteLine(v);",
   ],
   steps: [
-    step("d30", [0, 1], "Main va démarrer. Un tableau 3D rectangulaire : une virgule de plus que int[,].", main([]), [], [], {
+    step("d30", [0], "Le programme va démarrer. Un tableau 3D rectangulaire : une virgule de plus que int[,].", main([]), [], [], {
       consoleLines: [],
     }),
     step(
       "d3-new",
-      [2],
+      [0],
       "new int[2, 2, 2] : un seul objet sur le heap, 8 cases, toutes à 0. Ce n’est pas un tableau de tableaux.",
       main([slotC]),
       [zeros],
@@ -45,7 +42,7 @@ export const array3dScenario: Scenario = {
     ),
     step(
       "d3-set",
-      [3],
+      [1],
       "c[0, 1, 0] = 7 : on adresse la case par trois indices. Les autres restent 0.",
       main([slotC]),
       [written],
@@ -54,7 +51,7 @@ export const array3dScenario: Scenario = {
     ),
     step(
       "d3-get",
-      [4],
+      [2],
       "Lecture : c[0, 1, 0] va copier 7 dans v (int, sur la stack).",
       main([slotC, val("slot-v", "v", "7")]),
       [written],
@@ -63,14 +60,14 @@ export const array3dScenario: Scenario = {
     ),
     step(
       "d3-print",
-      [5],
+      [3],
       "On va afficher 7.",
       main([slotC, val("slot-v", "v", "7")]),
       [written],
       refs,
       { consoleLines: ["7"] },
     ),
-    step("array-3d-end", [6], MAIN_DONE, main([slotC, val("slot-v", "v", "7")]), [written], refs, {
+    step("array-3d-end", [3], MAIN_DONE, main([slotC, val("slot-v", "v", "7")]), [written], refs, {
       consoleLines: ["7"],
     }),
   ],

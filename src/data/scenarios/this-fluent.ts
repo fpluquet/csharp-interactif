@@ -16,24 +16,21 @@ export const thisFluentScenario: Scenario = {
     "    }",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Compteur c = new Compteur();",
-    "    c.Plus(2).Plus(3);",
-    "}",
+    "Compteur c = new Compteur();",
+    "c.Plus(2).Plus(3);",
   ],
   steps: [
     {
       id: "tf0",
-      highlightLines: [10, 11],
-      narration: "Main va démarrer.",
+      highlightLines: [10],
+      narration: "Le programme va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
     },
     {
       id: "tf1",
-      highlightLines: [12],
+      highlightLines: [10],
       narration: "new Compteur() va créer #C1, Valeur va valoir 0.",
       stack: [
         {
@@ -57,7 +54,7 @@ export const thisFluentScenario: Scenario = {
     },
     {
       id: "tf2",
-      highlightLines: [13, 5],
+      highlightLines: [11, 5],
       narration: "Premier Plus(2) : this va pointer vers #C1, Valeur va devenir 2, puis return this va renvoyer this.",
       stack: [
         {
@@ -94,12 +91,12 @@ export const thisFluentScenario: Scenario = {
         callExpr: "c.Plus(2)",
         value: "→ #C1",
         phase: "returning",
-        callLine: 13,
+        callLine: 11,
       },
     },
     {
       id: "tf3",
-      highlightLines: [13, 6],
+      highlightLines: [11, 6],
       narration: "return this : on va renvoyer la même référence #C1 (pas une copie).",
       stack: [
         {
@@ -125,12 +122,12 @@ export const thisFluentScenario: Scenario = {
         callExpr: "c.Plus(2)",
         value: "→ #C1",
         phase: "replaces",
-        callLine: 13,
+        callLine: 11,
       },
     },
     {
       id: "tf4",
-      highlightLines: [13, 5],
+      highlightLines: [11, 5],
       narration: "Deuxième .Plus(3) : this va encore pointer vers #C1 (le résultat du return précédent).",
       stack: [
         {
@@ -165,7 +162,7 @@ export const thisFluentScenario: Scenario = {
     },
     {
       id: "tf5",
-      highlightLines: [13],
+      highlightLines: [11],
       narration: "La chaîne va se terminer : un seul objet, Valeur va valoir 5.",
       stack: [
         {
@@ -189,8 +186,8 @@ export const thisFluentScenario: Scenario = {
     },
     {
       id: "this-fluent-end",
-      highlightLines: [14],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      highlightLines: [11],
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

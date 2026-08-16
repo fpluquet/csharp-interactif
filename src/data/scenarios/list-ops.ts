@@ -6,22 +6,18 @@ export const listOpsScenario: Scenario = {
   subtitle: "Add fait grandir la liste ; Count suit le nombre d'éléments.",
   part: "collections",
   code: [
-    "static void Main()",
-    "{",
-    "    List<int> notes = new List<int>();",
-    "    notes.Add(12);",
-    "    notes.Add(15);",
-    "    int n = notes.Count;",
-    "}"
+    "List<int> notes = new List<int>();",
+    "notes.Add(12);",
+    "notes.Add(15);",
+    "int n = notes.Count;"
   ],
   steps: [
     {
       id: "lo0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const listOpsScenario: Scenario = {
     {
       id: "lo1",
       highlightLines: [
-        2
+        0
       ],
       narration: "new List<int>() : une liste vide va être créée sur le heap.",
       stack: [
@@ -77,7 +73,7 @@ export const listOpsScenario: Scenario = {
     {
       id: "lo2",
       highlightLines: [
-        3
+        1
       ],
       narration: "Add(12) va ajouter 12 à la liste.",
       stack: [
@@ -124,7 +120,7 @@ export const listOpsScenario: Scenario = {
     {
       id: "lo3",
       highlightLines: [
-        4
+        2
       ],
       narration: "Add(15) va ajouter 15 à la liste.",
       stack: [
@@ -175,7 +171,7 @@ export const listOpsScenario: Scenario = {
     {
       id: "lo4",
       highlightLines: [
-        5
+        3
       ],
       narration: "Count → n va valoir 2.",
       stack: [
@@ -232,9 +228,9 @@ export const listOpsScenario: Scenario = {
     {
       id: "list-ops-end",
       highlightLines: [
-        6
+        3
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

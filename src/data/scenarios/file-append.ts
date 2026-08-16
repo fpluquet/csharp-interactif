@@ -6,18 +6,14 @@ export const fileAppendScenario: Scenario = {
   subtitle: "Ajoute à la fin sans effacer le début.",
   part: "files",
   code: [
-    "static void Main()",
-    "{",
-    "    File.AppendAllText(\"log.txt\", \"a\");",
-    "    File.AppendAllText(\"log.txt\", \"b\");",
-    "}"
+    "File.AppendAllText(\"log.txt\", \"a\");",
+    "File.AppendAllText(\"log.txt\", \"b\");"
   ],
   steps: [
     {
       id: "fa0",
       highlightLines: [
-        0,
-        1
+        0
       ],
       narration: "On va partir d'un log.txt vide.",
       stack: [
@@ -39,9 +35,10 @@ export const fileAppendScenario: Scenario = {
     {
       id: "fa1",
       highlightLines: [
-        2
+        0
       ],
       narration: "On va ajouter \"a\".",
+      highlightExpr: "File.AppendAllText(\"log.txt\", \"a\")",
       stack: [
         {
           id: "frame-main",
@@ -61,7 +58,7 @@ export const fileAppendScenario: Scenario = {
     {
       id: "fa2",
       highlightLines: [
-        3
+        1
       ],
       narration: "On va ajouter \"b\" → le fichier va valoir \"ab\".",
       stack: [
@@ -83,9 +80,9 @@ export const fileAppendScenario: Scenario = {
     {
       id: "file-append-end",
       highlightLines: [
-        4
+        1
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

@@ -33,16 +33,13 @@ export const classObjectInitScenario: Scenario = {
     "    public int Age;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Personne p = new Personne { Nom = \"Ada\", Age = 30 };",
-    "}",
+    "Personne p = new Personne { Nom = \"Ada\", Age = 30 };",
   ],
   steps: [
-    step("oi0", [6, 7], "Main va démarrer.", main([]), [], []),
+    step("oi0", [6], "Le programme va démarrer.", main([]), [], []),
     step(
       "oi1",
-      [8],
+      [6],
       "new Personne : l’objet va être alloué, champs aux valeurs par défaut (null / 0).",
       main([refSlot("slot-p", "p", "#P1", "obj-p")]),
       [obj("obj-p", "Personne", "#P1", [
@@ -54,13 +51,13 @@ export const classObjectInitScenario: Scenario = {
     ),
     step(
       "oi2",
-      [8],
+      [6],
       "L’initialiseur va assigner Nom puis Age — sans constructeur personnalisé.",
       main([refSlot("slot-p", "p", "#P1", "obj-p")]),
       heap,
       refs,
       { focus: "obj-p", highlightExpr: "{ Nom = \"Ada\", Age = 30 }" },
     ),
-    step("class-object-init-end", [9], MAIN_DONE, main([refSlot("slot-p", "p", "#P1", "obj-p")]), heap, refs),
+    step("class-object-init-end", [6], MAIN_DONE, main([refSlot("slot-p", "p", "#P1", "obj-p")]), heap, refs),
   ],
 };

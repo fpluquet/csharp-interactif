@@ -6,22 +6,18 @@ export const directoryListScenario: Scenario = {
   subtitle: "Créer un dossier et lister ses fichiers.",
   part: "files",
   code: [
-    "static void Main()",
-    "{",
-    "    Directory.CreateDirectory(\"tmp\");",
-    "    File.WriteAllText(\"tmp/a.txt\", \"x\");",
-    "    string[] files = Directory.GetFiles(\"tmp\");",
-    "    Console.WriteLine(files.Length);",
-    "}"
+    "Directory.CreateDirectory(\"tmp\");",
+    "File.WriteAllText(\"tmp/a.txt\", \"x\");",
+    "string[] files = Directory.GetFiles(\"tmp\");",
+    "Console.WriteLine(files.Length);"
   ],
   steps: [
     {
       id: "dl0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -37,7 +33,7 @@ export const directoryListScenario: Scenario = {
     {
       id: "dl1",
       highlightLines: [
-        2
+        0
       ],
       narration: "On va appeler CreateDirectory(\"tmp\").",
       stack: [
@@ -60,7 +56,7 @@ export const directoryListScenario: Scenario = {
     {
       id: "dl2",
       highlightLines: [
-        3
+        1
       ],
       narration: "On va écrire tmp/a.txt.",
       stack: [
@@ -87,7 +83,7 @@ export const directoryListScenario: Scenario = {
     {
       id: "dl3",
       highlightLines: [
-        4
+        2
       ],
       highlightExpr: "Directory.GetFiles(\"tmp\")",
       narration: "GetFiles va renvoyer un tableau d'1 chemin.",
@@ -141,7 +137,7 @@ export const directoryListScenario: Scenario = {
     {
       id: "dl4",
       highlightLines: [
-        5
+        3
       ],
       narration: "On va afficher Length = 1.",
       stack: [
@@ -196,9 +192,9 @@ export const directoryListScenario: Scenario = {
     {
       id: "directory-list-end",
       highlightLines: [
-        6
+        3
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

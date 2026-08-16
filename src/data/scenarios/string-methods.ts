@@ -6,22 +6,18 @@ export const stringMethodsScenario: Scenario = {
   subtitle: "Length, ToUpper, Contains — souvent un nouvel objet.",
   part: "native-methods",
   code: [
-    "static void Main()",
-    "{",
-    "    string s = \"ciao\";",
-    "    int len = s.Length;",
-    "    string u = s.ToUpper();",
-    "    bool has = s.Contains(\"ia\");",
-    "}"
+    "string s = \"ciao\";",
+    "int len = s.Length;",
+    "string u = s.ToUpper();",
+    "bool has = s.Contains(\"ia\");"
   ],
   steps: [
     {
       id: "sm0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const stringMethodsScenario: Scenario = {
     {
       id: "sm1",
       highlightLines: [
-        2
+        0
       ],
       narration: "s va pointer vers \"ciao\".",
       stack: [
@@ -77,7 +73,7 @@ export const stringMethodsScenario: Scenario = {
     {
       id: "sm2",
       highlightLines: [
-        3
+        1
       ],
       highlightExpr: "s.Length",
       narration: "s.Length va valoir 4 (propriété, int sur stack).",
@@ -127,7 +123,7 @@ export const stringMethodsScenario: Scenario = {
     {
       id: "sm3",
       highlightLines: [
-        4
+        2
       ],
       highlightExpr: "s.ToUpper()",
       narration: "ToUpper() va créer #S2 \"CIAO\". s va rester inchangé.",
@@ -200,7 +196,7 @@ export const stringMethodsScenario: Scenario = {
     {
       id: "sm4",
       highlightLines: [
-        5
+        3
       ],
       highlightExpr: "s.Contains(\"ia\")",
       narration: "Contains(\"ia\") va retourner true.",
@@ -279,9 +275,9 @@ export const stringMethodsScenario: Scenario = {
     {
       id: "string-methods-end",
       highlightLines: [
-        6
+        3
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

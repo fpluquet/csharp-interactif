@@ -6,26 +6,22 @@ export const outParamScenario: Scenario = {
   subtitle: "out force l’écriture de la variable de l’appelant.",
   part: "functions",
   code: [
-    "static void Lire(out int x)",
+    "void Lire(out int x)",
     "{",
     "    x = 42;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    int n;",
-    "    Lire(out n);",
-    "    // n vaut 42",
-    "}"
+    "int n;",
+    "Lire(out n);",
+    "// n vaut 42"
   ],
   steps: [
     {
       id: "op0",
       highlightLines: [
-        5,
-        6
+        5
       ],
-      narration: "Main va démarrer. out va compléter le passage par référence vu avec ref.",
+      narration: "Le programme va démarrer. out va compléter le passage par référence vu avec ref.",
       stack: [
         {
           id: "frame-main",
@@ -39,7 +35,7 @@ export const outParamScenario: Scenario = {
     {
       id: "op1",
       highlightLines: [
-        7
+        5
       ],
       narration: "int n : la case va exister, mais n ne va pas encore être initialisée (non assignée).",
       stack: [
@@ -63,7 +59,7 @@ export const outParamScenario: Scenario = {
     {
       id: "op2",
       highlightLines: [
-        8
+        6
       ],
       highlightExpr: "Lire(out n)",
       narration: "Lire(out n) : on va passer un alias vers n — la méthode va devoir l’écrire.",
@@ -162,7 +158,7 @@ export const outParamScenario: Scenario = {
       id: "op5",
       highlightLines: [
         3,
-        9
+        7
       ],
       narration: "Retour dans Main : n va valoir 42. out va bien initialiser l’appelant.",
       stack: [
@@ -186,9 +182,9 @@ export const outParamScenario: Scenario = {
     {
       id: "out-param-end",
       highlightLines: [
-        10
+        7
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

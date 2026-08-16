@@ -6,32 +6,28 @@ export const exceptionCatchScenario: Scenario = {
   subtitle: "Un catch arrête le dépilement : la stack se stabilise.",
   part: "exceptions",
   code: [
-    "static void Risquer()",
+    "void Risquer()",
     "{",
     "    throw new InvalidOperationException(\"boom\");",
     "}",
     "",
-    "static void Main()",
+    "try",
     "{",
-    "    try",
-    "    {",
-    "        Risquer();",
-    "    }",
-    "    catch (InvalidOperationException ex)",
-    "    {",
-    "        Console.WriteLine(ex.Message);",
-    "    }",
-    "    // on continue ici",
-    "}"
+    "    Risquer();",
+    "}",
+    "catch (InvalidOperationException ex)",
+    "{",
+    "    Console.WriteLine(ex.Message);",
+    "}",
+    "// on continue ici"
   ],
   steps: [
     {
       id: "ec0",
       highlightLines: [
-        5,
-        6
+        5
       ],
-      narration: "Main va démarrer. Un bloc try/catch va protéger l’appel.",
+      narration: "Le programme va démarrer. Un bloc try/catch va protéger l’appel.",
       stack: [
         {
           id: "frame-main",
@@ -45,9 +41,9 @@ export const exceptionCatchScenario: Scenario = {
     {
       id: "ec1",
       highlightLines: [
-        7,
-        8,
-        9
+        5,
+        6,
+        7
       ],
       narration: "On va entrer dans le try. Risquer() va être appelé.",
       stack: [
@@ -64,7 +60,7 @@ export const exceptionCatchScenario: Scenario = {
     {
       id: "ec2",
       highlightLines: [
-        9
+        7
       ],
       highlightExpr: "Risquer()",
       narration: "La frame Risquer va s’empiler au-dessus de Main.",
@@ -135,8 +131,8 @@ export const exceptionCatchScenario: Scenario = {
     {
       id: "ec5",
       highlightLines: [
-        11,
-        12
+        9,
+        10
       ],
       narration: "Main a un catch compatible : l’exception va être attrapée. ex va recevoir le message. La stack va rester.",
       stack: [
@@ -185,7 +181,7 @@ export const exceptionCatchScenario: Scenario = {
     {
       id: "ec6",
       highlightLines: [
-        13
+        11
       ],
       highlightExpr: "ex.Message",
       narration: "On va afficher ex.Message : boom.",
@@ -231,7 +227,7 @@ export const exceptionCatchScenario: Scenario = {
     {
       id: "ec7",
       highlightLines: [
-        15
+        13
       ],
       narration: "Après le catch, l’exécution va reprendre dans Main. Contrairement au throw non géré, le programme va continuer.",
       stack: [
@@ -251,9 +247,9 @@ export const exceptionCatchScenario: Scenario = {
     {
       id: "exception-catch-end",
       highlightLines: [
-        16
+        13
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

@@ -13,24 +13,21 @@ export const classPatternScenario: Scenario = {
     "class Cercle : Forme { public int R; public Cercle(int r) { R = r; } }",
     "class Carre : Forme { public int Cote; }",
     "",
-    "static double Aire(Forme f) => f switch",
+    "double Aire(Forme f) => f switch",
     "{",
     "    Cercle { R: var r } => 3.14 * r * r,",
     "    Carre { Cote: var c } => c * c,",
     "    _ => 0",
     "};",
     "",
-    "static void Main()",
-    "{",
-    "    Forme f = new Cercle(2);",
-    "    double a = Aire(f);",
-    "}",
+    "Forme f = new Cercle(2);",
+    "double a = Aire(f);",
   ],
   steps: [
-    step("pm0", [11, 12], "Main va démarrer.", main([]), [], []),
+    step("pm0", [11], "Le programme va démarrer.", main([]), [], []),
     step(
       "pm1",
-      [13],
+      [11],
       "Forme f = new Cercle(2) : un Cercle va être créé.",
       main([refSlot("slot-f", "f", "#C1", "obj-c", "Forme")]),
       [cercle],
@@ -39,7 +36,7 @@ export const classPatternScenario: Scenario = {
     ),
     step(
       "pm2",
-      [14, 6],
+      [12, 6],
       "Aire(f) : le pattern Cercle { R: var r } va matcher, r va valoir 2 → 12.56.",
       main([
         refSlot("slot-f", "f", "#C1", "obj-c", "Forme"),
@@ -51,7 +48,7 @@ export const classPatternScenario: Scenario = {
     ),
     step(
       "class-pattern-end",
-      [15],
+      [12],
       MAIN_DONE,
       main([
         refSlot("slot-f", "f", "#C1", "obj-c", "Forme"),

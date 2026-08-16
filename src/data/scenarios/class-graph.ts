@@ -17,22 +17,18 @@ export const classGraphScenario: Scenario = {
     "    public Adresse Adresse;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Personne p = new Personne();",
-    "    p.Nom = \"Sam\";",
-    "    p.Adresse = new Adresse();",
-    "    p.Adresse.Ville = \"Mons\";",
-    "}"
+    "Personne p = new Personne();",
+    "p.Nom = \"Sam\";",
+    "p.Adresse = new Adresse();",
+    "p.Adresse.Ville = \"Mons\";"
   ],
   steps: [
     {
       id: "cg0",
       highlightLines: [
-        11,
-        12
+        11
       ],
-      narration: "Main va démarrer. On va construire un petit graphe Personne → Adresse.",
+      narration: "Le programme va démarrer. On va construire un petit graphe Personne → Adresse.",
       stack: [
         {
           id: "frame-main",
@@ -46,7 +42,7 @@ export const classGraphScenario: Scenario = {
     {
       id: "cg1",
       highlightLines: [
-        13
+        11
       ],
       narration: "new Personne() : objet #P1 va être créé. Adresse va encore être null.",
       stack: [
@@ -96,7 +92,7 @@ export const classGraphScenario: Scenario = {
     {
       id: "cg2",
       highlightLines: [
-        14
+        12
       ],
       narration: "p.Nom = \"Sam\" : la string #S1 va être sur le heap, liée au champ Nom.",
       stack: [
@@ -164,7 +160,7 @@ export const classGraphScenario: Scenario = {
     {
       id: "cg3",
       highlightLines: [
-        15
+        13
       ],
       narration: "p.Adresse = new Adresse() : un nouvel objet #A1 va être créé. Une flèche heap→heap va partir du champ Adresse.",
       stack: [
@@ -250,7 +246,7 @@ export const classGraphScenario: Scenario = {
     {
       id: "cg4",
       highlightLines: [
-        16
+        14
       ],
       narration: "p.Adresse.Ville = \"Mons\" : on va suivre la flèche jusqu’à #A1, puis on va attacher la string #S2.",
       stack: [
@@ -354,9 +350,9 @@ export const classGraphScenario: Scenario = {
     {
       id: "class-graph-end",
       highlightLines: [
-        17
+        14
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

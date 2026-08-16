@@ -43,21 +43,18 @@ export const arrayJaggedScenario: Scenario = {
   subtitle: "int[][] : un tableau de références. Chaque ligne est un objet à part, de longueur libre.",
   part: "collections",
   code: [
-    "static void Main()",
-    "{",
-    "    int[][] g = new int[2][];",
-    "    g[0] = new int[] { 1, 2, 3 };",
-    "    g[1] = new int[] { 4 };",
-    "    int v = g[0][2];",
-    "    Console.WriteLine(v);",
-    "    Console.WriteLine(g[1].Length);",
-    "}",
+    "int[][] g = new int[2][];",
+    "g[0] = new int[] { 1, 2, 3 };",
+    "g[1] = new int[] { 4 };",
+    "int v = g[0][2];",
+    "Console.WriteLine(v);",
+    "Console.WriteLine(g[1].Length);",
   ],
   steps: [
     step(
       "jg0",
-      [0, 1],
-      "Main va démarrer. Un jagged n’est pas int[,] : c’est un tableau dont les cases sont des références vers d’autres tableaux.",
+      [0],
+      "Le programme va démarrer. Un jagged n’est pas int[,] : c’est un tableau dont les cases sont des références vers d’autres tableaux.",
       main([]),
       [],
       [],
@@ -65,7 +62,7 @@ export const arrayJaggedScenario: Scenario = {
     ),
     step(
       "jg-outer",
-      [2],
+      [0],
       "new int[2][] : seulement le tableau extérieur — 2 cases, encore null. Aucune ligne n’existe.",
       main([slotG]),
       [outerNull],
@@ -74,7 +71,7 @@ export const arrayJaggedScenario: Scenario = {
     ),
     step(
       "jg-row0",
-      [3],
+      [1],
       "g[0] = { 1, 2, 3 } : une première ligne (longueur 3) va être créée. g[1] reste null.",
       main([slotG]),
       heapRow0,
@@ -83,7 +80,7 @@ export const arrayJaggedScenario: Scenario = {
     ),
     step(
       "jg-row1",
-      [4],
+      [2],
       "g[1] = { 4 } : deuxième ligne, longueur 1. Les lignes n’ont pas la même taille — impossible avec int[,].",
       main([slotG]),
       heapFull,
@@ -92,7 +89,7 @@ export const arrayJaggedScenario: Scenario = {
     ),
     step(
       "jg-index",
-      [5],
+      [3],
       "g[0][2] : deux crochets, deux sauts — d’abord la référence g[0] vers #A1, puis la case [2] qui vaut 3.",
       main([slotG, val("slot-v", "v", "3")]),
       heapFull,
@@ -101,7 +98,7 @@ export const arrayJaggedScenario: Scenario = {
     ),
     step(
       "jg-print-v",
-      [6],
+      [4],
       "On va afficher 3.",
       main([slotG, val("slot-v", "v", "3")]),
       heapFull,
@@ -110,7 +107,7 @@ export const arrayJaggedScenario: Scenario = {
     ),
     step(
       "jg-len",
-      [7],
+      [5],
       "g[1].Length va valoir 1 : Length est celui de cette ligne, pas du jagged entier (g.Length vaut 2).",
       main([slotG, val("slot-v", "v", "3")]),
       heapFull,
@@ -119,7 +116,7 @@ export const arrayJaggedScenario: Scenario = {
     ),
     step(
       "array-jagged-end",
-      [8],
+      [5],
       MAIN_DONE,
       main([slotG, val("slot-v", "v", "3")]),
       heapFull,

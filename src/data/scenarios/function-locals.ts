@@ -6,26 +6,22 @@ export const functionLocalsScenario: Scenario = {
   subtitle: "Les locaux meurent avec la frame ; le return remplace l’appel.",
   part: "functions",
   code: [
-    "static int Calculer(int n)",
+    "int Calculer(int n)",
     "{",
     "    int temp = n + 1;",
     "    int resultat = temp * 2;",
     "    return resultat;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    int r = Calculer(5);",
-    "}"
+    "int r = Calculer(5);"
   ],
   steps: [
     {
       id: "f0",
       highlightLines: [
-        7,
-        8
+        7
       ],
-      narration: "Main va démarrer. Pas encore de locaux dans sa frame.",
+      narration: "Le programme va démarrer. Pas encore de locaux dans sa frame.",
       stack: [
         {
           id: "frame-main",
@@ -38,7 +34,7 @@ export const functionLocalsScenario: Scenario = {
     },
     {
       id: "f1",
-      highlightLines: [9],
+      highlightLines: [7],
       highlightExpr: "Calculer(5)",
       narration: "int r = Calculer(5) : l'appel va d'abord être évalué.",
       stack: [
@@ -204,13 +200,13 @@ export const functionLocalsScenario: Scenario = {
         value: "12",
         targetVar: "r",
         phase: "returning",
-        callLine: 9
+        callLine: 7
       }
     },
     {
       id: "f6",
       highlightLines: [
-        9
+        7
       ],
       narration: "La frame Calculer va disparaître. Calculer(5) va être remplacé par 12 dans l'expression.",
       stack: [
@@ -229,14 +225,13 @@ export const functionLocalsScenario: Scenario = {
         value: "12",
         targetVar: "r",
         phase: "replaces",
-        callLine: 9
+        callLine: 7
       }
     },
     {
       id: "f7",
       highlightLines: [
-        9,
-        10
+        7
       ],
       narration: "12 va être affecté à r. n, temp et resultat n'existeront plus.",
       stack: [
@@ -262,15 +257,15 @@ export const functionLocalsScenario: Scenario = {
         value: "12",
         targetVar: "r",
         phase: "assigned",
-        callLine: 9
+        callLine: 7
       }
     },
     {
       id: "function-locals-end",
       highlightLines: [
-        10
+        7
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

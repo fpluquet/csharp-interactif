@@ -6,18 +6,14 @@ export const fileReadScenario: Scenario = {
   subtitle: "ReadAllText charge le contenu dans une string.",
   part: "files",
   code: [
-    "static void Main()",
-    "{",
-    "    string txt = File.ReadAllText(\"note.txt\");",
-    "    Console.WriteLine(txt);",
-    "}"
+    "string txt = File.ReadAllText(\"note.txt\");",
+    "Console.WriteLine(txt);"
   ],
   steps: [
     {
       id: "fr0",
       highlightLines: [
-        0,
-        1
+        0
       ],
       narration: "Le fichier note.txt existe déjà — on va le lire.",
       stack: [
@@ -40,7 +36,7 @@ export const fileReadScenario: Scenario = {
     {
       id: "fr1",
       highlightLines: [
-        2
+        0
       ],
       highlightExpr: "File.ReadAllText(\"note.txt\")",
       narration: "ReadAllText va copier le contenu vers une string sur le heap.",
@@ -90,7 +86,7 @@ export const fileReadScenario: Scenario = {
     {
       id: "fr2",
       highlightLines: [
-        3
+        1
       ],
       narration: "On va afficher hello.",
       stack: [
@@ -141,9 +137,9 @@ export const fileReadScenario: Scenario = {
     {
       id: "file-read-end",
       highlightLines: [
-        4
+        1
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

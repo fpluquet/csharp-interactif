@@ -43,17 +43,14 @@ export const classCtorOverloadScenario: Scenario = {
     "    }",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Livre a = new Livre(\"Ada\", 120);",
-    "    Livre b = new Livre(\"Inconnu\");",
-    "}",
+    "Livre a = new Livre(\"Ada\", 120);",
+    "Livre b = new Livre(\"Inconnu\");",
   ],
   steps: [
-    step("co0", [16, 17], "Main va démarrer. Deux signatures de constructeur.", main([]), [], []),
+    step("co0", [16], "Le programme va démarrer. Deux signatures de constructeur.", main([]), [], []),
     step(
       "co1",
-      [18, 4],
+      [16, 4],
       "new Livre(\"Ada\", 120) : le constructeur à 2 paramètres va être appelé.",
       main([refSlot("slot-a", "a", "#L1", "obj-p1")]),
       [p1, sAda],
@@ -62,7 +59,7 @@ export const classCtorOverloadScenario: Scenario = {
     ),
     step(
       "co2",
-      [19, 9],
+      [17, 9],
       "new Livre(\"Inconnu\") : l'autre constructeur (1 paramètre) va être appelé, Pages va valoir 0.",
       main([
         refSlot("slot-a", "a", "#L1", "obj-p1"),
@@ -79,7 +76,7 @@ export const classCtorOverloadScenario: Scenario = {
     ),
     step(
       "class-ctor-overload-end",
-      [20],
+      [17],
       MAIN_DONE,
       main([
         refSlot("slot-a", "a", "#L1", "obj-p1"),

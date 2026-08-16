@@ -23,21 +23,18 @@ export const breakContinueScenario: Scenario = {
   subtitle: "continue saute au post ; break quitte sans retester.",
   part: "control",
   code: [
-    "static void Main()",
+    "for (int i = 0; i < 5; i++)",
     "{",
-    "    for (int i = 0; i < 5; i++)",
-    "    {",
-    "        if (i == 1) continue;",
-    "        if (i == 3) break;",
-    "        Console.WriteLine(i);",
-    "    }",
+    "    if (i == 1) continue;",
+    "    if (i == 3) break;",
+    "    Console.WriteLine(i);",
     "}",
   ],
   steps: [
     {
       id: "bc0",
-      highlightLines: [0, 1],
-      narration: "Main va démarrer.",
+      highlightLines: [0],
+      narration: "Le programme va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
@@ -45,7 +42,7 @@ export const breakContinueScenario: Scenario = {
     },
     {
       id: "bc1",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "int i = 0",
       narration: "Init : i va valoir 0.",
       stack: i("0"),
@@ -56,7 +53,7 @@ export const breakContinueScenario: Scenario = {
     },
     {
       id: "bc2",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "i < 5",
       narration: "Test : 0 < 5 va être vrai.",
       stack: i("0"),
@@ -73,7 +70,7 @@ export const breakContinueScenario: Scenario = {
     },
     {
       id: "bc3",
-      highlightLines: [6],
+      highlightLines: [4],
       narration: "Corps : on va afficher 0.",
       stack: i("0"),
       heap: [],
@@ -83,7 +80,7 @@ export const breakContinueScenario: Scenario = {
     },
     {
       id: "bc4",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "i++",
       narration: "Post : i++ va donner 1.",
       stack: i("1"),
@@ -94,7 +91,7 @@ export const breakContinueScenario: Scenario = {
     },
     {
       id: "bc5",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "i < 5",
       narration: "Test : 1 < 5 va être vrai.",
       stack: i("1"),
@@ -111,7 +108,7 @@ export const breakContinueScenario: Scenario = {
     },
     {
       id: "bc6",
-      highlightLines: [4],
+      highlightLines: [2],
       highlightExpr: "continue",
       narration: "Corps : continue → on va sauter WriteLine et aller au post.",
       stack: i("1"),
@@ -122,7 +119,7 @@ export const breakContinueScenario: Scenario = {
     },
     {
       id: "bc7",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "i++",
       narration: "Post (après continue) : i va passer à 2.",
       stack: i("2"),
@@ -133,7 +130,7 @@ export const breakContinueScenario: Scenario = {
     },
     {
       id: "bc8",
-      highlightLines: [6],
+      highlightLines: [4],
       narration: "Test vrai, corps : on va afficher 2.",
       stack: i("2"),
       heap: [],
@@ -143,7 +140,7 @@ export const breakContinueScenario: Scenario = {
     },
     {
       id: "bc9",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "i++",
       narration: "Post : i va passer à 3.",
       stack: i("3"),
@@ -154,7 +151,7 @@ export const breakContinueScenario: Scenario = {
     },
     {
       id: "bc10",
-      highlightLines: [5],
+      highlightLines: [3],
       highlightExpr: "break",
       narration: "Test vrai, corps : break → on va quitter sans post ni retest.",
       stack: i("3"),
@@ -165,8 +162,8 @@ export const breakContinueScenario: Scenario = {
     },
     {
       id: "break-continue-end",
-      highlightLines: [8],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      highlightLines: [5],
+      narration: "Le programme va s'arrêter.",
       stack: i("3"),
       heap: [],
       refs: [],

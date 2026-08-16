@@ -6,21 +6,17 @@ export const parseOkScenario: Scenario = {
   subtitle: "int.Parse convertit une string valide en entier.",
   part: "conversions",
   code: [
-    "static void Main()",
-    "{",
-    "    string s = \"42\";",
-    "    int n = int.Parse(s);",
-    "    Console.WriteLine(n);",
-    "}"
+    "string s = \"42\";",
+    "int n = int.Parse(s);",
+    "Console.WriteLine(n);"
   ],
   steps: [
     {
       id: "po0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const parseOkScenario: Scenario = {
     {
       id: "po1",
       highlightLines: [
-        2
+        0
       ],
       narration: "s va pointer vers \"42\".",
       stack: [
@@ -78,7 +74,7 @@ export const parseOkScenario: Scenario = {
     {
       id: "po2",
       highlightLines: [
-        3
+        1
       ],
       highlightExpr: "int.Parse(s)",
       narration: "int.Parse(s) → n va valoir 42 sur la stack.",
@@ -129,7 +125,7 @@ export const parseOkScenario: Scenario = {
     {
       id: "po3",
       highlightLines: [
-        4
+        2
       ],
       narration: "Console va afficher 42.",
       stack: [
@@ -180,9 +176,9 @@ export const parseOkScenario: Scenario = {
     {
       id: "parse-ok-end",
       highlightLines: [
-        5
+        2
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

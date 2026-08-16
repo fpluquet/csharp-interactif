@@ -23,19 +23,16 @@ export const forLoopScenario: Scenario = {
   subtitle: "Init → test → corps → post → test… jusqu’à faux.",
   part: "control",
   code: [
-    "static void Main()",
+    "for (int i = 0; i < 2; i++)",
     "{",
-    "    for (int i = 0; i < 2; i++)",
-    "    {",
-    "        Console.WriteLine(i);",
-    "    }",
+    "    Console.WriteLine(i);",
     "}",
   ],
   steps: [
     {
       id: "fl0",
-      highlightLines: [0, 1],
-      narration: "Main va démarrer. On va suivre chaque phase du for.",
+      highlightLines: [0],
+      narration: "Le programme va démarrer. On va suivre chaque phase du for.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
@@ -43,7 +40,7 @@ export const forLoopScenario: Scenario = {
     },
     {
       id: "fl1",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "int i = 0",
       narration: "Init (une seule fois) : i va valoir 0.",
       stack: i("0"),
@@ -55,7 +52,7 @@ export const forLoopScenario: Scenario = {
     },
     {
       id: "fl2",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "i < 2",
       narration: "Test : i < 2 → 0 < 2 sera vrai → on va entrer dans le corps.",
       stack: i("0"),
@@ -72,7 +69,7 @@ export const forLoopScenario: Scenario = {
     },
     {
       id: "fl3",
-      highlightLines: [4],
+      highlightLines: [2],
       narration: "Corps (tour 1) : Console.WriteLine(i) va afficher 0.",
       stack: i("0"),
       heap: [],
@@ -82,7 +79,7 @@ export const forLoopScenario: Scenario = {
     },
     {
       id: "fl4",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "i++",
       narration: "Post-traitement : i++ → i va valoir 1, puis on va retester.",
       stack: i("1"),
@@ -94,7 +91,7 @@ export const forLoopScenario: Scenario = {
     },
     {
       id: "fl5",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "i < 2",
       narration: "Test : 1 < 2 sera vrai → encore un tour.",
       stack: i("1"),
@@ -111,7 +108,7 @@ export const forLoopScenario: Scenario = {
     },
     {
       id: "fl6",
-      highlightLines: [4],
+      highlightLines: [2],
       narration: "Corps (tour 2) : on va afficher 1.",
       stack: i("1"),
       heap: [],
@@ -121,7 +118,7 @@ export const forLoopScenario: Scenario = {
     },
     {
       id: "fl7",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "i++",
       narration: "Post : i++ → i va valoir 2, puis on va retester.",
       stack: i("2"),
@@ -133,7 +130,7 @@ export const forLoopScenario: Scenario = {
     },
     {
       id: "fl8",
-      highlightLines: [2],
+      highlightLines: [0],
       highlightExpr: "i < 2",
       narration: "Test : 2 < 2 sera faux → on va quitter la boucle. i va disparaître (portée du for).",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
@@ -150,8 +147,8 @@ export const forLoopScenario: Scenario = {
     },
     {
       id: "for-loop-end",
-      highlightLines: [6],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      highlightLines: [3],
+      narration: "Le programme va s'arrêter.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],

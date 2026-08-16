@@ -84,23 +84,20 @@ export const classHeritageScenario: Scenario = {
     "    }",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Chien c = new Chien(\"Rex\", \"Berger\");",
-    "}",
+    "Chien c = new Chien(\"Rex\", \"Berger\");",
   ],
   steps: [
     {
       id: "he0",
-      highlightLines: [18, 19],
-      narration: "Main va démarrer.",
+      highlightLines: [18],
+      narration: "Le programme va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
     },
     {
       id: "he1",
-      highlightLines: [20],
+      highlightLines: [18],
       narration: "new Chien : un seul objet (Chien) va être alloué, champs par défaut. On va entrer dans le constructeur Chien.",
       stack: [
         { id: "frame-main", method: "Main", slots: [slotC] },
@@ -186,7 +183,7 @@ export const classHeritageScenario: Scenario = {
     },
     {
       id: "he7",
-      highlightLines: [20],
+      highlightLines: [18],
       narration: "Fin de Chien : plus de this. c va pointer vers l’objet complet.",
       stack: [{ id: "frame-main", method: "Main", slots: [slotC] }],
       heap: [
@@ -211,8 +208,8 @@ export const classHeritageScenario: Scenario = {
     },
     {
       id: "class-heritage-end",
-      highlightLines: [21],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      highlightLines: [18],
+      narration: "Le programme va s'arrêter.",
       stack: [{ id: "frame-main", method: "Main", slots: [slotC] }],
       heap: [
         {

@@ -6,20 +6,16 @@ export const pathCombineScenario: Scenario = {
   subtitle: "Construit un chemin sans concaténer à la main.",
   part: "files",
   code: [
-    "static void Main()",
-    "{",
-    "    string p = Path.Combine(\"data\", \"a.txt\");",
-    "    Console.WriteLine(p);",
-    "}"
+    "string p = Path.Combine(\"data\", \"a.txt\");",
+    "Console.WriteLine(p);"
   ],
   steps: [
     {
       id: "pc0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const pathCombineScenario: Scenario = {
     {
       id: "pc1",
       highlightLines: [
-        2
+        0
       ],
       highlightExpr: "Path.Combine(\"data\", \"a.txt\")",
       narration: "Path.Combine va produire data\\\\a.txt (séparateur OS).",
@@ -80,7 +76,7 @@ export const pathCombineScenario: Scenario = {
     {
       id: "pc2",
       highlightLines: [
-        3
+        1
       ],
       narration: "Console va afficher le chemin.",
       stack: [
@@ -126,9 +122,9 @@ export const pathCombineScenario: Scenario = {
     {
       id: "path-combine-end",
       highlightLines: [
-        4
+        1
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

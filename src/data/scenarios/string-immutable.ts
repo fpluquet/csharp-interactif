@@ -6,21 +6,17 @@ export const stringImmutableScenario: Scenario = {
   subtitle: "s = s + \"!\" crée un nouvel objet — l’ancien reste intact.",
   part: "native-methods",
   code: [
-    "static void Main()",
-    "{",
-    "    string s = \"Hi\";",
-    "    s = s + \"!\";",
-    "    // s pointe vers un nouvel objet",
-    "}"
+    "string s = \"Hi\";",
+    "s = s + \"!\";",
+    "// s pointe vers un nouvel objet"
   ],
   steps: [
     {
       id: "si0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer. Les string sont des types référence immuables.",
+      narration: "Le programme va démarrer. Les string sont des types référence immuables.",
       stack: [
         {
           id: "frame-main",
@@ -34,7 +30,7 @@ export const stringImmutableScenario: Scenario = {
     {
       id: "si1",
       highlightLines: [
-        2
+        0
       ],
       narration: "string s = \"Hi\" : objet #S1 va être créé sur le heap, s va pointer dessus.",
       stack: [
@@ -77,7 +73,7 @@ export const stringImmutableScenario: Scenario = {
     {
       id: "si2",
       highlightLines: [
-        3
+        1
       ],
       narration: "s = s + \"!\" : on ne va pas modifier #S1 — on va créer un nouvel objet.",
       highlightExpr: "s + \"!\"",
@@ -132,7 +128,7 @@ export const stringImmutableScenario: Scenario = {
     {
       id: "si3",
       highlightLines: [
-        3
+        1
       ],
       narration: "s va pointer vers #S2. #S1 ne va plus être référencé.",
       highlightExpr: "s =",
@@ -188,7 +184,7 @@ export const stringImmutableScenario: Scenario = {
     {
       id: "si4",
       highlightLines: [
-        4
+        2
       ],
       narration: "Immuable = pas de mutation in-place. Concaténer va créer un nouvel objet (+ ancien orphelin).",
       stack: [
@@ -243,9 +239,9 @@ export const stringImmutableScenario: Scenario = {
     {
       id: "string-immutable-end",
       highlightLines: [
-        5
+        2
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

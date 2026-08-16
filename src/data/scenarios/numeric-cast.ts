@@ -6,22 +6,18 @@ export const numericCastScenario: Scenario = {
   subtitle: "Implicite élargit ; explicite peut tronquer.",
   part: "conversions",
   code: [
-    "static void Main()",
-    "{",
-    "    int n = 3;",
-    "    double d = n;",
-    "    double x = 3.9;",
-    "    int m = (int)x;",
-    "}"
+    "int n = 3;",
+    "double d = n;",
+    "double x = 3.9;",
+    "int m = (int)x;"
   ],
   steps: [
     {
       id: "nc0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const numericCastScenario: Scenario = {
     {
       id: "nc1",
       highlightLines: [
-        2
+        0
       ],
       narration: "int n va valoir 3.",
       stack: [
@@ -59,7 +55,7 @@ export const numericCastScenario: Scenario = {
     {
       id: "nc2",
       highlightLines: [
-        3
+        1
       ],
       narration: "double d = n : conversion implicite, d va valoir 3.0.",
       stack: [
@@ -89,7 +85,7 @@ export const numericCastScenario: Scenario = {
     {
       id: "nc3",
       highlightLines: [
-        4
+        2
       ],
       narration: "double x va valoir 3.9.",
       stack: [
@@ -125,7 +121,7 @@ export const numericCastScenario: Scenario = {
     {
       id: "nc4",
       highlightLines: [
-        5
+        3
       ],
       narration: "(int)x va tronquer → m va valoir 3 (pas d'arrondi).",
       stack: [
@@ -167,9 +163,9 @@ export const numericCastScenario: Scenario = {
     {
       id: "numeric-cast-end",
       highlightLines: [
-        6
+        3
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

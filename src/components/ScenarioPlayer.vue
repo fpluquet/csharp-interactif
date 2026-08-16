@@ -50,9 +50,22 @@ const showFiles = computed(() =>
   props.scenario.steps.some((s) => s.files !== undefined),
 );
 
+const eofLineIndex = computed(() => props.scenario.code.length);
+const lastStepIndex = computed(() => props.scenario.steps.length - 1);
+
+const displayHighlightLines = computed(() => {
+  if (isLast.value) return [eofLineIndex.value];
+  return currentStep.value.highlightLines;
+});
+
 const navigableLines = computed(() => {
   const lines = new Set<number>();
-  for (const step of props.scenario.steps) {
+  const last = lastStepIndex.value;
+  for (const [i, step] of props.scenario.steps.entries()) {
+    if (i === last) {
+      lines.add(eofLineIndex.value);
+      continue;
+    }
     for (const line of step.highlightLines) lines.add(line);
   }
   return [...lines];
@@ -60,11 +73,22 @@ const navigableLines = computed(() => {
 
 const nextHighlightLines = computed(() => {
   if (isLast.value) return [];
-  return props.scenario.steps[currentIndex.value + 1]?.highlightLines ?? [];
+  const nextIndex = currentIndex.value + 1;
+  if (nextIndex === lastStepIndex.value) return [eofLineIndex.value];
+  return props.scenario.steps[nextIndex]?.highlightLines ?? [];
 });
 
-const nextHighlightExpr = computed(
-  () => upcomingStep.value?.highlightExpr,
+const nextHighlightExpr = computed(() => {
+  if (currentIndex.value + 1 === lastStepIndex.value) return undefined;
+  return upcomingStep.value?.highlightExpr;
+});
+
+const displayStack = computed(() => (isLast.value ? [] : currentStep.value.stack));
+const displayHeap = computed(() => (isLast.value ? [] : currentStep.value.heap));
+const displayRefs = computed(() => (isLast.value ? [] : currentStep.value.refs));
+const displayFocus = computed(() => (isLast.value ? undefined : currentStep.value.focus));
+const displayNarration = computed(() =>
+  isLast.value ? "Le programme s'est arrêté : la mémoire a été libérée." : explainedStep.value.narration,
 );
 </script>
 
@@ -89,13 +113,13 @@ const nextHighlightExpr = computed(
       <div class="scenario-player__left">
         <CodePanel
           :lines="scenario.code"
-          :highlight-lines="currentStep.highlightLines"
+          :highlight-lines="displayHighlightLines"
           :next-highlight-lines="nextHighlightLines"
           :next-highlight-expr="nextHighlightExpr"
           :navigable-lines="navigableLines"
           :return-flow="explainedStep.returnFlow"
-          :stack="currentStep.stack"
-          :heap="currentStep.heap"
+          :stack="displayStack"
+          :heap="displayHeap"
           @select-line="gotoLine"
         />
         <Transition name="fade-slide" mode="out-in">
@@ -129,16 +153,16 @@ const nextHighlightExpr = computed(
           :files="currentStep.files ?? []"
         />
         <NarrationBar
-          :text="explainedStep.narration"
+          :text="displayNarration"
           :step-label="stepLabel"
         />
       </div>
 
       <MemoryView
-        :stack="currentStep.stack"
-        :heap="currentStep.heap"
-        :refs="currentStep.refs"
-        :focus-id="currentStep.focus"
+        :stack="displayStack"
+        :heap="displayHeap"
+        :refs="displayRefs"
+        :focus-id="displayFocus"
         :step-id="currentStep.id"
       />
     </div>

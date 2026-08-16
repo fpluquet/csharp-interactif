@@ -13,17 +13,14 @@ export const classSealedOverrideScenario: Scenario = {
     "class Chat : Animal { public sealed override string Crier() => \"Miaou\"; }",
     "class Siamois : Chat { /* pas d’override Crier possible */ }",
     "",
-    "static void Main()",
-    "{",
-    "    Animal a = new Siamois();",
-    "    string s = a.Crier();",
-    "}",
+    "Animal a = new Siamois();",
+    "string s = a.Crier();",
   ],
   steps: [
-    step("so0", [4, 5], "Main va démarrer.", main([]), [], []),
+    step("so0", [4], "Le programme va démarrer.", main([]), [], []),
     step(
       "so1",
-      [6],
+      [4],
       "Animal a = new Siamois() va créer un type réel Siamois, qui hérite de Chat.",
       main([refSlot("slot-a", "a", "#C1", "obj-c", "Animal")]),
       [chat],
@@ -31,7 +28,7 @@ export const classSealedOverrideScenario: Scenario = {
     ),
     step(
       "so2",
-      [7],
+      [5],
       "a.Crier() : le lookup va s’arrêter à Chat.Crier (sealed) → Miaou.",
       main([
         refSlot("slot-a", "a", "#C1", "obj-c", "Animal"),
@@ -53,7 +50,7 @@ export const classSealedOverrideScenario: Scenario = {
     ),
     step(
       "class-sealed-override-end",
-      [8],
+      [5],
       MAIN_DONE,
       main([
         refSlot("slot-a", "a", "#C1", "obj-c", "Animal"),

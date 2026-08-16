@@ -21,17 +21,14 @@ export const classAbstractScenario: Scenario = {
     "    public override double Aire() => 3.14 * Rayon * Rayon;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Forme f = new Cercle(2);",
-    "    double a = f.Aire();",
-    "}",
+    "Forme f = new Cercle(2);",
+    "double a = f.Aire();",
   ],
   steps: [
-    step("ab0", [12, 13], "Main va démarrer. Forme est abstract : pas d’instance Forme.", main([]), [], []),
+    step("ab0", [12], "Le programme va démarrer. Forme est abstract : pas d’instance Forme.", main([]), [], []),
     step(
       "ab1",
-      [14],
+      [12],
       "Forme f = new Cercle(2) : type déclaré Forme, objet réel Cercle va être alloué.",
       main([refSlot("slot-f", "f", "#C1", "obj-c", "Forme")]),
       [cercle],
@@ -40,7 +37,7 @@ export const classAbstractScenario: Scenario = {
     ),
     step(
       "ab2",
-      [15, 9],
+      [13, 9],
       "f.Aire() : liaison dynamique va appeler Cercle.Aire → 12.56.",
       main([
         refSlot("slot-f", "f", "#C1", "obj-c", "Forme"),
@@ -62,7 +59,7 @@ export const classAbstractScenario: Scenario = {
     ),
     step(
       "class-abstract-end",
-      [16],
+      [13],
       MAIN_DONE,
       main([
         refSlot("slot-f", "f", "#C1", "obj-c", "Forme"),

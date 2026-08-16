@@ -8,17 +8,14 @@ export const localsGlobalsScenario: Scenario = {
   code: [
     "static int total = 10;",
     "",
-    "static void Ajouter(int n)",
+    "void Ajouter(int n)",
     "{",
     "    int local = n;",
     "    total = total + local;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Ajouter(5);",
-    "    // total vaut 15",
-    "}"
+    "Ajouter(5);",
+    "// total vaut 15"
   ],
   steps: [
     {
@@ -48,10 +45,9 @@ export const localsGlobalsScenario: Scenario = {
     {
       id: "g1",
       highlightLines: [
-        8,
-        9
+        8
       ],
-      narration: "Main va démarrer. total va rester visible dans la zone static.",
+      narration: "Le programme va démarrer. total va rester visible dans la zone static.",
       stack: [
         {
           id: "frame-static",
@@ -78,7 +74,7 @@ export const localsGlobalsScenario: Scenario = {
     {
       id: "g2",
       highlightLines: [
-        10
+        8
       ],
       narration: "Ajouter(5) : on va appeler la fonction — une frame va s'empiler.",
       stack: [
@@ -244,7 +240,7 @@ export const localsGlobalsScenario: Scenario = {
       id: "g6",
       highlightLines: [
         6,
-        11
+        9
       ],
       narration: "Fin d'Ajouter : n et local vont disparaître. total (global) va rester à 15.",
       stack: [
@@ -273,9 +269,9 @@ export const localsGlobalsScenario: Scenario = {
     {
       id: "locals-globals-end",
       highlightLines: [
-        12
+        9
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-static",

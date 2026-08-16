@@ -6,23 +6,19 @@ export const overloadScenario: Scenario = {
   subtitle: "Même nom, signatures différentes → appels distincts.",
   part: "functions",
   code: [
-    "static int Max(int a, int b) => a > b ? a : b;",
-    "static double Max(double a, double b) => a > b ? a : b;",
+    "int Max(int a, int b) => a > b ? a : b;",
+    "double Max(double a, double b) => a > b ? a : b;",
     "",
-    "static void Main()",
-    "{",
-    "    int i = Max(3, 5);",
-    "    double d = Max(2.5, 1.1);",
-    "}"
+    "int i = Max(3, 5);",
+    "double d = Max(2.5, 1.1);"
   ],
   steps: [
     {
       id: "ov0",
       highlightLines: [
-        3,
-        4
+        3
       ],
-      narration: "Main va démarrer. Deux Max vont être disponibles.",
+      narration: "Le programme va démarrer. Deux Max vont être disponibles.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const overloadScenario: Scenario = {
     },
     {
       id: "ov1",
-      highlightLines: [5],
+      highlightLines: [3],
       highlightExpr: "Max(3, 5)",
       narration: "Max(3,5) va choisir la surcharge int.",
       stack: [
@@ -70,7 +66,7 @@ export const overloadScenario: Scenario = {
     {
       id: "ov2",
       highlightLines: [
-        5
+        3
       ],
       narration: "i va valoir 5.",
       stack: [
@@ -93,7 +89,7 @@ export const overloadScenario: Scenario = {
     {
       id: "ov3",
       highlightLines: [
-        6
+        4
       ],
       highlightExpr: "Max(2.5, 1.1)",
       narration: "Max(2.5, 1.1) va choisir la surcharge double.",
@@ -136,7 +132,7 @@ export const overloadScenario: Scenario = {
     {
       id: "ov4",
       highlightLines: [
-        6
+        4
       ],
       narration: "d va valoir 2.5.",
       stack: [
@@ -166,9 +162,9 @@ export const overloadScenario: Scenario = {
     {
       id: "overload-end",
       highlightLines: [
-        7
+        4
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

@@ -17,23 +17,20 @@ export const classCtorScenario: Scenario = {
     "    }",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Personne p = new Personne(\"Ada\", 25);",
-    "}",
+    "Personne p = new Personne(\"Ada\", 25);",
   ],
   steps: [
     {
       id: "ct0",
-      highlightLines: [11, 12],
-      narration: "Main va démarrer.",
+      highlightLines: [11],
+      narration: "Le programme va démarrer.",
       stack: [{ id: "frame-main", method: "Main", slots: [] }],
       heap: [],
       refs: [],
     },
     {
       id: "ct1",
-      highlightLines: [13],
+      highlightLines: [11],
       narration: "new : l’objet Personne va être alloué sur le heap (champs par défaut), puis le constructeur va être appelé.",
       stack: [
         {
@@ -126,7 +123,7 @@ export const classCtorScenario: Scenario = {
     },
     {
       id: "ct3",
-      highlightLines: [13],
+      highlightLines: [11],
       narration: "Fin du constructeur : la frame va disparaître. p va pointer vers l’objet initialisé.",
       stack: [
         {
@@ -162,8 +159,8 @@ export const classCtorScenario: Scenario = {
     },
     {
       id: "class-ctor-end",
-      highlightLines: [14],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      highlightLines: [11],
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

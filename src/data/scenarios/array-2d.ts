@@ -6,21 +6,17 @@ export const array2dScenario: Scenario = {
   subtitle: "Une matrice : accès [ligne, colonne].",
   part: "collections",
   code: [
-    "static void Main()",
-    "{",
-    "    int[,] m = { { 1, 2 }, { 3, 4 } };",
-    "    int v = m[1, 0];",
-    "    Console.WriteLine(v);",
-    "}"
+    "int[,] m = { { 1, 2 }, { 3, 4 } };",
+    "int v = m[1, 0];",
+    "Console.WriteLine(v);"
   ],
   steps: [
     {
       id: "a2d0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const array2dScenario: Scenario = {
     {
       id: "a2d1",
       highlightLines: [
-        2
+        0
       ],
       narration: "Une matrice 2×2 va être créée sur le heap.",
       stack: [
@@ -90,7 +86,7 @@ export const array2dScenario: Scenario = {
     {
       id: "a2d2",
       highlightLines: [
-        3
+        1
       ],
       narration: "m[1,0] va copier 3 dans v.",
       stack: [
@@ -152,7 +148,7 @@ export const array2dScenario: Scenario = {
     {
       id: "a2d3",
       highlightLines: [
-        4
+        2
       ],
       narration: "On va afficher 3.",
       stack: [
@@ -215,9 +211,9 @@ export const array2dScenario: Scenario = {
     {
       id: "array-2d-end",
       highlightLines: [
-        5
+        2
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

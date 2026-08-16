@@ -6,21 +6,17 @@ export const ternaryScenario: Scenario = {
   subtitle: "condition ? siVrai : siFaux — une expression, deux chemins.",
   part: "operators",
   code: [
-    "static void Main()",
-    "{",
-    "    int age = 20;",
-    "    string msg = age >= 18 ? \"majeur\" : \"mineur\";",
-    "    Console.WriteLine(msg);",
-    "}"
+    "int age = 20;",
+    "string msg = age >= 18 ? \"majeur\" : \"mineur\";",
+    "Console.WriteLine(msg);"
   ],
   steps: [
     {
       id: "te0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const ternaryScenario: Scenario = {
     {
       id: "te1",
       highlightLines: [
-        2
+        0
       ],
       narration: "age va valoir 20.",
       stack: [
@@ -59,7 +55,7 @@ export const ternaryScenario: Scenario = {
     {
       id: "te2",
       highlightLines: [
-        3
+        1
       ],
       highlightExpr: "age >= 18",
       narration: "age >= 18 va être true → on va prendre \"majeur\". La string va être sur le heap.",
@@ -110,7 +106,7 @@ export const ternaryScenario: Scenario = {
     {
       id: "te3",
       highlightLines: [
-        4
+        2
       ],
       narration: "On va afficher majeur.",
       stack: [
@@ -161,9 +157,9 @@ export const ternaryScenario: Scenario = {
     {
       id: "ternary-end",
       highlightLines: [
-        5
+        2
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

@@ -12,7 +12,7 @@ export const classReturnScenario: Scenario = {
     "    public int Y;",
     "}",
     "",
-    "static Point Creer(int x, int y)",
+    "Point Creer(int x, int y)",
     "{",
     "    Point p = new Point();",
     "    p.X = x;",
@@ -20,19 +20,15 @@ export const classReturnScenario: Scenario = {
     "    return p;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Point origin = Creer(0, 0);",
-    "}"
+    "Point origin = Creer(0, 0);"
   ],
   steps: [
     {
       id: "cr0",
       highlightLines: [
-        14,
-        15
+        14
       ],
-      narration: "Main va démarrer. On va fabriquer un Point via Creer.",
+      narration: "Le programme va démarrer. On va fabriquer un Point via Creer.",
       stack: [
         {
           id: "frame-main",
@@ -46,7 +42,7 @@ export const classReturnScenario: Scenario = {
     {
       id: "cr1",
       highlightLines: [
-        16
+        14
       ],
       highlightExpr: "Creer(0, 0)",
       narration: "L’appel Creer(0, 0) va empiler une nouvelle frame avec les paramètres x et y.",
@@ -283,13 +279,13 @@ export const classReturnScenario: Scenario = {
         value: "→ #P1",
         targetVar: "origin",
         phase: "returning",
-        callLine: 16
+        callLine: 14
       }
     },
     {
       id: "cr5",
       highlightLines: [
-        16
+        14
       ],
       narration: "La frame Creer va être dépilée : x, y, p locaux vont disparaître. #P1 va rester vivant — origin dans Main va y pointer.",
       stack: [
@@ -340,15 +336,15 @@ export const classReturnScenario: Scenario = {
         value: "→ #P1",
         targetVar: "origin",
         phase: "assigned",
-        callLine: 16
+        callLine: 14
       }
     },
     {
       id: "class-return-end",
       highlightLines: [
-        17
+        14
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

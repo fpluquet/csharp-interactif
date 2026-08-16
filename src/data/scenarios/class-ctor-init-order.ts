@@ -16,16 +16,13 @@ export const classCtorInitOrderScenario: Scenario = {
     "    }",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Compteur c = new Compteur();",
-    "}",
+    "Compteur c = new Compteur();",
   ],
   steps: [
-    step("io0", [9, 10], "Main va démarrer.", main([]), [], []),
+    step("io0", [9], "Le programme va démarrer.", main([]), [], []),
     step(
       "io1",
-      [2, 11],
+      [2, 9],
       "Allocation : l’initialiseur de champ va s’exécuter d’abord → N va valoir 10.",
       main(
         [refSlot("slot-c", "c", "#C1", "obj-c")],
@@ -49,7 +46,7 @@ export const classCtorInitOrderScenario: Scenario = {
     ),
     step(
       "class-ctor-init-order-end",
-      [12],
+      [9],
       MAIN_DONE,
       main([refSlot("slot-c", "c", "#C1", "obj-c")]),
       [obj("obj-c", "Compteur", "#C1", [{ label: "N", value: "11", kind: "value" }])],

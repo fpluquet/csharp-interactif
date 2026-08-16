@@ -9,19 +9,16 @@ export const classRecordScenario: Scenario = {
   code: [
     "record Point(int X, int Y);",
     "",
-    "static void Main()",
-    "{",
-    "    Point a = new Point(1, 2);",
-    "    Point b = new Point(1, 2);",
-    "    bool eq = a == b;",
-    "    Point c = a with { Y = 9 };",
-    "}",
+    "Point a = new Point(1, 2);",
+    "Point b = new Point(1, 2);",
+    "bool eq = a == b;",
+    "Point c = a with { Y = 9 };",
   ],
   steps: [
-    step("re0", [2, 3], "Main va démarrer.", main([]), [], []),
+    step("re0", [2], "Le programme va démarrer.", main([]), [], []),
     step(
       "re1",
-      [4, 5],
+      [2, 3],
       "Deux records distincts vont être créés, avec les mêmes valeurs (X=1, Y=2).",
       main([
         refSlot("slot-a", "a", "#P1", "obj-a", "Point"),
@@ -41,7 +38,7 @@ export const classRecordScenario: Scenario = {
     ),
     step(
       "re2",
-      [6],
+      [4],
       "a == b va valoir true : égalité par valeur, pas par référence.",
       main([
         refSlot("slot-a", "a", "#P1", "obj-a", "Point"),
@@ -63,7 +60,7 @@ export const classRecordScenario: Scenario = {
     ),
     step(
       "re3",
-      [7],
+      [5],
       "with va créer #P3 (1, 9). a va rester (1, 2).",
       main([
         refSlot("slot-a", "a", "#P1", "obj-a", "Point"),
@@ -94,7 +91,7 @@ export const classRecordScenario: Scenario = {
     ),
     step(
       "class-record-end",
-      [8],
+      [5],
       MAIN_DONE,
       main([
         refSlot("slot-a", "a", "#P1", "obj-a", "Point"),

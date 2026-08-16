@@ -39,13 +39,20 @@ export function useScenarioPlayer(scenario: Ref<Scenario>) {
   /**
    * Saute à l’état où cette ligne est « à exécuter » (un cran avant
    * l’étape qui l’a déjà jouée).
+   * `lineIndex === code.length` = marqueur de fin du programme.
    */
   function gotoLine(lineIndex: number) {
+    const steps = scenario.value.steps;
+    if (lineIndex === scenario.value.code.length) {
+      currentIndex.value = Math.max(0, steps.length - 2);
+      return;
+    }
+    const last = steps.length - 1;
     const targets = [
       ...new Set(
-        scenario.value.steps
+        steps
           .map((step, index) => ({ index, step }))
-          .filter(({ step }) => step.highlightLines.includes(lineIndex))
+          .filter(({ index, step }) => index !== last && step.highlightLines.includes(lineIndex))
           .map(({ index }) => Math.max(0, index - 1)),
       ),
     ];

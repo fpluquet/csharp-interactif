@@ -6,21 +6,17 @@ export const stringConcatScenario: Scenario = {
   subtitle: "a + b crée un nouvel objet string sur le heap.",
   part: "operators",
   code: [
-    "static void Main()",
-    "{",
-    "    string a = \"Bon\";",
-    "    string b = \"jour\";",
-    "    string c = a + b;",
-    "}"
+    "string a = \"Bon\";",
+    "string b = \"jour\";",
+    "string c = a + b;"
   ],
   steps: [
     {
       id: "sc0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -34,7 +30,7 @@ export const stringConcatScenario: Scenario = {
     {
       id: "sc1",
       highlightLines: [
-        2
+        0
       ],
       narration: "a va pointer vers \"Bon\".",
       stack: [
@@ -77,7 +73,7 @@ export const stringConcatScenario: Scenario = {
     {
       id: "sc2",
       highlightLines: [
-        3
+        1
       ],
       narration: "b va pointer vers \"jour\".",
       stack: [
@@ -143,7 +139,7 @@ export const stringConcatScenario: Scenario = {
     {
       id: "sc3",
       highlightLines: [
-        4
+        2
       ],
       narration: "a + b va créer #S3 \"Bonjour\". a et b vont rester inchangés.",
       stack: [
@@ -232,9 +228,9 @@ export const stringConcatScenario: Scenario = {
     {
       id: "string-concat-end",
       highlightLines: [
-        5
+        2
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

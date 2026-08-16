@@ -6,22 +6,18 @@ export const typesNumericBoolScenario: Scenario = {
   subtitle: "Plusieurs types valeur cohabitent sur la stack.",
   part: "variables",
   code: [
-    "static void Main()",
-    "{",
-    "    int n = 42;",
-    "    double x = 3.14;",
-    "    bool ok = true;",
-    "    char c = 'A';",
-    "}"
+    "int n = 42;",
+    "double x = 3.14;",
+    "bool ok = true;",
+    "char c = 'A';"
   ],
   steps: [
     {
       id: "tn0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer. La stack va être prête pour des types valeur.",
+      narration: "Le programme va démarrer. La stack va être prête pour des types valeur.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const typesNumericBoolScenario: Scenario = {
     {
       id: "tn1",
       highlightLines: [
-        2
+        0
       ],
       narration: "int n = 42 : l'entier va être stocké directement dans la frame.",
       stack: [
@@ -59,7 +55,7 @@ export const typesNumericBoolScenario: Scenario = {
     {
       id: "tn2",
       highlightLines: [
-        3
+        1
       ],
       narration: "double x = 3.14 : le nombre à virgule va être sur la stack.",
       stack: [
@@ -89,7 +85,7 @@ export const typesNumericBoolScenario: Scenario = {
     {
       id: "tn3",
       highlightLines: [
-        4
+        2
       ],
       narration: "bool ok = true : le vrai/faux va être stocké comme type valeur.",
       stack: [
@@ -125,7 +121,7 @@ export const typesNumericBoolScenario: Scenario = {
     {
       id: "tn4",
       highlightLines: [
-        5
+        3
       ],
       narration: "char c = 'A' : le caractère Unicode va aussi être sur la stack.",
       stack: [
@@ -167,9 +163,9 @@ export const typesNumericBoolScenario: Scenario = {
     {
       id: "types-numeric-bool-end",
       highlightLines: [
-        6
+        3
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

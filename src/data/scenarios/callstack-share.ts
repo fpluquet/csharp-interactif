@@ -6,26 +6,22 @@ export const callstackShareScenario: Scenario = {
   subtitle: "Appel de méthode : nouvelle frame, même objet heap.",
   part: "memory",
   code: [
-    "static void Incrementer(int[] t)",
+    "void Incrementer(int[] t)",
     "{",
     "    t[0] = t[0] + 1;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    int[] scores = { 10, 20 };",
-    "    Incrementer(scores);",
-    "    // scores[0] vaut 11",
-    "}"
+    "int[] scores = { 10, 20 };",
+    "Incrementer(scores);",
+    "// scores[0] vaut 11"
   ],
   steps: [
     {
       id: "c0",
       highlightLines: [
-        5,
-        6
+        5
       ],
-      narration: "On va démarrer dans Main. Une seule frame va être sur la stack.",
+      narration: "Le programme va démarrer. Une seule frame va être sur la stack.",
       stack: [
         {
           id: "frame-main",
@@ -39,7 +35,7 @@ export const callstackShareScenario: Scenario = {
     {
       id: "c1",
       highlightLines: [
-        7
+        5
       ],
       narration: "int[] scores = {10, 20} : le tableau va être sur le heap, la référence sur la stack.",
       stack: [
@@ -86,7 +82,7 @@ export const callstackShareScenario: Scenario = {
     {
       id: "c2",
       highlightLines: [
-        8
+        6
       ],
       narration: "Incrementer(scores) : on va appeler la méthode — une nouvelle frame va s'empiler.",
       stack: [
@@ -377,7 +373,7 @@ export const callstackShareScenario: Scenario = {
     {
       id: "c7",
       highlightLines: [
-        9
+        7
       ],
       narration: "De retour dans Main : scores[0] va valoir 11. Partage = mutation visible.",
       stack: [
@@ -424,9 +420,9 @@ export const callstackShareScenario: Scenario = {
     {
       id: "callstack-share-end",
       highlightLines: [
-        10
+        7
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

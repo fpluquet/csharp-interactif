@@ -14,17 +14,14 @@ export const classPropComputedScenario: Scenario = {
     "    public int Aire => L * H;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Rectangle r = new Rectangle { L = 4, H = 3 };",
-    "    int a = r.Aire;",
-    "}",
+    "Rectangle r = new Rectangle { L = 4, H = 3 };",
+    "int a = r.Aire;",
   ],
   steps: [
-    step("pc0", [7, 8], "Main va démarrer.", main([]), [], []),
+    step("pc0", [7], "Le programme va démarrer.", main([]), [], []),
     step(
       "pc1",
-      [9],
+      [7],
       "L et H vont être des champs. Aire n’apparaîtra pas dans l’objet : pas de stockage.",
       main([refSlot("slot-r", "r", "#R1", "obj-r")]),
       [obj("obj-r", "Rectangle", "#R1", [
@@ -36,7 +33,7 @@ export const classPropComputedScenario: Scenario = {
     ),
     step(
       "pc2",
-      [10, 4],
+      [8, 4],
       "r.Aire va exécuter L * H → 12. Le résultat va être une copie sur la stack.",
       main([
         refSlot("slot-r", "r", "#R1", "obj-r"),
@@ -51,7 +48,7 @@ export const classPropComputedScenario: Scenario = {
     ),
     step(
       "class-prop-computed-end",
-      [11],
+      [8],
       MAIN_DONE,
       main([
         refSlot("slot-r", "r", "#R1", "obj-r"),

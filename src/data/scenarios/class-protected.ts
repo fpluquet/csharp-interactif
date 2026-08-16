@@ -22,18 +22,15 @@ export const classProtectedScenario: Scenario = {
     "    public void Vieillir() { Age++; }",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Chien c = new Chien(\"Rex\");",
-    "    c.Vieillir();",
-    "    // c.Age interdit ici",
-    "}",
+    "Chien c = new Chien(\"Rex\");",
+    "c.Vieillir();",
+    "// c.Age interdit ici",
   ],
   steps: [
-    step("pr0", [13, 14], "Main va démarrer.", main([]), [], []),
+    step("pr0", [13], "Le programme va démarrer.", main([]), [], []),
     step(
       "pr1",
-      [15],
+      [13],
       "new Chien : l’objet va avoir Nom (public) et Age (protected, 0).",
       main([refSlot("slot-c", "c", "#C1", "obj-c", "Chien")]),
       [
@@ -48,7 +45,7 @@ export const classProtectedScenario: Scenario = {
     ),
     step(
       "pr2",
-      [16, 10],
+      [14, 10],
       "c.Vieillir() : code de Chien, donc Age++ va être autorisé → 1. Main ne pourra pas écrire c.Age.",
       main([refSlot("slot-c", "c", "#C1", "obj-c", "Chien")]),
       [
@@ -63,7 +60,7 @@ export const classProtectedScenario: Scenario = {
     ),
     step(
       "class-protected-end",
-      [18],
+      [15],
       MAIN_DONE,
       main([refSlot("slot-c", "c", "#C1", "obj-c", "Chien")]),
       [

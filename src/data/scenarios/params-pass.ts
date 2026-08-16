@@ -6,33 +6,29 @@ export const paramsPassScenario: Scenario = {
   subtitle: "Par valeur on copie ; avec ref on modifie l’original.",
   part: "functions",
   code: [
-    "static void ModifierValeur(int x)",
+    "void ModifierValeur(int x)",
     "{",
     "    x = 99;",
     "}",
     "",
-    "static void ModifierRef(ref int x)",
+    "void ModifierRef(ref int x)",
     "{",
     "    x = 99;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    int a = 5;",
-    "    ModifierValeur(a);",
-    "    // a vaut toujours 5",
-    "    ModifierRef(ref a);",
-    "    // a vaut 99",
-    "}"
+    "int a = 5;",
+    "ModifierValeur(a);",
+    "// a vaut toujours 5",
+    "ModifierRef(ref a);",
+    "// a vaut 99"
   ],
   steps: [
     {
       id: "p0",
       highlightLines: [
-        10,
-        11
+        10
       ],
-      narration: "Main va démarrer. On va comparer passage par valeur et par référence.",
+      narration: "Le programme va démarrer. On va comparer passage par valeur et par référence.",
       stack: [
         {
           id: "frame-main",
@@ -46,7 +42,7 @@ export const paramsPassScenario: Scenario = {
     {
       id: "p1",
       highlightLines: [
-        12
+        10
       ],
       narration: "int a = 5 : la valeur va être stockée sur la stack, dans la frame Main.",
       stack: [
@@ -70,7 +66,7 @@ export const paramsPassScenario: Scenario = {
     {
       id: "p2",
       highlightLines: [
-        13
+        11
       ],
       highlightExpr: "ModifierValeur(a)",
       narration: "ModifierValeur(a) : appel — une nouvelle frame va s’empiler.",
@@ -169,7 +165,7 @@ export const paramsPassScenario: Scenario = {
       id: "p5",
       highlightLines: [
         3,
-        14
+        12
       ],
       narration: "Retour dans Main : a va toujours valoir 5. La frame ModifierValeur va disparaître.",
       stack: [
@@ -193,7 +189,7 @@ export const paramsPassScenario: Scenario = {
     {
       id: "p6",
       highlightLines: [
-        15
+        13
       ],
       highlightExpr: "ModifierRef(ref a)",
       narration: "ModifierRef(ref a) : on va passer une référence vers a, pas une copie.",
@@ -293,7 +289,7 @@ export const paramsPassScenario: Scenario = {
       id: "p9",
       highlightLines: [
         8,
-        16
+        14
       ],
       narration: "Retour dans Main : a va valoir 99. ref va bien modifier l’original.",
       stack: [
@@ -317,9 +313,9 @@ export const paramsPassScenario: Scenario = {
     {
       id: "params-pass-end",
       highlightLines: [
-        17
+        14
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

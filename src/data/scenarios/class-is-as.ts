@@ -14,19 +14,16 @@ export const classIsAsScenario: Scenario = {
     "class Chien : Animal { }",
     "class Chat : Animal { }",
     "",
-    "static void Main()",
-    "{",
-    "    Animal a = new Chien();",
-    "    bool ok = a is Chien;",
-    "    Chien c = a as Chien;",
-    "    Chat t = a as Chat;",
-    "}",
+    "Animal a = new Chien();",
+    "bool ok = a is Chien;",
+    "Chien c = a as Chien;",
+    "Chat t = a as Chat;",
   ],
   steps: [
-    step("ia0", [4, 5], "Main va démarrer.", main([]), [], []),
+    step("ia0", [4], "Le programme va démarrer.", main([]), [], []),
     step(
       "ia1",
-      [6],
+      [4],
       "Animal a = new Chien() : type déclaré Animal, l’objet va être Chien.",
       main([refSlot("slot-a", "a", "#C1", "obj-c", "Animal")]),
       [chien],
@@ -35,7 +32,7 @@ export const classIsAsScenario: Scenario = {
     ),
     step(
       "ia2",
-      [7],
+      [5],
       "a is Chien → va donner true (le type réel va être Chien).",
       main([
         refSlot("slot-a", "a", "#C1", "obj-c", "Animal"),
@@ -47,7 +44,7 @@ export const classIsAsScenario: Scenario = {
     ),
     step(
       "ia3",
-      [8],
+      [6],
       "a as Chien va réussir : c va pointer vers le même objet #C1.",
       main([
         refSlot("slot-a", "a", "#C1", "obj-c", "Animal"),
@@ -60,7 +57,7 @@ export const classIsAsScenario: Scenario = {
     ),
     step(
       "ia4",
-      [9],
+      [7],
       "a as Chat va échouer sans exception : t va valoir null (pas un Chat).",
       main([
         refSlot("slot-a", "a", "#C1", "obj-c", "Animal"),
@@ -74,7 +71,7 @@ export const classIsAsScenario: Scenario = {
     ),
     step(
       "class-is-as-end",
-      [10],
+      [7],
       MAIN_DONE,
       main([
         refSlot("slot-a", "a", "#C1", "obj-c", "Animal"),

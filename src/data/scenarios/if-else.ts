@@ -6,27 +6,23 @@ export const ifElseScenario: Scenario = {
   subtitle: "Une condition true exécute le bloc if.",
   part: "control",
   code: [
-    "static void Main()",
+    "int age = 20;",
+    "if (age >= 18)",
     "{",
-    "    int age = 20;",
-    "    if (age >= 18)",
-    "    {",
-    "        Console.WriteLine(\"majeur\");",
-    "    }",
-    "    else",
-    "    {",
-    "        Console.WriteLine(\"mineur\");",
-    "    }",
+    "    Console.WriteLine(\"majeur\");",
+    "}",
+    "else",
+    "{",
+    "    Console.WriteLine(\"mineur\");",
     "}"
   ],
   steps: [
     {
       id: "ie0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -41,7 +37,7 @@ export const ifElseScenario: Scenario = {
     {
       id: "ie1",
       highlightLines: [
-        2
+        0
       ],
       narration: "age va valoir 20.",
       stack: [
@@ -65,7 +61,7 @@ export const ifElseScenario: Scenario = {
     {
       id: "ie2",
       highlightLines: [
-        3
+        1
       ],
       highlightExpr: "age >= 18",
       narration: "age >= 18 → true : on va entrer dans le if.",
@@ -90,7 +86,7 @@ export const ifElseScenario: Scenario = {
     {
       id: "ie3",
       highlightLines: [
-        5
+        3
       ],
       narration: "Branche if : on va afficher majeur. Le else va être ignoré.",
       stack: [
@@ -116,9 +112,9 @@ export const ifElseScenario: Scenario = {
     {
       id: "if-else-end",
       highlightLines: [
-        11
+        8
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

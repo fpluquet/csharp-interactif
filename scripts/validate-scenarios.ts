@@ -64,7 +64,11 @@ for (const s of scenarios) {
       issue(`${s.id}/${step.id}`, "narration manquante");
     }
 
-    if (!step.highlightLines.length) issue(`${s.id}/${step.id}`, "highlightLines vide");
+    if (!step.highlightLines.length) {
+      if (i !== s.steps.length - 1) {
+        issue(`${s.id}/${step.id}`, "highlightLines vide");
+      }
+    }
     for (const line of step.highlightLines) {
       if (line < 0 || line >= n) {
         issue(`${s.id}/${step.id}`, `highlightLines ${line} hors code (0..${n - 1})`);
@@ -73,7 +77,7 @@ for (const s of scenarios) {
       }
     }
 
-    if (step.highlightExpr) {
+    if (step.highlightExpr && step.highlightLines.length) {
       const found = step.highlightLines.some((li) => s.code[li]?.includes(step.highlightExpr!));
       if (!found) {
         issue(
@@ -146,7 +150,8 @@ for (const s of scenarios) {
       const curConsole = step.consoleLines ?? [];
       const highlightedWrite = step.highlightLines.some((li) => /Console\.WriteLine/.test(s.code[li] ?? ""));
       const printFollows = (next?.consoleLines?.length ?? 0) > curConsole.length;
-      if (highlightedWrite && !step.dispatchFlow && !printFollows) {
+      const programEnding = /va s'arrêter|va s’arrêter/.test(step.narration) || step.id.endsWith("-end");
+      if (highlightedWrite && !step.dispatchFlow && !printFollows && !programEnding) {
         if (curConsole.length < prevConsole.length) {
           issue(`${s.id}/${step.id}`, "WriteLine surligné mais la console recule");
         } else if (curConsole.length === prevConsole.length) {
@@ -170,8 +175,18 @@ for (const s of scenarios) {
       b.highlightLines.length === 1 &&
       a.highlightLines[0] === b.highlightLines[0];
     if (same && !a.highlightExpr && !b.highlightExpr && !a.returnFlow && !b.returnFlow && !a.exceptionFlow && !b.exceptionFlow) {
+      const introOrOutro =
+        /va démarrer|va s'arrêter|va s’arrêter|frame Main va apparaître/.test(
+          `${a.narration} ${b.narration}`,
+        );
       const line = s.code[a.highlightLines[0]];
-      if (line && /new | = |\(.*\)/.test(line) && !line.trim().startsWith("//") && line.includes(";")) {
+      if (
+        !introOrOutro &&
+        line &&
+        /new | = |\(.*\)/.test(line) &&
+        !line.trim().startsWith("//") &&
+        line.includes(";")
+      ) {
         issue(`${s.id}/${a.id}+${b.id}`, `même ligne sans highlightExpr: ${JSON.stringify(line.trim())}`);
       }
     }
@@ -180,7 +195,8 @@ for (const s of scenarios) {
 
 const suggestions: string[] = [];
 for (const s of scenarios) {
-  for (const step of s.steps) {
+  for (const [i, step] of s.steps.entries()) {
+    if (i === s.steps.length - 1) continue;
     if (step.highlightExpr) continue;
     if (step.highlightLines.length !== 1) continue;
     if (step.returnFlow || step.exceptionFlow) continue;

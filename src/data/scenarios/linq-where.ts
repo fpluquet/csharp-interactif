@@ -6,21 +6,17 @@ export const linqWhereScenario: Scenario = {
   subtitle: "Where produit une nouvelle séquence filtrée.",
   part: "collections",
   code: [
-    "static void Main()",
-    "{",
-    "    int[] nums = { 1, 2, 3, 4 };",
-    "    int[] pairs = nums.Where(n => n % 2 == 0).ToArray();",
-    "    Console.WriteLine(pairs.Length);",
-    "}"
+    "int[] nums = { 1, 2, 3, 4 };",
+    "int[] pairs = nums.Where(n => n % 2 == 0).ToArray();",
+    "Console.WriteLine(pairs.Length);"
   ],
   steps: [
     {
       id: "lw0",
       highlightLines: [
-        0,
-        1
+        0
       ],
-      narration: "Main va démarrer.",
+      narration: "Le programme va démarrer.",
       stack: [
         {
           id: "frame-main",
@@ -35,7 +31,7 @@ export const linqWhereScenario: Scenario = {
     {
       id: "lw1",
       highlightLines: [
-        2
+        0
       ],
       narration: "nums va valoir {1,2,3,4}.",
       stack: [
@@ -90,7 +86,7 @@ export const linqWhereScenario: Scenario = {
     {
       id: "lw2",
       highlightLines: [
-        3
+        1
       ],
       highlightExpr: "nums.Where(n => n % 2 == 0).ToArray()",
       narration: "Where + ToArray → un nouveau tableau {2,4} va être créé. nums restera intact.",
@@ -174,7 +170,7 @@ export const linqWhereScenario: Scenario = {
     {
       id: "lw3",
       highlightLines: [
-        4
+        2
       ],
       narration: "On va afficher pairs.Length = 2.",
       stack: [
@@ -258,9 +254,9 @@ export const linqWhereScenario: Scenario = {
     {
       id: "linq-where-end",
       highlightLines: [
-        5
+        2
       ],
-      narration: "La fonction Main va se terminer, le programme va s'arrêter.",
+      narration: "Le programme va s'arrêter.",
       stack: [
         {
           id: "frame-main",

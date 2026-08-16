@@ -6,29 +6,25 @@ export const exceptionThrowScenario: Scenario = {
   subtitle: "throw dépile les frames jusqu’à quitter le programme.",
   part: "exceptions",
   code: [
-    "static void Risquer()",
+    "void Risquer()",
     "{",
     "    throw new InvalidOperationException(\"boom\");",
     "}",
     "",
-    "static void Appeler()",
+    "void Appeler()",
     "{",
     "    Risquer();",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    Appeler();",
-    "}"
+    "Appeler();"
   ],
   steps: [
     {
       id: "et0",
       highlightLines: [
-        10,
-        11
+        10
       ],
-      narration: "Main va démarrer. Aucune exception pour l’instant.",
+      narration: "Le programme va démarrer. Aucune exception pour l’instant.",
       stack: [
         {
           id: "frame-main",
@@ -42,7 +38,7 @@ export const exceptionThrowScenario: Scenario = {
     {
       id: "et1",
       highlightLines: [
-        12
+        10
       ],
       highlightExpr: "Appeler()",
       narration: "Appeler() : une nouvelle frame va s’empiler.",
@@ -173,7 +169,7 @@ export const exceptionThrowScenario: Scenario = {
     {
       id: "et6",
       highlightLines: [
-        12
+        10
       ],
       narration: "Main n’a pas de catch non plus : la stack va se vider. Le programme va s’arrêter sur l’exception.",
       stack: [],
@@ -188,7 +184,7 @@ export const exceptionThrowScenario: Scenario = {
     {
       id: "exception-throw-end",
       highlightLines: [
-        13
+        10
       ],
       narration: "Le programme s’est arrêté : l’exception n’a été attrapée nulle part.",
       stack: [],

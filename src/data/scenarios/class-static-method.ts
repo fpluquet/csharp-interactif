@@ -12,16 +12,13 @@ export const classStaticMethodScenario: Scenario = {
     "    public static int Carre(int n) => n * n;",
     "}",
     "",
-    "static void Main()",
-    "{",
-    "    int x = MathUtil.Carre(4);",
-    "}",
+    "int x = MathUtil.Carre(4);",
   ],
   steps: [
-    step("sm0", [5, 6], "Main va démarrer. Aucune instance de MathUtil.", main([]), [], []),
+    step("sm0", [5], "Le programme va démarrer. Aucune instance de MathUtil.", main([]), [], []),
     step(
       "sm1",
-      [7, 2],
+      [5, 2],
       "MathUtil.Carre(4) va empiler une frame sans this, seulement n = 4.",
       main(
         [],
@@ -33,7 +30,7 @@ export const classStaticMethodScenario: Scenario = {
     ),
     step(
       "sm2",
-      [7],
+      [5],
       "return 16 va alimenter x. Toujours aucun objet heap.",
       main([val("slot-x", "x", "16")]),
       [],
@@ -46,10 +43,10 @@ export const classStaticMethodScenario: Scenario = {
           value: "16",
           targetVar: "x",
           phase: "assigned",
-          callLine: 7,
+          callLine: 5,
         },
       },
     ),
-    step("class-static-method-end", [8], MAIN_DONE, main([val("slot-x", "x", "16")]), [], []),
+    step("class-static-method-end", [5], MAIN_DONE, main([val("slot-x", "x", "16")]), [], []),
   ],
 };

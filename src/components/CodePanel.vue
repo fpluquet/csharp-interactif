@@ -31,6 +31,11 @@ const bodyRef = ref<HTMLElement | null>(null);
 
 const navigableSet = computed(() => new Set(props.navigableLines ?? []));
 const nextSet = computed(() => new Set(props.nextHighlightLines ?? []));
+const eofIndex = computed(() => props.lines.length);
+const isEofUpcoming = computed(() => isUpcoming(eofIndex.value));
+const isEofHere = computed(
+  () => props.highlightLines.includes(eofIndex.value) && !isEofUpcoming.value,
+);
 
 function isNavigable(lineIndex: number) {
   return navigableSet.value.has(lineIndex);
@@ -41,6 +46,11 @@ function isUpcoming(lineIndex: number) {
 }
 
 function lineTitle(lineIndex: number) {
+  if (lineIndex === eofIndex.value) {
+    if (isUpcoming(lineIndex)) return "Prochaine étape — fin du programme";
+    if (isNavigable(lineIndex)) return "Aller à la fin du programme";
+    return undefined;
+  }
   if (isUpcoming(lineIndex) && props.nextHighlightExpr) {
     return `Prochaine étape — ${props.nextHighlightExpr}`;
   }
@@ -418,6 +428,42 @@ watch(
           </template>
         </code>
       </div>
+      <div
+        class="code-line code-line--eof"
+        :data-line-index="eofIndex"
+        :class="{
+          'is-upcoming': isEofUpcoming,
+          'is-eof-here': isEofHere,
+          'is-navigable': isNavigable(eofIndex),
+        }"
+        :role="isNavigable(eofIndex) ? 'button' : undefined"
+        :tabindex="isNavigable(eofIndex) ? 0 : undefined"
+        :title="lineTitle(eofIndex)"
+        :aria-label="isEofUpcoming ? 'À exécuter : fin du programme' : 'Fin du programme'"
+        @click="onLineClick(eofIndex)"
+        @keydown="onLineKeydown($event, eofIndex)"
+      >
+        <span class="code-line__mark" aria-hidden="true">
+          <svg
+            v-if="isEofUpcoming"
+            key="next-eof"
+            class="mark mark--next"
+            viewBox="0 0 10 10"
+          >
+            <path d="M2 1.2v7.6L8.8 5Z" />
+          </svg>
+          <svg
+            v-else-if="isEofHere"
+            key="here-eof"
+            class="mark mark--eof"
+            viewBox="0 0 10 10"
+          >
+            <rect x="1.6" y="1.6" width="6.8" height="6.8" rx="1.2" />
+          </svg>
+        </span>
+        <span class="code-line__num" aria-hidden="true"></span>
+        <span class="code-line__eof">fin du programme</span>
+      </div>
     </div>
   </section>
 </template>
@@ -516,7 +562,7 @@ watch(
   &.is-navigable {
     cursor: pointer;
 
-    &:hover:not(.is-upcoming):not(.is-upcoming-expr) {
+    &:hover:not(.is-upcoming):not(.is-upcoming-expr):not(.is-eof-here) {
       background: rgba(107, 163, 240, 0.06);
     }
 
@@ -525,6 +571,35 @@ watch(
       outline-offset: 1px;
     }
   }
+}
+
+.code-line--eof {
+  margin-top: 0.15rem;
+  align-items: center;
+  color: var(--text-dim);
+
+  &.is-upcoming .code-line__eof {
+    color: var(--accent);
+  }
+
+  &.is-eof-here {
+    background: rgba(148, 163, 184, 0.1);
+    border-left-color: rgba(148, 163, 184, 0.7);
+  }
+}
+
+.code-line__eof {
+  font-family: var(--font-ui, inherit);
+  font-size: 0.78rem;
+  font-style: italic;
+  font-weight: 550;
+  letter-spacing: 0.02em;
+  color: var(--text-dim);
+  user-select: none;
+}
+
+.mark--eof {
+  fill: rgba(148, 163, 184, 0.95);
 }
 
 .code-line__mark {

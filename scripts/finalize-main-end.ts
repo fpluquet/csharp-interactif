@@ -3,55 +3,29 @@ import path from "path";
 import { scenarios } from "../src/data/index";
 import type { Scenario, Step } from "../src/types/memory";
 
-const END_NARRATION =
-  "La fonction Main est terminée, le programme s'arrête.";
+const END_NARRATION = "Le programme va s'arrêter.";
 
-function findMainCloseLine(code: string[]): number {
-  const mainIdx = code.findIndex((line) => /\bMain\s*\(/.test(line));
-  if (mainIdx < 0) {
-    for (let i = code.length - 1; i >= 0; i--) {
-      if (code[i].trim() === "}") return i;
-    }
-    return Math.max(0, code.length - 1);
-  }
-
-  let i = mainIdx;
-  while (i < code.length && !code[i].includes("{")) i++;
-
-  let depth = 0;
-  for (; i < code.length; i++) {
-    for (const ch of code[i]) {
-      if (ch === "{") depth++;
-      else if (ch === "}") {
-        depth--;
-        if (depth === 0) return i;
-      }
-    }
-  }
-
-  return Math.max(0, code.length - 1);
+function isProgramEndNarration(text: string) {
+  return /va s'arrêter|va s’arrêter|s'arrête/.test(text);
 }
 
 function ensureFinalStep(scenario: Scenario): Scenario {
-  const closeLine = findMainCloseLine(scenario.code);
   const steps: Step[] = scenario.steps.map((s) => structuredClone(s));
   const last = steps[steps.length - 1];
 
-  const isAlreadyFinal =
-    last.highlightLines.length === 1 && last.highlightLines[0] === closeLine;
-
-  if (isAlreadyFinal) {
+  if (last.highlightLines.length === 0 || isProgramEndNarration(last.narration)) {
     last.narration = END_NARRATION;
-    last.highlightLines = [closeLine];
+    last.highlightLines = [];
     delete last.returnFlow;
     delete last.exceptionFlow;
     delete last.focus;
+    delete last.highlightExpr;
     return { ...scenario, steps };
   }
 
   const finalStep: Step = {
     id: `${scenario.id}-end`,
-    highlightLines: [closeLine],
+    highlightLines: [],
     narration: END_NARRATION,
     stack: structuredClone(last.stack),
     heap: structuredClone(last.heap),
