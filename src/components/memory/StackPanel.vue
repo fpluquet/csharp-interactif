@@ -61,6 +61,7 @@ defineProps<{
 }
 
 .stack-panel__frames {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.65rem;

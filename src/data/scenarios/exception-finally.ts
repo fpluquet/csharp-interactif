@@ -1,11 +1,41 @@
-import type { Scenario } from "../../types/memory";
+import type { Scenario, StackFrame } from "../../types/memory";
+import { MAIN_DONE, main, step } from "./ooHelpers";
+
+const MAIN: StackFrame[] = main([]);
+
+function ex(
+  typeName: string,
+  message: string,
+  phase: "throwing" | "unwinding" | "caught",
+  catchMethod?: string,
+) {
+  return {
+    exceptionFlow: {
+      typeName,
+      message,
+      phase,
+      ...(catchMethod ? { catchMethod } : {}),
+    },
+  };
+}
 
 export const exceptionFinallyScenario: Scenario = {
   id: "exception-finally",
   title: "finally",
-  subtitle: "finally s'exécute toujours, après catch ou non.",
+  subtitle:
+    "finally s’exécute toujours : après un try réussi, après un catch, et même si ça plante sans catch.",
   part: "exceptions",
   code: [
+    "try",
+    "{",
+    "    Console.WriteLine(\"try ok\");",
+    "}",
+    "finally",
+    "{",
+    "    Console.WriteLine(\"finally ok\");",
+    "}",
+    "Console.WriteLine(\"après ok\");",
+    "",
     "try",
     "{",
     "    throw new Exception(\"x\");",
@@ -16,131 +46,198 @@ export const exceptionFinallyScenario: Scenario = {
     "}",
     "finally",
     "{",
-    "    Console.WriteLine(\"finally\");",
-    "}"
+    "    Console.WriteLine(\"finally catch\");",
+    "}",
+    "Console.WriteLine(\"après catch\");",
+    "",
+    "try",
+    "{",
+    "    throw new Exception(\"boom\");",
+    "}",
+    "finally",
+    "{",
+    "    Console.WriteLine(\"finally plante\");",
+    "}",
+    "Console.WriteLine(\"jamais\");",
   ],
   steps: [
-    {
-      id: "ef0",
-      highlightLines: [
-        0
-      ],
-      narration: "Le programme va démarrer.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        }
-      ],
-      heap: [],
-      refs: [],
-      consoleLines: []
-    },
-    {
-      id: "ef1",
-      highlightLines: [0, 1],
-      narration: "On va entrer dans le try. catch et finally attendent.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        }
-      ],
-      heap: [],
-      refs: [],
-      consoleLines: []
-    },
-    {
-      id: "ef2",
-      highlightLines: [
-        2
-      ],
-      highlightExpr: "throw new Exception(\"x\")",
-      narration: "throw : une exception va être levée.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        }
-      ],
-      heap: [],
-      refs: [],
+    step("ef0", [0], "Le programme va démarrer. Trois cas : try réussi, catch, puis plantage sans catch.", MAIN, [], [], {
       consoleLines: [],
-      exceptionFlow: {
-        typeName: "Exception",
-        message: "x",
-        phase: "throwing"
-      }
-    },
-    {
-      id: "ef3",
-      highlightLines: [
-        4,
-        6
-      ],
-      narration: "catch va s'exécuter.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        }
-      ],
-      heap: [],
-      refs: [],
-      consoleLines: [
-        "catch"
-      ],
-      exceptionFlow: {
-        typeName: "Exception",
-        message: "x",
-        phase: "caught",
-        catchMethod: "Main"
-      }
-    },
-    {
-      id: "ef4",
-      highlightLines: [
-        8,
-        10
-      ],
-      narration: "finally va s'exécuter ensuite — toujours.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        }
-      ],
-      heap: [],
-      refs: [],
-      consoleLines: [
-        "catch",
-        "finally"
-      ]
-    },
-    {
-      id: "exception-finally-end",
-      highlightLines: [
-        11
-      ],
-      narration: "Le programme va s'arrêter.",
-      stack: [
-        {
-          id: "frame-main",
-          method: "Main",
-          slots: []
-        }
-      ],
-      heap: [],
-      refs: [],
-      consoleLines: [
-        "catch",
-        "finally"
-      ]
-    }
-  ]
+    }),
+    step("ef-try1", [0, 1], "Premier cas : le try va réussir. Pas de throw.", MAIN, [], [], { consoleLines: [] }),
+    step(
+      "ef-try1-body",
+      [2],
+      "try ok va s’afficher. On va sortir du try sans exception.",
+      MAIN,
+      [],
+      [],
+      { highlightExpr: "Console.WriteLine(\"try ok\")", consoleLines: ["try ok"] },
+    ),
+    step(
+      "ef-fin1",
+      [4, 6],
+      "finally va s’exécuter quand même — même sans erreur.",
+      MAIN,
+      [],
+      [],
+      { highlightExpr: "Console.WriteLine(\"finally ok\")", consoleLines: ["try ok", "finally ok"] },
+    ),
+    step(
+      "ef-after1",
+      [8],
+      "Après le finally, l’exécution reprend. « après ok » va s’afficher.",
+      MAIN,
+      [],
+      [],
+      {
+        highlightExpr: "Console.WriteLine(\"après ok\")",
+        consoleLines: ["try ok", "finally ok", "après ok"],
+      },
+    ),
+    step(
+      "ef-try2",
+      [10, 11],
+      "Deuxième cas : un throw, mais un catch est prêt.",
+      MAIN,
+      [],
+      [],
+      { consoleLines: ["try ok", "finally ok", "après ok"] },
+    ),
+    step(
+      "ef-throw2",
+      [12],
+      "throw : une Exception va être levée dans le try.",
+      MAIN,
+      [],
+      [],
+      {
+        highlightExpr: "throw new Exception(\"x\")",
+        consoleLines: ["try ok", "finally ok", "après ok"],
+        ...ex("Exception", "x", "throwing"),
+      },
+    ),
+    step(
+      "ef-catch2",
+      [14, 16],
+      "catch va attraper l’exception. La stack va rester.",
+      MAIN,
+      [],
+      [],
+      {
+        highlightExpr: "Console.WriteLine(\"catch\")",
+        consoleLines: ["try ok", "finally ok", "après ok", "catch"],
+        ...ex("Exception", "x", "caught", "Main"),
+      },
+    ),
+    step(
+      "ef-fin2",
+      [18, 20],
+      "finally va s’exécuter après le catch — toujours, même quand c’est géré.",
+      MAIN,
+      [],
+      [],
+      {
+        highlightExpr: "Console.WriteLine(\"finally catch\")",
+        consoleLines: ["try ok", "finally ok", "après ok", "catch", "finally catch"],
+      },
+    ),
+    step(
+      "ef-after2",
+      [22],
+      "L’exception a été attrapée : on continue. « après catch » va s’afficher.",
+      MAIN,
+      [],
+      [],
+      {
+        highlightExpr: "Console.WriteLine(\"après catch\")",
+        consoleLines: ["try ok", "finally ok", "après ok", "catch", "finally catch", "après catch"],
+      },
+    ),
+    step(
+      "ef-try3",
+      [24, 25],
+      "Troisième cas : throw, mais aucun catch. Seulement finally.",
+      MAIN,
+      [],
+      [],
+      {
+        consoleLines: ["try ok", "finally ok", "après ok", "catch", "finally catch", "après catch"],
+      },
+    ),
+    step(
+      "ef-throw3",
+      [26],
+      "throw boom : l’exception va être levée. Il n’y a pas de catch ici.",
+      MAIN,
+      [],
+      [],
+      {
+        highlightExpr: "throw new Exception(\"boom\")",
+        consoleLines: ["try ok", "finally ok", "après ok", "catch", "finally catch", "après catch"],
+        ...ex("Exception", "boom", "throwing"),
+      },
+    ),
+    step(
+      "ef-fin3",
+      [28, 30],
+      "finally va s’exécuter quand même, avant que l’exception ne continue. « jamais » ne va pas s’exécuter.",
+      MAIN,
+      [],
+      [],
+      {
+        highlightExpr: "Console.WriteLine(\"finally plante\")",
+        consoleLines: [
+          "try ok",
+          "finally ok",
+          "après ok",
+          "catch",
+          "finally catch",
+          "après catch",
+          "finally plante",
+        ],
+        ...ex("Exception", "boom", "unwinding"),
+      },
+    ),
+    step(
+      "ef-unwind",
+      [26],
+      "Pas de catch : « jamais » est sauté. L’exception n’est pas gérée, le programme va s’arrêter.",
+      [],
+      [],
+      [],
+      {
+        highlightExpr: "throw new Exception(\"boom\")",
+        consoleLines: [
+          "try ok",
+          "finally ok",
+          "après ok",
+          "catch",
+          "finally catch",
+          "après catch",
+          "finally plante",
+        ],
+        ...ex("Exception", "boom", "unwinding"),
+      },
+    ),
+    step(
+      "exception-finally-end",
+      [],
+      MAIN_DONE,
+      [],
+      [],
+      [],
+      {
+        consoleLines: [
+          "try ok",
+          "finally ok",
+          "après ok",
+          "catch",
+          "finally catch",
+          "après catch",
+          "finally plante",
+        ],
+      },
+    ),
+  ],
 };
