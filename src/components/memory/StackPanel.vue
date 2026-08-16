@@ -26,9 +26,11 @@ defineProps<{
         />
       </TransitionGroup>
 
-      <div v-if="!frames.length" class="stack-panel__empty">
-        <span>Stack vide</span>
-      </div>
+      <Transition name="memory-empty">
+        <div v-if="!frames.length" class="stack-panel__empty">
+          <span>Stack vide</span>
+        </div>
+      </Transition>
     </div>
   </section>
 </template>

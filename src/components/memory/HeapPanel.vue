@@ -25,9 +25,11 @@ defineProps<{
         />
       </TransitionGroup>
 
-      <div v-if="!objects.length" class="heap-panel__empty">
-        <span>Heap vide</span>
-      </div>
+      <Transition name="memory-empty">
+        <div v-if="!objects.length" class="heap-panel__empty">
+          <span>Heap vide</span>
+        </div>
+      </Transition>
     </div>
   </section>
 </template>
@@ -60,6 +62,7 @@ defineProps<{
 }
 
 .heap-panel__objects {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   gap: 1.15rem 1.35rem;
