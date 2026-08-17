@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { formatFrameCall } from "../../composables/formatFrameCall";
+import type { FrameCursor } from "../../composables/useFrameCursors";
 import type { StackFrame as StackFrameType, StackSlot } from "../../types/memory";
 import StackScopeBlock, { type ScopeBlock } from "./StackScopeBlock.vue";
 
@@ -7,9 +9,20 @@ const props = defineProps<{
   frame: StackFrameType;
   focusId?: string;
   isTop?: boolean;
+  cursor?: FrameCursor;
+  code?: string[];
 }>();
 
-const isStatic = computed(() => props.frame.method === "static");
+const cursorLabel = computed(() => {
+  if (!props.cursor) return undefined;
+  const n = props.cursor.line + 1;
+  const bit = props.cursor.text;
+  return `ligne ${n} · ${bit}`;
+});
+
+const isStatic = computed(() => props.frame.method === "static" || props.frame.method.startsWith("static "));
+
+const callLabel = computed(() => formatFrameCall(props.frame, props.code ?? []));
 
 function isScopeBlock(node: StackSlot | ScopeBlock): node is ScopeBlock {
   return "children" in node;
@@ -94,12 +107,18 @@ function kindLabel(slot: StackSlot): string {
     :data-frame-id="frame.id"
   >
     <header class="stack-frame__head">
-      <span class="stack-frame__method">
-        {{ isStatic ? "static (global)" : `${frame.method}()` }}
+      <span class="stack-frame__method" :title="callLabel">
+        {{ callLabel }}
       </span>
       <span v-if="isStatic" class="stack-frame__badge stack-frame__badge--static">persistante</span>
       <span v-else-if="isTop" class="stack-frame__badge">courante</span>
+      <span v-else-if="!isTop && cursor" class="stack-frame__badge stack-frame__badge--paused">en attente</span>
     </header>
+
+    <p v-if="cursor && !isTop" class="stack-frame__pc" :title="cursorLabel">
+      <span class="stack-frame__pc-n">{{ cursor.line + 1 }}</span>
+      <span class="stack-frame__pc-code">{{ cursor.text }}</span>
+    </p>
 
     <div v-if="frame.slots.length" class="stack-frame__locals">
       <!-- Portées imbriquées : blocs { } sur la pile -->
@@ -194,17 +213,51 @@ function kindLabel(slot: StackSlot): string {
 
 .stack-frame__head {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 0.5rem;
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.4rem;
+}
+
+.stack-frame__pc {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin: 0 0 0.55rem;
+  min-width: 0;
+  font-family: var(--font-code);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--text-dim);
+}
+
+.stack-frame__pc-n {
+  flex-shrink: 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.stack-frame__pc-code {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stack-frame__badge--paused {
+  color: var(--text-dim);
+  background: rgba(148, 163, 184, 0.14);
 }
 
 .stack-frame__method {
   font-family: var(--font-code);
-  font-size: 0.92rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--stack);
+  min-width: 0;
+  flex: 1;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .stack-frame__badge {
@@ -216,6 +269,7 @@ function kindLabel(slot: StackSlot): string {
   background: var(--stack-soft);
   border-radius: 999px;
   padding: 0.2rem 0.5rem;
+  flex-shrink: 0;
 
   &--static {
     color: var(--accent);

@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import type { FrameCursor } from "../../composables/useFrameCursors";
 import type { StackFrame as StackFrameType } from "../../types/memory";
 import StackFrame from "./StackFrame.vue";
 
 defineProps<{
   frames: StackFrameType[];
   focusId?: string;
+  cursors?: Map<string, FrameCursor>;
+  code?: string[];
 }>();
 </script>
 
@@ -23,6 +26,8 @@ defineProps<{
           :frame="frame"
           :focus-id="focusId"
           :is-top="index === 0"
+          :cursor="index === 0 ? undefined : cursors?.get(frame.id)"
+          :code="code"
         />
       </TransitionGroup>
 

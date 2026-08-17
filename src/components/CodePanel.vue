@@ -13,6 +13,8 @@ const props = defineProps<{
   nextHighlightExpr?: string;
   /** Indices de lignes associées à au moins une étape (cliquables). */
   navigableLines?: number[];
+  /** Lignes où une frame appelante attend (hors ligne à exécuter). */
+  pausedLines?: number[];
   returnFlow?: ReturnFlow;
   stack?: StackFrame[];
   heap?: HeapObject[];
@@ -31,6 +33,7 @@ const bodyRef = ref<HTMLElement | null>(null);
 
 const navigableSet = computed(() => new Set(props.navigableLines ?? []));
 const nextSet = computed(() => new Set(props.nextHighlightLines ?? []));
+const pausedSet = computed(() => new Set(props.pausedLines ?? []));
 const eofIndex = computed(() => props.lines.length);
 const isEofUpcoming = computed(() => isUpcoming(eofIndex.value));
 const isEofHere = computed(
@@ -45,6 +48,10 @@ function isUpcoming(lineIndex: number) {
   return nextSet.value.has(lineIndex);
 }
 
+function isPaused(lineIndex: number) {
+  return pausedSet.value.has(lineIndex) && !isUpcoming(lineIndex);
+}
+
 function lineTitle(lineIndex: number) {
   if (lineIndex === eofIndex.value) {
     if (isUpcoming(lineIndex)) return "Prochaine étape — fin du programme";
@@ -56,6 +63,9 @@ function lineTitle(lineIndex: number) {
   }
   if (isUpcoming(lineIndex)) {
     return "Prochaine étape — pas encore exécutée";
+  }
+  if (isPaused(lineIndex)) {
+    return "Une frame attend sur cette ligne";
   }
   if (isNavigable(lineIndex)) {
     return "Aller à l’étape de cette ligne";
@@ -231,15 +241,11 @@ function splitAroundExpr(tokens: Token[], line: string, expr: string): LinePart[
 
 const renderedLines = computed(() => {
   const flow = props.returnFlow;
-  const active = new Set([
-    ...props.highlightLines,
-    ...(props.nextHighlightLines ?? []),
-  ]);
   const expr = props.nextHighlightExpr?.trim() || undefined;
   const exprLines = new Set(expr ? (props.nextHighlightLines ?? []) : []);
 
   return props.lines.map((line, index) => {
-    const showHints = active.has(index);
+    const showHints = (props.nextHighlightLines ?? []).includes(index);
     const tokens = decorate(line, showHints);
     const hasHints = tokens.some((tok) => tok.value);
 
@@ -328,6 +334,13 @@ watch(
           <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5Z" /></svg>
           à exécuter
         </span>
+        <span class="key key--paused" v-if="pausedSet.size">
+          <svg viewBox="0 0 10 10" aria-hidden="true">
+            <rect x="2" y="1.6" width="2.1" height="6.8" rx="0.4" />
+            <rect x="5.9" y="1.6" width="2.1" height="6.8" rx="0.4" />
+          </svg>
+          en attente
+        </span>
       </p>
     </header>
 
@@ -345,6 +358,7 @@ watch(
         :class="{
           'is-upcoming': isUpcoming(row.index) && !row.hasExpr,
           'is-upcoming-expr': isUpcoming(row.index) && row.hasExpr,
+          'is-paused': isPaused(row.index),
           'is-navigable': isNavigable(row.index),
           'has-hints': row.hasHints,
         }"
@@ -362,6 +376,15 @@ watch(
             viewBox="0 0 10 10"
           >
             <path d="M2 1.2v7.6L8.8 5Z" />
+          </svg>
+          <svg
+            v-else-if="isPaused(row.index)"
+            :key="`paused-${row.index}`"
+            class="mark mark--paused"
+            viewBox="0 0 10 10"
+          >
+            <rect x="2" y="1.6" width="2.1" height="6.8" rx="0.4" />
+            <rect x="5.9" y="1.6" width="2.1" height="6.8" rx="0.4" />
           </svg>
         </span>
         <span class="code-line__num">{{ row.index + 1 }}</span>
@@ -514,6 +537,10 @@ watch(
   fill: var(--accent);
 }
 
+.key--paused svg {
+  fill: rgba(148, 163, 184, 0.9);
+}
+
 .code-panel__body {
   flex: 1;
   margin: 0;
@@ -557,6 +584,11 @@ watch(
     .exec .tok {
       opacity: 1;
     }
+  }
+
+  &.is-paused {
+    background: rgba(148, 163, 184, 0.07);
+    border-left-color: rgba(148, 163, 184, 0.55);
   }
 
   &.is-navigable {
@@ -620,6 +652,10 @@ watch(
   fill: var(--accent);
   filter: drop-shadow(0 0 5px rgba(107, 163, 240, 0.55));
   animation: mark-pop 420ms var(--ease);
+}
+
+.mark--paused {
+  fill: rgba(148, 163, 184, 0.9);
 }
 
 @keyframes mark-pop {

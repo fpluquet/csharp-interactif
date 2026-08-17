@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, toRef } from "vue";
 import type { Scenario } from "../types/memory";
+import { useFrameCursors } from "../composables/useFrameCursors";
 import { useScenarioPlayer } from "../composables/useScenarioPlayer";
 import CodePanel from "./CodePanel.vue";
 import ConsolePanel from "./ConsolePanel.vue";
@@ -87,6 +88,24 @@ const displayStack = computed(() => (isLast.value ? [] : currentStep.value.stack
 const displayHeap = computed(() => (isLast.value ? [] : currentStep.value.heap));
 const displayRefs = computed(() => (isLast.value ? [] : currentStep.value.refs));
 const displayFocus = computed(() => (isLast.value ? undefined : currentStep.value.focus));
+const frameCursors = useFrameCursors(
+  computed(() => props.scenario.steps),
+  currentIndex,
+  computed(() => props.scenario.code),
+);
+const pausedLines = computed(() => {
+  if (isLast.value) return [];
+  const nextIndex = currentIndex.value + 1;
+  if (nextIndex === lastStepIndex.value) return [];
+  const stack = displayStack.value;
+  const live = new Set(stack.map((frame) => frame.id));
+  const topId = stack.at(-1)?.id;
+  const lines: number[] = [];
+  for (const [id, cursor] of frameCursors.value) {
+    if (id !== topId && live.has(id)) lines.push(cursor.line);
+  }
+  return lines;
+});
 const displayNarration = computed(() =>
   isLast.value ? "Le programme s'est arrêté : la mémoire a été libérée." : explainedStep.value.narration,
 );
@@ -117,6 +136,7 @@ const displayNarration = computed(() =>
           :next-highlight-lines="nextHighlightLines"
           :next-highlight-expr="nextHighlightExpr"
           :navigable-lines="navigableLines"
+          :paused-lines="pausedLines"
           :return-flow="explainedStep.returnFlow"
           :stack="displayStack"
           :heap="displayHeap"
@@ -164,6 +184,8 @@ const displayNarration = computed(() =>
         :refs="displayRefs"
         :focus-id="displayFocus"
         :step-id="currentStep.id"
+        :cursors="frameCursors"
+        :code="scenario.code"
       />
     </div>
   </section>

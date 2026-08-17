@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { inferFrameCursors } from "../src/composables/useFrameCursors.ts";
 import { scenarios } from "../src/data/index.ts";
 import type { HeapObject, StackFrame } from "../src/types/memory.ts";
 
@@ -189,6 +190,25 @@ for (const s of scenarios) {
       ) {
         issue(`${s.id}/${a.id}+${b.id}`, `même ligne sans highlightExpr: ${JSON.stringify(line.trim())}`);
       }
+    }
+  }
+
+  for (const [i, step] of s.steps.entries()) {
+    const pcs = inferFrameCursors(s.steps, i, s.code);
+    const live = new Set(step.stack.map((frame) => frame.id));
+    const topId = step.stack.at(-1)?.id;
+    for (const [id, cursor] of pcs) {
+      if (!live.has(id)) {
+        issue(`${s.id}/${step.id}`, `pause orpheline frame ${id} ligne ${cursor.line + 1}`);
+      } else if (id === topId) {
+        issue(`${s.id}/${step.id}`, `pause sur la frame courante ${id} ligne ${cursor.line + 1}`);
+      }
+    }
+    const callers = step.stack
+      .filter((frame) => frame.method !== "static" && !frame.method.startsWith("static "))
+      .slice(0, -1);
+    if (callers.length === 0 && pcs.size > 0) {
+      issue(`${s.id}/${step.id}`, `pause alors qu’aucune frame n’attend un appel`);
     }
   }
 }

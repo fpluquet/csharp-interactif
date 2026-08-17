@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { FrameCursor } from "../../composables/useFrameCursors";
 import type { HeapObject, RefLink, StackFrame } from "../../types/memory";
 import StackPanel from "./StackPanel.vue";
 import HeapPanel from "./HeapPanel.vue";
@@ -10,6 +11,8 @@ defineProps<{
   refs: RefLink[];
   focusId?: string;
   stepId?: string;
+  cursors?: Map<string, FrameCursor>;
+  code?: string[];
 }>();
 </script>
 
@@ -21,7 +24,7 @@ defineProps<{
     </div>
 
     <div class="memory-view__grid">
-      <StackPanel :frames="stack" :focus-id="focusId" />
+      <StackPanel :frames="stack" :focus-id="focusId" :cursors="cursors" :code="code" />
       <div class="memory-view__divider" aria-hidden="true" />
       <HeapPanel :objects="heap" :focus-id="focusId" />
     </div>
