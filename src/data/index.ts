@@ -58,6 +58,7 @@ import { optionalNamedScenario } from "./scenarios/optional-named";
 import { overloadScenario } from "./scenarios/overload";
 import { exceptionThrowScenario } from "./scenarios/exception-throw";
 import { exceptionCatchScenario } from "./scenarios/exception-catch";
+import { exceptionRethrowScenario } from "./scenarios/exception-rethrow";
 import { exceptionFinallyScenario } from "./scenarios/exception-finally";
 import { multiCatchScenario } from "./scenarios/multi-catch";
 import { fileReadScenario } from "./scenarios/file-read";
@@ -188,6 +189,7 @@ export const scenarios: Scenario[] = [
   // Exceptions
   exceptionThrowScenario,
   exceptionCatchScenario,
+  exceptionRethrowScenario,
   exceptionFinallyScenario,
   multiCatchScenario,
   // Fichiers
