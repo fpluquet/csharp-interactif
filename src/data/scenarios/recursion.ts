@@ -60,11 +60,11 @@ export const recursionScenario: Scenario = {
     step(
       "rc-call-3",
       [6],
-      "int r = Fact(3) : on va d’abord évaluer l’appel. r n’existe pas encore.",
-      main([]),
+      "int r = Fact(3) : l’appel va empiler une frame. n va recevoir 3 — une copie, pas une variable de Main.",
+      stk(f3()),
       [],
       [],
-      { highlightExpr: "Fact(3)", focus: "frame-main" },
+      { highlightExpr: "Fact(3)", focus: "slot-n3" },
     ),
     step(
       "rc-enter-3",
@@ -96,11 +96,11 @@ export const recursionScenario: Scenario = {
     step(
       "rc-call-2",
       [3],
-      "Fact(2) : nouvel appel, nouvelle frame. Le n de Fact(3) va rester 3, inchangé.",
-      stk(f3()),
+      "Fact(2) : nouvel appel, nouvelle frame. Un n = 2 va s’empiler ; le n de Fact(3) reste 3, inchangé.",
+      stk(f3(), f2()),
       [],
       [],
-      { highlightExpr: "Fact(n - 1)", focus: "frame-fact-3" },
+      { highlightExpr: "Fact(n - 1)", focus: "slot-n2" },
     ),
     step(
       "rc-enter-2",
@@ -132,11 +132,11 @@ export const recursionScenario: Scenario = {
     step(
       "rc-call-1",
       [3],
-      "Fact(1) : troisième frame. Trois n distincts vont coexister : 3, 2, et bientôt 1.",
-      stk(f3(), f2()),
+      "Fact(1) : troisième frame. Un n = 1 va s’empiler à côté des n = 3 et n = 2 — trois copies distinctes.",
+      stk(f3(), f2(), f1()),
       [],
       [],
-      { highlightExpr: "Fact(n - 1)", focus: "frame-fact-2" },
+      { highlightExpr: "Fact(n - 1)", focus: "slot-n1" },
     ),
     step(
       "rc-enter-1",
