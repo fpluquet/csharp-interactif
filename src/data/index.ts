@@ -45,7 +45,10 @@ import { outParamScenario } from "./scenarios/out-param";
 import { multiCallsScenario } from "./scenarios/multi-calls";
 import { nestedCallsScenario } from "./scenarios/nested-calls";
 import { recursionScenario } from "./scenarios/recursion";
+import { recursionPrintScenario } from "./scenarios/recursion-print";
+import { sommeScenario } from "./scenarios/somme";
 import { hanoiScenario } from "./scenarios/hanoi";
+import { fibScenario } from "./scenarios/fib";
 import { clarifierScenario } from "./scenarios/clarifier";
 import { optionalNamedScenario } from "./scenarios/optional-named";
 import { overloadScenario } from "./scenarios/overload";
@@ -165,7 +168,10 @@ export const scenarios: Scenario[] = [
   multiCallsScenario,
   nestedCallsScenario,
   recursionScenario,
+  recursionPrintScenario,
+  sommeScenario,
   hanoiScenario,
+  fibScenario,
   clarifierScenario,
   optionalNamedScenario,
   overloadScenario,
