@@ -38,6 +38,9 @@ import { callstackShareScenario } from "./scenarios/callstack-share";
 import { valueVsRefScenario } from "./scenarios/value-vs-ref";
 import { functionLocalsScenario } from "./scenarios/function-locals";
 import { paramsPassScenario } from "./scenarios/params-pass";
+import { paramListCopyScenario } from "./scenarios/param-list-copy";
+import { paramListRefScenario } from "./scenarios/param-list-ref";
+import { paramArrayRefScenario } from "./scenarios/param-array-ref";
 import { outParamScenario } from "./scenarios/out-param";
 import { multiCallsScenario } from "./scenarios/multi-calls";
 import { nestedCallsScenario } from "./scenarios/nested-calls";
@@ -153,6 +156,9 @@ export const scenarios: Scenario[] = [
   // Fonctions (incl. ch.06 passage de paramètres du syllabus OO)
   functionLocalsScenario,
   paramsPassScenario,
+  paramListCopyScenario,
+  paramListRefScenario,
+  paramArrayRefScenario,
   outParamScenario,
   multiCallsScenario,
   nestedCallsScenario,
