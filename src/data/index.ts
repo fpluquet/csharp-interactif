@@ -33,6 +33,10 @@ import { arrayJaggedScenario } from "./scenarios/array-jagged";
 import { listOpsScenario } from "./scenarios/list-ops";
 import { tupleScenario } from "./scenarios/tuple";
 import { linqWhereScenario } from "./scenarios/linq-where";
+import { linqSelectScenario } from "./scenarios/linq-select";
+import { linqAggregatesScenario } from "./scenarios/linq-aggregates";
+import { linqOrderByScenario } from "./scenarios/linq-orderby";
+import { linqDeferredScenario } from "./scenarios/linq-deferred";
 import { nullOrphanScenario } from "./scenarios/null-orphan";
 import { callstackShareScenario } from "./scenarios/callstack-share";
 import { valueVsRefScenario } from "./scenarios/value-vs-ref";
@@ -154,6 +158,10 @@ export const scenarios: Scenario[] = [
   listOpsScenario,
   tupleScenario,
   linqWhereScenario,
+  linqSelectScenario,
+  linqAggregatesScenario,
+  linqOrderByScenario,
+  linqDeferredScenario,
   // Mémoire
   valueVsRefScenario,
   callstackShareScenario,
