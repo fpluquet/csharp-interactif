@@ -7,26 +7,60 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function splitParams(params: string): string[] {
+  const parts: string[] = [];
+  let depth = 0;
+  let current = "";
+  for (const ch of params) {
+    if (ch === "(" || ch === "<" || ch === "[") depth++;
+    else if (ch === ")" || ch === ">" || ch === "]") depth = Math.max(0, depth - 1);
+    if (ch === "," && depth === 0) {
+      parts.push(current);
+      current = "";
+    } else {
+      current += ch;
+    }
+  }
+  if (current.trim()) parts.push(current);
+  return parts;
+}
+
 function paramNames(params: string): string[] {
-  const parts = params.split(",").map((part) => part.split("=")[0]?.trim() ?? "");
   const names: string[] = [];
-  for (const part of parts) {
-    if (!part) continue;
-    const ids = part.match(/[A-Za-z_][A-Za-z0-9_]*/g) ?? [];
+  for (const part of splitParams(params)) {
+    const raw = part.split("=")[0]?.trim() ?? "";
+    if (!raw) continue;
+    const ids = raw.match(/[A-Za-z_][A-Za-z0-9_]*/g) ?? [];
     const name = [...ids].reverse().find((id) => !TYPE_OR_MOD.test(id));
     if (name) names.push(name);
   }
   return names;
 }
 
+function paramsAfterName(line: string, name: string): string | undefined {
+  const re = new RegExp(`(?:^|[\\s])${escapeRegExp(name)}\\s*\\(`);
+  const match = line.match(re);
+  if (!match || match.index === undefined) return undefined;
+  const start = match.index + match[0].length;
+  let depth = 1;
+  for (let i = start; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === "(") depth++;
+    else if (ch === ")") {
+      depth--;
+      if (depth === 0) return line.slice(start, i);
+    }
+  }
+  return undefined;
+}
+
 function findParamNames(code: string[], method: string): string[] | undefined {
   const simple = method.split(".").pop() ?? method;
-  const re = new RegExp(`(?:^|[\\s])${escapeRegExp(simple)}\\s*\\(([^)]*)\\)\\s*$`);
   for (const line of code) {
     const trimmed = line.trim();
     if (!trimmed || trimmed.endsWith(";")) continue;
-    const match = trimmed.match(re);
-    if (match) return paramNames(match[1] ?? "");
+    const inner = paramsAfterName(trimmed, simple);
+    if (inner !== undefined) return paramNames(inner);
   }
   return undefined;
 }

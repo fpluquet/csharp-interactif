@@ -114,6 +114,7 @@ const arrayView = computed(() => {
             :class="{
               'is-empty': !cell,
               'field--ref': cell?.field.kind === 'ref',
+              'is-focused': !!cell && focusId === cell.field.id,
             }"
             :data-field-id="cell?.field.id"
           >
@@ -131,7 +132,7 @@ const arrayView = computed(() => {
         v-for="(field, i) in object.fields"
         :key="field.id ?? i"
         class="field"
-        :class="{ 'field--ref': field.kind === 'ref' }"
+        :class="{ 'field--ref': field.kind === 'ref', 'is-focused': focusId === field.id }"
         :data-field-id="field.id"
       >
         <span class="field__label">{{ field.label }}</span>
@@ -221,6 +222,11 @@ const arrayView = computed(() => {
   background: rgba(7, 16, 28, 0.42);
   font-family: var(--font-code);
   font-size: 0.85rem;
+
+  &.is-focused {
+    box-shadow: 0 0 0 1px rgba(240, 160, 90, 0.55);
+    background: rgba(240, 160, 90, 0.18);
+  }
 }
 
 .field__label {
@@ -274,6 +280,11 @@ const arrayView = computed(() => {
     min-height: 2.55rem;
     background: rgba(7, 16, 28, 0.18);
     border: 1px dashed rgba(240, 160, 90, 0.22);
+  }
+
+  &.is-focused {
+    box-shadow: 0 0 0 1px rgba(240, 160, 90, 0.55);
+    background: rgba(240, 160, 90, 0.18);
   }
 }
 

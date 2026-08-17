@@ -102,6 +102,7 @@ function kindLabel(slot: StackSlot): string {
       'is-top': isTop && !isStatic,
       'is-focused': focusId === frame.id,
       'is-static': isStatic,
+      'is-waiting': !isTop && !!cursor,
       'has-scopes': hasNestedScopes,
     }"
     :data-frame-id="frame.id"
@@ -112,12 +113,20 @@ function kindLabel(slot: StackSlot): string {
       </span>
       <span v-if="isStatic" class="stack-frame__badge stack-frame__badge--static">persistante</span>
       <span v-else-if="isTop" class="stack-frame__badge">courante</span>
-      <span v-else-if="!isTop && cursor" class="stack-frame__badge stack-frame__badge--paused">en attente</span>
     </header>
 
-    <p v-if="cursor && !isTop" class="stack-frame__pc" :title="cursorLabel">
-      <span class="stack-frame__pc-n">{{ cursor.line + 1 }}</span>
-      <span class="stack-frame__pc-code">{{ cursor.text }}</span>
+    <p v-if="cursor && !isTop" class="stack-frame__wait" :title="cursorLabel">
+      <span class="stack-frame__wait-label">
+        <svg class="stack-frame__wait-icon" viewBox="0 0 10 10" aria-hidden="true">
+          <rect x="2" y="1.6" width="2.1" height="6.8" rx="0.4" />
+          <rect x="5.9" y="1.6" width="2.1" height="6.8" rx="0.4" />
+        </svg>
+        en attente
+      </span>
+      <span class="stack-frame__wait-line">
+        <span class="stack-frame__pc-n">{{ cursor.line + 1 }}</span>
+        <span class="stack-frame__pc-code">{{ cursor.text }}</span>
+      </span>
     </p>
 
     <div v-if="frame.slots.length" class="stack-frame__locals">
@@ -201,6 +210,11 @@ function kindLabel(slot: StackSlot): string {
     transform: translateY(-2px);
   }
 
+  &.is-waiting {
+    border-color: rgba(148, 163, 184, 0.55);
+    background: linear-gradient(180deg, rgba(148, 163, 184, 0.1), rgba(148, 163, 184, 0.03));
+  }
+
   &.is-static {
     border-color: rgba(107, 163, 240, 0.45);
     background: linear-gradient(180deg, rgba(107, 163, 240, 0.14), rgba(107, 163, 240, 0.04));
@@ -219,22 +233,53 @@ function kindLabel(slot: StackSlot): string {
   margin-bottom: 0.4rem;
 }
 
-.stack-frame__pc {
+.stack-frame__wait {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  margin: 0 0 0.55rem;
+  padding: 0.4rem 0.5rem 0.45rem;
+  min-width: 0;
+  border-radius: 6px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  border-left: 3px solid rgba(148, 163, 184, 0.85);
+  background: rgba(148, 163, 184, 0.1);
+}
+
+.stack-frame__wait-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(203, 213, 225, 0.92);
+}
+
+.stack-frame__wait-icon {
+  width: 0.7rem;
+  height: 0.7rem;
+  flex-shrink: 0;
+  fill: rgba(203, 213, 225, 0.95);
+}
+
+.stack-frame__wait-line {
   display: flex;
   align-items: baseline;
   gap: 0.45rem;
-  margin: 0 0 0.55rem;
   min-width: 0;
   font-family: var(--font-code);
   font-size: 0.72rem;
   line-height: 1.35;
-  color: var(--text-dim);
+  color: var(--text);
 }
 
 .stack-frame__pc-n {
   flex-shrink: 0;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+  color: rgba(203, 213, 225, 0.85);
 }
 
 .stack-frame__pc-code {
@@ -242,11 +287,6 @@ function kindLabel(slot: StackSlot): string {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.stack-frame__badge--paused {
-  color: var(--text-dim);
-  background: rgba(148, 163, 184, 0.14);
 }
 
 .stack-frame__method {
