@@ -1,5 +1,5 @@
 import type { Scenario } from "../../types/memory";
-import { MAIN_DONE, link, main, obj, refSlot, step, val } from "./ooHelpers";
+import { MAIN_DONE, link, main, obj, refSlot, step } from "./ooHelpers";
 
 function arr(id: string, addr: string, values: number[]) {
   return obj(
