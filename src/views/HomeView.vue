@@ -21,7 +21,7 @@ const activeScenario = computed(
 watch(
   activeScenario,
   (scenario) => {
-    document.title = `${scenario.title} · C# visuel`;
+    document.title = `${scenario.title} · C# par l’exemple`;
   },
   { immediate: true },
 );
@@ -38,7 +38,7 @@ function selectScenario(id: string) {
     <header class="home__hero">
       <div class="home__brand">
         <p class="home__eyebrow">C# · exécution</p>
-        <h1 class="home__title">C# visuel</h1>
+        <h1 class="home__title">C# par l’exemple</h1>
         <p class="home__lead">
           Suivez pas à pas l’exécution d’un programme : variables, appels,
           mémoire, console, fichiers et orienté objet (syllabus Q2).
