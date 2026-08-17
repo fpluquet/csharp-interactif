@@ -245,17 +245,25 @@ const renderedLines = computed(() => {
   const exprLines = new Set(expr ? (props.nextHighlightLines ?? []) : []);
 
   return props.lines.map((line, index) => {
-    const showHints = (props.nextHighlightLines ?? []).includes(index);
+    const returningHere = flow?.phase === "returning" && index === flow.callLine;
+    const showHints =
+      (props.nextHighlightLines ?? []).includes(index) && !returningHere;
     const tokens = decorate(line, showHints);
     const hasHints = tokens.some((tok) => tok.value);
 
+    const rewriteReturn =
+      returningHere && (props.nextHighlightLines ?? []).includes(index);
     if (
       flow &&
       index === flow.callLine &&
-      (flow.phase === "replaces" || flow.phase === "assigned")
+      (flow.phase === "replaces" || flow.phase === "assigned" || rewriteReturn)
     ) {
       const at = line.indexOf(flow.callExpr);
       if (at >= 0) {
+        const beforeText = line.slice(0, at);
+        const afterText = line.slice(at + flow.callExpr.length);
+        const hintBefore = showHints && (!expr || beforeText.includes(expr));
+        const hintAfter = showHints && (!expr || afterText.includes(expr));
         return {
           index,
           hasHints,
@@ -263,9 +271,9 @@ const renderedLines = computed(() => {
           parts: [
             {
               kind: "rewrite" as const,
-              before: decorate(line.slice(0, at), showHints),
+              before: decorate(beforeText, hintBefore),
               call: flow.callExpr,
-              after: decorate(line.slice(at + flow.callExpr.length), showHints),
+              after: decorate(afterText, hintAfter),
               value: flow.value,
               phase: flow.phase,
             },

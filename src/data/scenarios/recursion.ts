@@ -175,12 +175,15 @@ export const recursionScenario: Scenario = {
       stk(f3(), f2()),
       [],
       [],
-      ret("1", "replaces", "Fact(n - 1)", 3, { focus: "frame-fact-2" }),
+      ret("1", "replaces", "Fact(n - 1)", 3, {
+        highlightExpr: "Fact(n - 1)",
+        focus: "frame-fact-2",
+      }),
     ),
     step(
       "rc-mul-2",
       [3],
-      "n vaut 2 dans cette frame : 2 * 1 va valoir 2. Fact(2) va pouvoir retourner.",
+      "n vaut 2 dans cette frame : 2 * 1 va valoir 2. return 2 : c’est le produit 2 * 1 qui va partir vers Fact(3), pas le seul Fact(n - 1).",
       stk(f3(), f2()),
       [],
       [],
@@ -190,22 +193,16 @@ export const recursionScenario: Scenario = {
       }),
     ),
     step(
-      "rc-ret-2",
-      [3],
-      "return 2 : Fact(2) va renvoyer 2 vers Fact(3).",
-      stk(f3(), f2()),
-      [],
-      [],
-      ret("2", "returning", "Fact(n - 1)", 3, { focus: "frame-fact-2" }),
-    ),
-    step(
       "rc-repl-2",
       [3],
       "Fact(2) va disparaître. Dans Fact(3), Fact(n - 1) va être remplacé par 2. Il reste n * 2.",
       stk(f3()),
       [],
       [],
-      ret("2", "replaces", "Fact(n - 1)", 3, { focus: "frame-fact-3" }),
+      ret("2", "replaces", "Fact(n - 1)", 3, {
+        highlightExpr: "Fact(n - 1)",
+        focus: "frame-fact-3",
+      }),
     ),
     step(
       "rc-mul-3",
@@ -222,11 +219,14 @@ export const recursionScenario: Scenario = {
     step(
       "rc-ret-3",
       [3],
-      "return 6 : Fact(3) va renvoyer 6 vers Main. Les trois n de la récursion ont fait leur travail.",
+      "return 6 : c’est le produit 3 * 2 qui va partir vers Main, pas le seul Fact(n - 1).",
       stk(f3()),
       [],
       [],
-      ret("6", "returning", "Fact(3)", 6, { focus: "frame-fact-3" }),
+      ret("6", "returning", "n * Fact(n - 1)", 3, {
+        highlightExpr: "n * Fact(n - 1)",
+        focus: "frame-fact-3",
+      }),
     ),
     step(
       "rc-repl-3",

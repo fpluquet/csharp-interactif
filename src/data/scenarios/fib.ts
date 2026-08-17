@@ -166,8 +166,13 @@ function buildSteps(): Step[] {
     );
     emit(
       [3],
-      `return ${total} : vers ${callStack.length === 1 ? "Main" : `Fib(${callStack[callStack.length - 2]!.n})`}.`,
-      ret(String(total), "returning", call.expr, call.line, { focus: frameId(act) }),
+      `return ${total} : c’est la somme ${v1} + ${v2} qui va partir vers ${
+        callStack.length === 1 ? "Main" : `Fib(${callStack[callStack.length - 2]!.n})`
+      }, pas un seul sous-appel.`,
+      ret(String(total), "returning", "Fib(n - 1) + Fib(n - 2)", 3, {
+        highlightExpr: "Fib(n - 1) + Fib(n - 2)",
+        focus: frameId(act),
+      }),
     );
     callStack.pop();
     return total;

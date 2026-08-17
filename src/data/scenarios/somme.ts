@@ -155,8 +155,13 @@ function buildSteps(): Step[] {
     );
     emit(
       [5],
-      `return ${total} : vers ${callStack.length === 1 ? "Main" : `Somme(i = ${i - 1})`}.`,
-      ret(String(total), "returning", parentCall, parentLine, { focus: `frame-somme-${act.seq}` }),
+      `return ${total} : c’est ${cell} + ${rest} qui va partir vers ${
+        callStack.length === 1 ? "Main" : `Somme(i = ${i - 1})`
+      }, pas le seul Somme(t, i + 1).`,
+      ret(String(total), "returning", "t[i] + Somme(t, i + 1)", 5, {
+        highlightExpr: "t[i] + Somme(t, i + 1)",
+        focus: `frame-somme-${act.seq}`,
+      }),
     );
     callStack.pop();
     return total;
