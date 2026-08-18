@@ -64,9 +64,10 @@ defineProps<{
 .heap-panel__objects {
   position: relative;
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.15rem 1.35rem;
-  align-content: flex-start;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0.85rem;
+  align-items: flex-start;
 }
 
 .heap-panel__empty {
