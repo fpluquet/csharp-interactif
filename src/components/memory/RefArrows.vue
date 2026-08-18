@@ -69,15 +69,15 @@ function toLocal(rect: DOMRect, root: DOMRect): Box {
 
 type Side = "right" | "left" | "top" | "bottom";
 
-function pickSides(fromBox: Box, toBox: Box): { from: Side; to: Side } {
+function pickSides(fromBox: Box, toBox: Box, heapLink: boolean): { from: Side; to: Side } {
   const gapRight = toBox.left - fromBox.right;
   const gapLeft = fromBox.left - toBox.right;
-  const overlapsX = fromBox.left < toBox.right - 4 && toBox.left < fromBox.right + 4;
 
-  if (gapRight >= -8) return { from: "right", to: "left" };
-  if (gapLeft >= -8 && !overlapsX) return { from: "left", to: "right" };
-  if (toBox.top >= fromBox.cy - 2) return { from: "right", to: "top" };
-  if (toBox.bottom <= fromBox.cy + 2) return { from: "right", to: "bottom" };
+  if (gapRight >= -12) return { from: "right", to: "left" };
+  if (heapLink && toBox.left >= fromBox.cx) return { from: "right", to: "left" };
+  if (gapLeft >= -8) return { from: "left", to: "right" };
+  if (toBox.top >= fromBox.bottom - 6) return { from: "right", to: "top" };
+  if (toBox.bottom <= fromBox.top + 6) return { from: "right", to: "bottom" };
   return { from: "right", to: "left" };
 }
 
@@ -100,13 +100,25 @@ function tangentOut(side: Side, dist: number): Point {
  * Cubic à tangentes alignées sur les bords : S-courbe souple,
  * arrivée perpendiculaire à la cible.
  */
-function buildCurve(start: Point, end: Point, from: Side, to: Side): Omit<DrawnPath, "id" | "color"> {
+function buildCurve(
+  start: Point,
+  end: Point,
+  from: Side,
+  to: Side,
+  heapLink: boolean,
+): Omit<DrawnPath, "id" | "color"> {
   const dx = end.x - start.x;
   const dy = end.y - start.y;
   const dist = Math.hypot(dx, dy);
-  const pull = clamp(Math.max(Math.abs(dx) * 0.48, Math.abs(dy) * 0.38, dist * 0.28), 28, 120);
+  const horizontal =
+    (from === "right" && to === "left") || (from === "left" && to === "right");
+  const pull = heapLink
+    ? horizontal
+      ? clamp(Math.max(Math.abs(dx) * 0.4, Math.abs(dy) * 0.16, 14), 14, 52)
+      : clamp(Math.max(Math.abs(dx) * 0.38, Math.abs(dy) * 0.26, dist * 0.2), 18, 72)
+    : clamp(Math.max(Math.abs(dx) * 0.48, Math.abs(dy) * 0.38, dist * 0.28), 28, 120);
   const a = tangentOut(from, pull);
-  const b = tangentOut(to, pull * 0.85);
+  const b = tangentOut(to, pull * (heapLink && horizontal ? 0.7 : 0.85));
   const c1 = { x: start.x + a.x, y: start.y + a.y };
   const c2 = { x: end.x + b.x, y: end.y + b.y };
 
@@ -146,6 +158,7 @@ function buildPaths() {
     toBox: Box;
     toId: string;
     fromId: string;
+    heapLink: boolean;
     sides: { from: Side; to: Side };
   };
 
@@ -166,13 +179,15 @@ function buildPaths() {
 
     const fromBox = toLocal(fromEl.getBoundingClientRect(), root);
     const toBox = toLocal(toEl.getBoundingClientRect(), root);
+    const heapLink = Boolean(link.fromFieldId);
     prepared.push({
       id: link.id,
       fromId,
       fromBox,
       toBox,
       toId: link.toObjectId,
-      sides: pickSides(fromBox, toBox),
+      heapLink,
+      sides: pickSides(fromBox, toBox, heapLink),
     });
   }
 
@@ -185,7 +200,9 @@ function buildPaths() {
   }
   for (const list of bySource.values()) {
     list.sort((a, b) => a.toBox.cy - b.toBox.cy || a.toBox.cx - b.toBox.cx);
-    list.forEach((item, index) => exitT.set(item.id, spread(list.length, index)));
+    list.forEach((item, index) => {
+      exitT.set(item.id, item.heapLink ? 0.5 : spread(list.length, index));
+    });
   }
 
   const entryT = new Map<string, number>();
@@ -216,7 +233,7 @@ function buildPaths() {
     next.push({
       id: item.id,
       color: orangeTone(index, byY.length),
-      ...buildCurve(start, end, item.sides.from, item.sides.to),
+      ...buildCurve(start, end, item.sides.from, item.sides.to, item.heapLink),
     });
   });
 
@@ -247,12 +264,17 @@ onMounted(() => {
     resizeObserver.observe(root);
   }
   window.addEventListener("resize", scheduleBuild);
+  root?.addEventListener("scroll", scheduleBuild, true);
+  root?.addEventListener("heap-layout", scheduleBuild);
 });
 
 onUnmounted(() => {
   cancelAnimationFrame(raf);
   resizeObserver?.disconnect();
   window.removeEventListener("resize", scheduleBuild);
+  const root = document.querySelector(".memory-view");
+  root?.removeEventListener("scroll", scheduleBuild, true);
+  root?.removeEventListener("heap-layout", scheduleBuild);
 });
 </script>
 

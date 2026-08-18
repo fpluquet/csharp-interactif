@@ -1,24 +1,19 @@
 <script setup lang="ts">
-import { computed } from "vue";
 import type { FrameCursor } from "../../composables/useFrameCursors";
-import { planHeapLayout } from "../../composables/layoutHeap";
-import type { HeapObject, RefLink, StackFrame, Step } from "../../types/memory";
+import type { HeapObject, RefLink, StackFrame } from "../../types/memory";
 import StackPanel from "./StackPanel.vue";
 import HeapPanel from "./HeapPanel.vue";
 import RefArrows from "./RefArrows.vue";
 
-const props = defineProps<{
+defineProps<{
   stack: StackFrame[];
   heap: HeapObject[];
   refs: RefLink[];
-  steps?: Step[];
   focusId?: string;
   stepId?: string;
   cursors?: Map<string, FrameCursor>;
   code?: string[];
 }>();
-
-const heapLayout = computed(() => planHeapLayout(props.steps ?? []));
 </script>
 
 <template>
@@ -31,7 +26,7 @@ const heapLayout = computed(() => planHeapLayout(props.steps ?? []));
     <div class="memory-view__grid">
       <StackPanel :frames="stack" :focus-id="focusId" :cursors="cursors" :code="code" />
       <div class="memory-view__divider" aria-hidden="true" />
-      <HeapPanel :objects="heap" :layout="heapLayout" :focus-id="focusId" />
+      <HeapPanel :objects="heap" :refs="refs" :focus-id="focusId" />
     </div>
 
     <RefArrows :refs="refs" :step-id="stepId" />

@@ -5,7 +5,6 @@ import type { HeapField, HeapObject as HeapObjectType } from "../../types/memory
 const props = defineProps<{
   object: HeapObjectType;
   focusId?: string;
-  placeholder?: boolean;
 }>();
 
 type ArrayCell = { field: HeapField; indices: number[] };
@@ -89,7 +88,7 @@ const arrayView = computed(() => {
       'is-orphan': object.orphan,
       'is-array': !!arrayView,
     }"
-    :data-object-id="placeholder ? undefined : object.id"
+    :data-object-id="object.id"
   >
     <header class="heap-object__head">
       <span class="heap-object__type">{{ object.typeLabel }}</span>
@@ -117,7 +116,7 @@ const arrayView = computed(() => {
               'field--ref': cell?.field.kind === 'ref',
               'is-focused': !!cell && focusId === cell.field.id,
             }"
-            :data-field-id="placeholder ? undefined : cell?.field.id"
+            :data-field-id="cell?.field.id"
           >
             <template v-if="cell">
               <span class="array-cell__idx">{{ cell.field.label }}</span>
@@ -134,7 +133,7 @@ const arrayView = computed(() => {
         :key="field.id ?? i"
         class="field"
         :class="{ 'field--ref': field.kind === 'ref', 'is-focused': focusId === field.id }"
-        :data-field-id="placeholder ? undefined : field.id"
+        :data-field-id="field.id"
       >
         <span class="field__label">{{ field.label }}</span>
         <span class="field__value">{{ field.value }}</span>
@@ -150,6 +149,7 @@ const arrayView = computed(() => {
   background: linear-gradient(180deg, rgba(240, 160, 90, 0.14), rgba(240, 160, 90, 0.04));
   padding: 0.75rem 0.85rem;
   min-width: 9.5rem;
+  flex-shrink: 0;
   transition:
     box-shadow var(--duration) var(--ease),
     border-color var(--duration) var(--ease),

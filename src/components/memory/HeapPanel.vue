@@ -1,25 +1,71 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import type { HeapObject as HeapObjectType } from "../../types/memory";
-import HeapObject from "./HeapObject.vue";
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
+import { buildHeapForest } from "../../composables/layoutHeap";
+import type { HeapObject as HeapObjectType, RefLink } from "../../types/memory";
+import HeapTreeNode from "./HeapTreeNode.vue";
 
 const props = defineProps<{
   objects: HeapObjectType[];
-  layout?: HeapObjectType[];
+  refs?: RefLink[];
   focusId?: string;
 }>();
 
-const liveById = computed(() => new Map(props.objects.map((obj) => [obj.id, obj])));
+const forest = computed(() => buildHeapForest(props.objects, props.refs ?? []));
 
-const slots = computed(() => {
-  const plan = props.layout ?? [];
-  const used = new Set(plan.map((obj) => obj.id));
-  const extras = props.objects.filter((obj) => !used.has(obj.id));
-  return [...plan, ...extras].map((prototype) => ({
-    id: prototype.id,
-    live: liveById.value.get(prototype.id),
-    prototype,
-  }));
+const bodyRef = ref<HTMLElement | null>(null);
+const maxCols = ref(2);
+
+const COL_REM = 9.5;
+const GAP_REM = 2.6;
+
+let resizeObserver: ResizeObserver | null = null;
+
+function remPx(n: number) {
+  return n * parseFloat(getComputedStyle(document.documentElement).fontSize || "16");
+}
+
+function notifyArrows() {
+  window.setTimeout(() => {
+    bodyRef.value?.closest(".memory-view")?.dispatchEvent(new Event("heap-layout"));
+  }, 40);
+}
+
+function measureMaxCols() {
+  const body = bodyRef.value;
+  if (!body) return;
+  const width = body.clientWidth;
+  let col = remPx(COL_REM);
+  for (const el of body.querySelectorAll<HTMLElement>(".heap-object")) {
+    col = Math.max(col, el.offsetWidth);
+  }
+  const gap = remPx(GAP_REM);
+  const next = Math.max(1, Math.floor((width + gap) / (col + gap)));
+  if (next !== maxCols.value) {
+    maxCols.value = next;
+    notifyArrows();
+  }
+}
+
+watch(
+  () => props.objects,
+  () => {
+    void nextTick(() => {
+      measureMaxCols();
+      notifyArrows();
+    });
+  },
+);
+
+onMounted(() => {
+  measureMaxCols();
+  if (bodyRef.value && "ResizeObserver" in window) {
+    resizeObserver = new ResizeObserver(() => measureMaxCols());
+    resizeObserver.observe(bodyRef.value);
+  }
+});
+
+onUnmounted(() => {
+  resizeObserver?.disconnect();
 });
 </script>
 
@@ -30,18 +76,16 @@ const slots = computed(() => {
       <h2 class="heap-panel__title">Objets dynamiques</h2>
     </header>
 
-    <div class="heap-panel__body">
-      <div v-if="objects.length" class="heap-panel__objects">
-        <div v-for="slot in slots" :key="slot.id" class="heap-slot">
-          <HeapObject
-            v-if="slot.live"
-            :object="slot.live"
-            :focus-id="focusId"
-          />
-          <div v-else class="heap-slot__reserve" aria-hidden="true">
-            <HeapObject :object="slot.prototype" placeholder />
-          </div>
-        </div>
+    <div ref="bodyRef" class="heap-panel__body">
+      <div v-if="objects.length" class="heap-forest">
+        <HeapTreeNode
+          v-for="node in forest"
+          :key="node.object.id"
+          :node="node"
+          :focus-id="focusId"
+          :depth="0"
+          :max-cols="maxCols"
+        />
       </div>
 
       <Transition name="memory-empty">
@@ -75,27 +119,19 @@ const slots = computed(() => {
 
 .heap-panel__body {
   flex: 1;
+  min-width: 0;
   min-height: 0;
-  overflow: auto;
-  padding: 0.25rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0.25rem 0.35rem 0.25rem 0.25rem;
 }
 
-.heap-panel__objects {
-  position: relative;
+.heap-forest {
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 0.85rem;
   align-items: flex-start;
-}
-
-.heap-slot {
+  gap: 1.1rem;
   max-width: 100%;
-}
-
-.heap-slot__reserve {
-  visibility: hidden;
-  pointer-events: none;
 }
 
 .heap-panel__empty {
