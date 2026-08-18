@@ -182,6 +182,7 @@ const displayNarration = computed(() =>
         :stack="displayStack"
         :heap="displayHeap"
         :refs="displayRefs"
+        :steps="scenario.steps"
         :focus-id="displayFocus"
         :step-id="currentStep.id"
         :cursors="frameCursors"

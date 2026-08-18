@@ -1,4 +1,4 @@
-import type { HeapObject, RefLink, StackFrame } from "../types/memory";
+import type { HeapObject, RefLink, StackFrame, Step } from "../types/memory";
 
 /**
  * Ordre visuel des slots : même convention que StackPanel / StackFrame
@@ -76,5 +76,72 @@ export function orderHeapObjects(
     const delta = resolved(a.id) - resolved(b.id);
     if (delta !== 0) return delta;
     return (original.get(a.id) ?? 0) - (original.get(b.id) ?? 0);
+  });
+}
+
+function pickLayoutStep(steps: Step[]): Step | undefined {
+  let best: Step | undefined;
+  for (const step of steps) {
+    if (!step.heap.length) continue;
+    if (
+      !best ||
+      step.heap.length > best.heap.length ||
+      (step.heap.length === best.heap.length && step.refs.length >= best.refs.length)
+    ) {
+      best = step;
+    }
+  }
+  return best;
+}
+
+function insertMissingIds(ids: string[], ordered: HeapObject[]) {
+  for (let i = 0; i < ordered.length; i++) {
+    const id = ordered[i].id;
+    if (ids.includes(id)) continue;
+    let insertAt = ids.length;
+    for (let j = i + 1; j < ordered.length; j++) {
+      const pos = ids.indexOf(ordered[j].id);
+      if (pos !== -1) {
+        insertAt = pos;
+        break;
+      }
+    }
+    ids.splice(insertAt, 0, id);
+  }
+}
+
+/**
+ * Calcule une fois pour tout le scénario l'ordre vertical des objets heap.
+ * Chaque objet garde ensuite le même emplacement : les objets pas encore
+ * alloués (ou déjà disparus) réservent leur place sans déplacer les autres.
+ */
+export function planHeapLayout(steps: Step[]): HeapObject[] {
+  const prototypes = new Map<string, HeapObject>();
+  for (const step of steps) {
+    for (const obj of step.heap) {
+      const prev = prototypes.get(obj.id);
+      if (!prev || obj.fields.length >= prev.fields.length) {
+        prototypes.set(obj.id, obj);
+      }
+    }
+  }
+
+  const backbone = pickLayoutStep(steps);
+  const ids: string[] = backbone
+    ? orderHeapObjects(backbone.heap, backbone.stack, backbone.refs).map((obj) => obj.id)
+    : [];
+
+  for (const step of steps) {
+    if (!step.heap.length) continue;
+    insertMissingIds(ids, orderHeapObjects(step.heap, step.stack, step.refs));
+  }
+
+  for (const id of prototypes.keys()) {
+    if (!ids.includes(id)) ids.push(id);
+  }
+
+  return ids.flatMap((id) => {
+    const proto = prototypes.get(id);
+    return proto ? [proto] : [];
   });
 }

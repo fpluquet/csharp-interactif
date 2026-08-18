@@ -1,11 +1,26 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import type { HeapObject as HeapObjectType } from "../../types/memory";
 import HeapObject from "./HeapObject.vue";
 
-defineProps<{
+const props = defineProps<{
   objects: HeapObjectType[];
+  layout?: HeapObjectType[];
   focusId?: string;
 }>();
+
+const liveById = computed(() => new Map(props.objects.map((obj) => [obj.id, obj])));
+
+const slots = computed(() => {
+  const plan = props.layout ?? [];
+  const used = new Set(plan.map((obj) => obj.id));
+  const extras = props.objects.filter((obj) => !used.has(obj.id));
+  return [...plan, ...extras].map((prototype) => ({
+    id: prototype.id,
+    live: liveById.value.get(prototype.id),
+    prototype,
+  }));
+});
 </script>
 
 <template>
@@ -16,14 +31,18 @@ defineProps<{
     </header>
 
     <div class="heap-panel__body">
-      <TransitionGroup name="heap-object" tag="div" class="heap-panel__objects">
-        <HeapObject
-          v-for="obj in objects"
-          :key="obj.id"
-          :object="obj"
-          :focus-id="focusId"
-        />
-      </TransitionGroup>
+      <div v-if="objects.length" class="heap-panel__objects">
+        <div v-for="slot in slots" :key="slot.id" class="heap-slot">
+          <HeapObject
+            v-if="slot.live"
+            :object="slot.live"
+            :focus-id="focusId"
+          />
+          <div v-else class="heap-slot__reserve" aria-hidden="true">
+            <HeapObject :object="slot.prototype" placeholder />
+          </div>
+        </div>
+      </div>
 
       <Transition name="memory-empty">
         <div v-if="!objects.length" class="heap-panel__empty">
@@ -68,6 +87,15 @@ defineProps<{
   flex-wrap: nowrap;
   gap: 0.85rem;
   align-items: flex-start;
+}
+
+.heap-slot {
+  max-width: 100%;
+}
+
+.heap-slot__reserve {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .heap-panel__empty {
