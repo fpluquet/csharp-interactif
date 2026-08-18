@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
-import { buildHeapForest } from "../../composables/layoutHeap";
-import type { HeapObject as HeapObjectType, RefLink } from "../../types/memory";
+import { layoutHeapForest } from "../../composables/layoutHeap";
+import type { HeapObject as HeapObjectType, RefLink, Step } from "../../types/memory";
 import HeapTreeNode from "./HeapTreeNode.vue";
 
 const props = defineProps<{
   objects: HeapObjectType[];
   refs?: RefLink[];
+  steps?: Step[];
   focusId?: string;
 }>();
 
-const forest = computed(() => buildHeapForest(props.objects, props.refs ?? []));
+const forest = computed(() =>
+  layoutHeapForest(props.objects, props.refs ?? [], props.steps ?? []),
+);
 
 const bodyRef = ref<HTMLElement | null>(null);
 const maxCols = ref(2);
