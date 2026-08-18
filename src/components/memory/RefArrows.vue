@@ -79,6 +79,10 @@ function clamp(n: number, min: number, max: number) {
   return Math.min(Math.max(n, min), max);
 }
 
+function lerp(a: number, b: number, t: number) {
+  return a + (b - a) * t;
+}
+
 function byYThenX(ay: number, by: number, ax: number, bx: number) {
   return ay - by || ax - bx;
 }
@@ -150,14 +154,16 @@ function pickAnchors(
 }
 
 /**
- * Courbe start→end : tangentes horizontales (S-courbe) ou plongée
- * verticale. Les tangentes alignées évitent les longs segments collés
- * et ne croisent qu’une fois si le matching s’inverse.
+ * Courbe start→end.
+ * Côté : une seule S-courbe à tangentes horizontales. Le paramètre
+ * channelT (0..1) place la zone de virage dans le couloir — chaque
+ * flèche plie à un X différent, ce qui évite le nœud central.
  */
 function buildCurve(
   start: Point,
   end: Point,
   kind: RouteKind,
+  channelT = 0.5,
   nest = 0,
 ): Omit<DrawnPath, "id" | "color"> {
   const dx = end.x - start.x;
@@ -176,14 +182,28 @@ function buildCurve(
     };
   } else {
     const signX = kind === "side-left" ? -1 : 1;
-    const adx = Math.max(Math.abs(dx), 40);
-    const tension = clamp(
-      Math.max(adx * 0.42, Math.abs(dy) * 0.32) + nest * 8,
-      28,
-      110,
-    );
-    c1 = { x: start.x + signX * tension, y: start.y };
-    c2 = { x: end.x - signX * tension, y: end.y };
+    const span = Math.max(Math.abs(dx), 1);
+    const t = clamp(channelT, 0.16, 0.84);
+    const bend = clamp(0.2 + Math.min(Math.abs(dy) / (span + 80), 1) * 0.12, 0.18, 0.32);
+
+    c1 = {
+      x: lerp(start.x, end.x, clamp(t - bend, 0.12, 0.62)),
+      y: start.y,
+    };
+    c2 = {
+      x: lerp(start.x, end.x, clamp(t + bend, 0.38, 0.88)),
+      y: end.y,
+    };
+
+    const minOut = 28;
+    if (signX * (c1.x - start.x) < minOut) c1.x = start.x + signX * minOut;
+    const minIn = 22;
+    if (signX * (end.x - c2.x) < minIn) c2.x = end.x - signX * minIn;
+    if (signX * (c2.x - c1.x) < 16) {
+      const mid = (start.x + end.x) / 2;
+      c1.x = mid - signX * 10;
+      c2.x = mid + signX * 10;
+    }
   }
 
   const tx = end.x - c2.x;
@@ -275,7 +295,7 @@ function buildPaths() {
   enforceMinGap(
     byExit.map((item) => item.id),
     exitY,
-    12,
+    16,
   );
 
   const entryY = new Map<string, number>();
@@ -294,10 +314,9 @@ function buildPaths() {
     const atX = spreadAlong(list.length, box.left, box.width, 18);
     const mid = (list.length - 1) / 2;
     list.forEach((item, index) => {
-      entryY.set(
-        item.id,
-        clamp(atY(index), box.top + 8, box.bottom - 8),
-      );
+      const towardSource = clamp(item.fromBox.cy, box.top + 8, box.bottom - 8);
+      const spreadY = clamp(atY(index), box.top + 8, box.bottom - 8);
+      entryY.set(item.id, list.length <= 1 ? towardSource : (spreadY * 0.65 + towardSource * 0.35));
       entryX.set(
         item.id,
         clamp(atX(index), box.left + 12, box.right - 12),
@@ -338,10 +357,13 @@ function buildPaths() {
     const invert = Math.abs(
       (sourceRank.get(item.id) ?? 0) - (targetRank.get(item.toId) ?? 0),
     );
+    const n = Math.max(prepared.length, 1);
+    const channelT = ((sourceRank.get(item.id) ?? 0) + 0.5) / n;
     const curve = buildCurve(
       anchors.start,
       anchors.end,
       anchors.kind,
+      channelT,
       (nestOf.get(item.id) ?? 0) + invert * 0.28,
     );
     next.push({
