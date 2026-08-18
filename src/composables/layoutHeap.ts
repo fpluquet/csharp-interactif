@@ -2,6 +2,7 @@ import type { HeapObject, RefLink, StackFrame, Step } from "../types/memory";
 
 export type HeapTree = {
   object: HeapObject;
+  live?: HeapObject;
   children: HeapTree[];
 };
 
@@ -147,28 +148,44 @@ export function planHeapForest(steps: Step[]): HeapTree[] {
     richest.refs,
   );
   const seen = collectIds(forest);
+  const prototypes = new Map<string, HeapObject>();
+  for (const step of steps) {
+    for (const obj of step.heap) {
+      const prev = prototypes.get(obj.id);
+      if (!prev || obj.fields.length >= prev.fields.length) prototypes.set(obj.id, obj);
+    }
+  }
 
+  function withPrototype(node: HeapTree): HeapTree {
+    return {
+      object: prototypes.get(node.object.id) ?? node.object,
+      children: node.children.map(withPrototype),
+    };
+  }
+
+  const planned = forest.map(withPrototype);
   for (const step of steps) {
     for (const obj of step.heap) {
       if (seen.has(obj.id)) continue;
       seen.add(obj.id);
-      forest.push({ object: obj, children: [] });
+      planned.push({ object: prototypes.get(obj.id) ?? obj, children: [] });
     }
   }
-  return forest;
+  return planned;
 }
 
-function projectLive(node: HeapTree, live: Map<string, HeapObject>): HeapTree[] {
-  const children = node.children.flatMap((child) => projectLive(child, live));
-  const object = live.get(node.object.id);
-  if (object) return [{ object, children }];
-  return children;
+function attachLive(node: HeapTree, live: Map<string, HeapObject>): HeapTree {
+  return {
+    object: node.object,
+    live: live.get(node.object.id),
+    children: node.children.map((child) => attachLive(child, live)),
+  };
 }
 
 /**
- * Place les objets du step courant dans l’arbre prévu par le scénario :
- * même structure et même ordre que la position finale, sans les nœuds
- * pas encore alloués (ou déjà disparus).
+ * Place les objets du step courant dans l’arbre prévu par le scénario.
+ * Les nœuds pas encore alloués (ou déjà disparus) gardent leur emplacement
+ * pour que les objets déjà visibles ne bougent plus.
  */
 export function layoutHeapForest(
   heap: HeapObject[],
@@ -177,13 +194,15 @@ export function layoutHeapForest(
 ): HeapTree[] {
   if (!heap.length) return [];
 
-  const plan = planHeapForest(steps);
-  if (!plan.length) return buildHeapForest(heap, refs);
-
   const live = new Map(heap.map((obj) => [obj.id, obj]));
-  const forest = plan.flatMap((root) => projectLive(root, live));
+  const plan = planHeapForest(steps);
+  const forest = (plan.length ? plan : buildHeapForest(heap, refs)).map((root) =>
+    attachLive(root, live),
+  );
   const used = collectIds(forest);
   const leftovers = heap.filter((obj) => !used.has(obj.id));
-  if (leftovers.length) forest.push(...buildHeapForest(leftovers, refs));
+  if (leftovers.length) {
+    forest.push(...buildHeapForest(leftovers, refs).map((root) => attachLive(root, live)));
+  }
   return forest;
 }

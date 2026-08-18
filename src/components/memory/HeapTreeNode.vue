@@ -21,7 +21,14 @@ const childDepth = computed(() => (sideways.value ? props.depth + 1 : props.dept
 
 <template>
   <div class="heap-tree" :class="{ 'heap-tree--stack': node.children.length > 0 && !sideways }">
-    <HeapObject :object="node.object" :focus-id="focusId" />
+    <div class="heap-tree__slot">
+      <div class="heap-tree__sizer" aria-hidden="true">
+        <HeapObject :object="node.object" placeholder />
+      </div>
+      <div v-if="node.live" class="heap-tree__live">
+        <HeapObject :object="node.live" :focus-id="focusId" />
+      </div>
+    </div>
     <div v-if="node.children.length" class="heap-tree__children">
       <HeapTreeNode
         v-for="child in node.children"
@@ -47,6 +54,22 @@ const childDepth = computed(() => (sideways.value ? props.depth + 1 : props.dept
 .heap-tree--stack {
   flex-direction: column;
   gap: 0.85rem;
+}
+
+.heap-tree__slot {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.heap-tree__sizer {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.heap-tree__live {
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .heap-tree__children {
