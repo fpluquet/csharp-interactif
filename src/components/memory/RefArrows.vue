@@ -67,82 +67,98 @@ function toLocal(rect: DOMRect, root: DOMRect): Box {
   };
 }
 
-type RouteMode = "side" | "vertical";
+type RouteKind = "side-right" | "side-left" | "vertical-down" | "vertical-up";
 
 type Anchors = {
   start: Point;
   end: Point;
-  mode: RouteMode;
+  kind: RouteKind;
 };
 
 function clamp(n: number, min: number, max: number) {
   return Math.min(Math.max(n, min), max);
 }
 
-/**
- * Ancrages : toujours partir du côté valeur (droite du champ),
- * sauf vraie cible clairement à gauche. Si la cible est empilée
- * sous/sur la source (chevauchement X), on arrive par le bord haut/bas.
- */
-function pickAnchors(
-  fromBox: Box,
-  toBox: Box,
-  exitY: number,
-  entryY: number,
-  entryT = 0.5,
-): Anchors {
+function byYThenX(ay: number, by: number, ax: number, bx: number) {
+  return ay - by || ax - bx;
+}
+
+function pickKind(fromBox: Box, toBox: Box): RouteKind {
   const gapRight = toBox.left - fromBox.right;
   const gapLeft = fromBox.left - toBox.right;
   const overlapsX = fromBox.left < toBox.right - 4 && toBox.left < fromBox.right + 4;
 
-  if (gapRight >= -8) {
-    return {
-      start: { x: fromBox.right, y: exitY },
-      end: { x: toBox.left, y: entryY },
-      mode: "side",
-    };
-  }
+  if (gapRight >= -8) return "side-right";
+  if (gapLeft >= -8 && !overlapsX) return "side-left";
+  if (toBox.top >= fromBox.cy - 2) return "vertical-down";
+  if (toBox.bottom <= fromBox.cy + 2) return "vertical-up";
+  return "side-right";
+}
 
-  // Cible clairement à gauche, sans empilement.
-  if (gapLeft >= -8 && !overlapsX) {
+function spreadAlong(count: number, start: number, size: number, padCap: number) {
+  const pad = Math.min(padCap, size * 0.2);
+  const usable = Math.max(size - pad * 2, 1);
+  return (index: number) => {
+    const t = count <= 1 ? 0.5 : (index + 0.5) / count;
+    return start + pad + usable * t;
+  };
+}
+
+function enforceMinGap(ids: string[], values: Map<string, number>, minGap: number) {
+  for (let i = 1; i < ids.length; i++) {
+    const prev = values.get(ids[i - 1]);
+    const cur = values.get(ids[i]);
+    if (prev === undefined || cur === undefined) continue;
+    if (cur < prev + minGap) values.set(ids[i], prev + minGap);
+  }
+}
+
+function pickAnchors(
+  fromBox: Box,
+  toBox: Box,
+  kind: RouteKind,
+  exitY: number,
+  entryY: number,
+  entryX: number,
+): Anchors {
+  if (kind === "side-left") {
     return {
       start: { x: fromBox.left, y: exitY },
       end: { x: toBox.right, y: entryY },
-      mode: "side",
+      kind,
     };
   }
-
-  // Empilement vertical (ex. Personne.Adresse → Adresse en dessous).
-  const start = { x: fromBox.right, y: exitY };
-  const padX = Math.min(18, toBox.width * 0.22);
-  const entryX = clamp(
-    toBox.left + padX + (toBox.width - padX * 2) * entryT,
-    toBox.left + 12,
-    toBox.right - 12,
-  );
-
-  if (toBox.top >= fromBox.cy - 2) {
-    return { start, end: { x: entryX, y: toBox.top }, mode: "vertical" };
+  if (kind === "vertical-down") {
+    return {
+      start: { x: fromBox.right, y: exitY },
+      end: { x: entryX, y: toBox.top },
+      kind,
+    };
   }
-  if (toBox.bottom <= fromBox.cy + 2) {
-    return { start, end: { x: entryX, y: toBox.bottom }, mode: "vertical" };
+  if (kind === "vertical-up") {
+    return {
+      start: { x: fromBox.right, y: exitY },
+      end: { x: entryX, y: toBox.bottom },
+      kind,
+    };
   }
-
-  // Chevauchement fort : on force quand même départ droite → bord gauche.
   return {
-    start,
+    start: { x: fromBox.right, y: exitY },
     end: { x: toBox.left, y: entryY },
-    mode: "side",
+    kind,
   };
 }
 
 /**
- * Courbe start→end : sortie horizontale, arrivée dans l’axe de la tangente.
+ * Courbe start→end : tangentes horizontales (S-courbe) ou plongée
+ * verticale. Les tangentes alignées évitent les longs segments collés
+ * et ne croisent qu’une fois si le matching s’inverse.
  */
 function buildCurve(
   start: Point,
   end: Point,
-  mode: RouteMode,
+  kind: RouteKind,
+  nest = 0,
 ): Omit<DrawnPath, "id" | "color"> {
   const dx = end.x - start.x;
   const dy = end.y - start.y;
@@ -150,26 +166,26 @@ function buildCurve(
   let c1: Point;
   let c2: Point;
 
-  if (mode === "vertical") {
-    // Sortie à droite du champ, puis plongée vers le bord haut/bas.
-    const out = clamp(36 + Math.abs(dx) * 0.25, 36, 72);
-    const signY = dy >= 0 ? 1 : -1;
+  if (kind === "vertical-down" || kind === "vertical-up") {
+    const out = clamp(36 + Math.abs(dx) * 0.25 + Math.abs(nest) * 10, 36, 88);
+    const signY = kind === "vertical-down" ? 1 : -1;
     c1 = { x: start.x + out, y: start.y };
     c2 = {
       x: end.x,
       y: end.y - signY * Math.max(28, Math.abs(dy) * 0.42),
     };
   } else {
-    const signX = dx >= 0 ? 1 : -1;
-    const adx = Math.max(Math.abs(dx), 48);
-    c1 = { x: start.x + signX * adx * 0.42, y: start.y };
-    c2 = {
-      x: end.x - signX * adx * 0.36,
-      y: start.y + dy * 0.78,
-    };
+    const signX = kind === "side-left" ? -1 : 1;
+    const adx = Math.max(Math.abs(dx), 40);
+    const tension = clamp(
+      Math.max(adx * 0.42, Math.abs(dy) * 0.32) + nest * 8,
+      28,
+      110,
+    );
+    c1 = { x: start.x + signX * tension, y: start.y };
+    c2 = { x: end.x - signX * tension, y: end.y };
   }
 
-  // Tangente finale du cubic = end − c2.
   const tx = end.x - c2.x;
   const ty = end.y - c2.y;
   const tlen = Math.hypot(tx, ty) || 1;
@@ -203,34 +219,68 @@ function buildPaths() {
 
   type Prepared = {
     id: string;
+    fromId: string;
     fromBox: Box;
     toBox: Box;
     toId: string;
+    kind: RouteKind;
   };
 
   const prepared: Prepared[] = [];
 
   for (const link of props.refs) {
+    const fromId = link.fromFieldId ?? link.fromSlotId;
     const fromSelector = link.fromFieldId
       ? `[data-field-id="${link.fromFieldId}"]`
       : link.fromSlotId
         ? `[data-slot-id="${link.fromSlotId}"]`
         : null;
-    if (!fromSelector) continue;
+    if (!fromSelector || !fromId) continue;
 
     const fromEl = rootEl.querySelector(fromSelector);
     const toEl = rootEl.querySelector(`[data-object-id="${link.toObjectId}"]`);
     if (!fromEl || !toEl) continue;
 
+    const fromBox = toLocal(fromEl.getBoundingClientRect(), root);
+    const toBox = toLocal(toEl.getBoundingClientRect(), root);
     prepared.push({
       id: link.id,
-      fromBox: toLocal(fromEl.getBoundingClientRect(), root),
-      toBox: toLocal(toEl.getBoundingClientRect(), root),
+      fromId,
+      fromBox,
+      toBox,
       toId: link.toObjectId,
+      kind: pickKind(fromBox, toBox),
     });
   }
 
-  // Répartit les arrivées par cible (bord latéral ou haut/bas).
+  const exitY = new Map<string, number>();
+  const bySource = new Map<string, Prepared[]>();
+  for (const item of prepared) {
+    const list = bySource.get(item.fromId) ?? [];
+    list.push(item);
+    bySource.set(item.fromId, list);
+  }
+  for (const list of bySource.values()) {
+    list.sort((a, b) => byYThenX(a.toBox.cy, b.toBox.cy, a.toBox.cx, b.toBox.cx));
+    const box = list[0].fromBox;
+    const at = spreadAlong(list.length, box.top, box.height, 10);
+    list.forEach((item, index) => {
+      exitY.set(item.id, at(index));
+    });
+  }
+
+  const byExit = [...prepared].sort(
+    (a, b) => (exitY.get(a.id) ?? a.fromBox.cy) - (exitY.get(b.id) ?? b.fromBox.cy),
+  );
+  enforceMinGap(
+    byExit.map((item) => item.id),
+    exitY,
+    12,
+  );
+
+  const entryY = new Map<string, number>();
+  const entryX = new Map<string, number>();
+  const nestOf = new Map<string, number>();
   const byTarget = new Map<string, Prepared[]>();
   for (const item of prepared) {
     const list = byTarget.get(item.toId) ?? [];
@@ -238,39 +288,40 @@ function buildPaths() {
     byTarget.set(item.toId, list);
   }
   for (const list of byTarget.values()) {
-    list.sort((a, b) => a.fromBox.cx - b.fromBox.cx || a.fromBox.cy - b.fromBox.cy);
-  }
-
-  const entryY = new Map<string, number>();
-  const entryT = new Map<string, number>();
-  for (const list of byTarget.values()) {
+    list.sort((a, b) => byYThenX(a.fromBox.cy, b.fromBox.cy, a.fromBox.cx, b.fromBox.cx));
     const box = list[0].toBox;
-    const pad = Math.min(14, box.height * 0.2);
-    const usable = Math.max(box.height - pad * 2, 1);
+    const atY = spreadAlong(list.length, box.top, box.height, 14);
+    const atX = spreadAlong(list.length, box.left, box.width, 18);
+    const mid = (list.length - 1) / 2;
     list.forEach((item, index) => {
-      const t = list.length <= 1 ? 0.5 : (index + 0.5) / list.length;
-      entryY.set(item.id, box.top + pad + usable * t);
-      entryT.set(item.id, t);
+      entryY.set(
+        item.id,
+        clamp(atY(index), box.top + 8, box.bottom - 8),
+      );
+      entryX.set(
+        item.id,
+        clamp(atX(index), box.left + 12, box.right - 12),
+      );
+      nestOf.set(item.id, index - mid);
     });
   }
 
-  // Légère séparation des départs si deux slots sont très proches.
-  const bySourceY = [...prepared].sort((a, b) => a.fromBox.cy - b.fromBox.cy);
-  const exitY = new Map<string, number>();
-  bySourceY.forEach((item, index) => {
-    let y = item.fromBox.cy;
-    if (index > 0) {
-      const prev = bySourceY[index - 1];
-      const prevY = exitY.get(prev.id) ?? prev.fromBox.cy;
-      if (Math.abs(y - prevY) < 16) y = prevY + 16;
-    }
-    exitY.set(item.id, y);
+  const colorById = new Map<string, string>();
+  byExit.forEach((item, index) => {
+    colorById.set(item.id, orangeTone(index, byExit.length));
   });
 
-  const colorById = new Map<string, string>();
-  bySourceY.forEach((item, index) => {
-    colorById.set(item.id, orangeTone(index, bySourceY.length));
-  });
+  const sourceRank = new Map(
+    [...prepared]
+      .sort((a, b) => byYThenX(a.fromBox.cy, b.fromBox.cy, a.fromBox.cx, b.fromBox.cx))
+      .map((item, index) => [item.id, index] as const),
+  );
+  const targetRank = new Map(
+    [...byTarget.entries()]
+      .map(([id, list]) => ({ id, cy: list[0].toBox.cy, cx: list[0].toBox.cx }))
+      .sort((a, b) => byYThenX(a.cy, b.cy, a.cx, b.cx))
+      .map((item, index) => [item.id, index] as const),
+  );
 
   const next: DrawnPath[] = [];
 
@@ -278,12 +329,21 @@ function buildPaths() {
     const anchors = pickAnchors(
       item.fromBox,
       item.toBox,
+      item.kind,
       exitY.get(item.id) ?? item.fromBox.cy,
       entryY.get(item.id) ?? item.toBox.cy,
-      entryT.get(item.id) ?? 0.5,
+      entryX.get(item.id) ?? item.toBox.cx,
     );
 
-    const curve = buildCurve(anchors.start, anchors.end, anchors.mode);
+    const invert = Math.abs(
+      (sourceRank.get(item.id) ?? 0) - (targetRank.get(item.toId) ?? 0),
+    );
+    const curve = buildCurve(
+      anchors.start,
+      anchors.end,
+      anchors.kind,
+      (nestOf.get(item.id) ?? 0) + invert * 0.28,
+    );
     next.push({
       id: item.id,
       color: colorById.get(item.id) ?? orangeTone(0, 1),
