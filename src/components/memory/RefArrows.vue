@@ -147,10 +147,7 @@ function spread(count: number, index: number) {
 function buildPaths() {
   const rootEl = document.querySelector(".memory-view");
   const root = getRootRect();
-  if (!rootEl || !root) {
-    paths.value = [];
-    return;
-  }
+  if (!rootEl || !root) return;
 
   type Prepared = {
     id: string;
@@ -224,6 +221,8 @@ function buildPaths() {
     });
   }
 
+  if (prepared.length === 0 && props.refs.length > 0) return;
+
   const byY = [...prepared].sort((a, b) => a.fromBox.cy - b.fromBox.cy);
   const next: DrawnPath[] = [];
 
@@ -280,15 +279,22 @@ onUnmounted(() => {
 
 <template>
   <svg class="ref-arrows" aria-hidden="true">
-    <g v-for="path in paths" :key="`${stepId ?? 'step'}-${path.id}`">
-      <path class="ref-arrows__path" :d="path.d" :stroke="path.color" />
-      <path
-        class="ref-arrows__head"
-        :fill="path.color"
-        :transform="`translate(${path.tipX} ${path.tipY}) rotate(${path.angle})`"
-        d="M0,0 L-11,-4.4 L-11,4.4 Z"
-      />
-    </g>
+    <TransitionGroup name="ref-arrow" tag="g">
+      <g v-for="path in paths" :key="path.id">
+        <path
+          class="ref-arrows__path"
+          pathLength="1"
+          :d="path.d"
+          :stroke="path.color"
+        />
+        <path
+          class="ref-arrows__head"
+          :fill="path.color"
+          :transform="`translate(${path.tipX} ${path.tipY}) rotate(${path.angle})`"
+          d="M0,0 L-11,-4.4 L-11,4.4 Z"
+        />
+      </g>
+    </TransitionGroup>
   </svg>
 </template>
 
@@ -309,21 +315,34 @@ onUnmounted(() => {
   stroke-opacity: 0.9;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: 0;
-  animation: fade-arrow 420ms var(--ease) forwards;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
 }
 
-.ref-arrows__head {
-  opacity: 0;
-  animation: fade-arrow 420ms var(--ease) forwards;
+.ref-arrow-enter-active .ref-arrows__path,
+.ref-arrow-leave-active .ref-arrows__path {
+  transition:
+    opacity 380ms var(--ease),
+    stroke-dashoffset 420ms var(--ease);
 }
 
-@keyframes fade-arrow {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.ref-arrow-enter-active .ref-arrows__head,
+.ref-arrow-leave-active .ref-arrows__head {
+  transition: opacity 280ms var(--ease);
+}
+
+.ref-arrow-enter-active .ref-arrows__head {
+  transition-delay: 140ms;
+}
+
+.ref-arrow-enter-from .ref-arrows__path,
+.ref-arrow-leave-to .ref-arrows__path {
+  opacity: 0;
+  stroke-dashoffset: 1;
+}
+
+.ref-arrow-enter-from .ref-arrows__head,
+.ref-arrow-leave-to .ref-arrows__head {
+  opacity: 0;
 }
 </style>
