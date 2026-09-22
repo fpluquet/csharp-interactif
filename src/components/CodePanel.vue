@@ -505,7 +505,7 @@ watch(
   flex-direction: column;
   min-height: 0;
   overflow: hidden;
-  background: linear-gradient(165deg, #0e1a2c, var(--bg-code));
+  background: linear-gradient(165deg, var(--bg-code-top), var(--bg-code));
 }
 
 .code-panel__header {
@@ -757,19 +757,19 @@ watch(
 }
 
 .tok--keyword {
-  color: #7eb6ff;
+  color: var(--syntax-keyword);
 }
 .tok--type {
-  color: #6ed6c0;
+  color: var(--syntax-type);
 }
 .tok--string {
-  color: #f0b07a;
+  color: var(--syntax-string);
 }
 .tok--number {
-  color: #d4a5ff;
+  color: var(--syntax-number);
 }
 .tok--bool {
-  color: #d4a5ff;
+  color: var(--syntax-number);
 }
 .tok--comment {
   color: var(--text-dim);
@@ -787,8 +787,8 @@ watch(
   transform: translateX(-50%);
   padding: 0.06rem 0.32rem;
   border-radius: 999px;
-  background: rgba(8, 16, 28, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--hint-bg);
+  border: 1px solid var(--hint-border);
   color: var(--stack);
   font-size: 0.62em;
   font-weight: 700;

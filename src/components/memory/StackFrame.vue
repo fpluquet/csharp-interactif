@@ -254,14 +254,14 @@ function kindLabel(slot: StackSlot): string {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(203, 213, 225, 0.92);
+  color: var(--slate-ink);
 }
 
 .stack-frame__wait-icon {
   width: 0.7rem;
   height: 0.7rem;
   flex-shrink: 0;
-  fill: rgba(203, 213, 225, 0.95);
+  fill: var(--slate-ink);
 }
 
 .stack-frame__wait-line {
@@ -279,7 +279,7 @@ function kindLabel(slot: StackSlot): string {
   flex-shrink: 0;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  color: rgba(203, 213, 225, 0.85);
+  color: var(--slate-ink);
 }
 
 .stack-frame__pc-code {
@@ -336,7 +336,7 @@ function kindLabel(slot: StackSlot): string {
   list-style: none;
   margin: 0;
   padding: 0;
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.22));
+  filter: drop-shadow(0 6px 10px var(--stack-drop));
 }
 
 .stack-frame__empty {
@@ -357,11 +357,11 @@ function kindLabel(slot: StackSlot): string {
   background: linear-gradient(
     180deg,
     rgba(46, 196, 166, 0.14),
-    rgba(7, 16, 28, 0.72)
+    var(--well-strong)
   );
   box-shadow:
     inset 0 1px 0 rgba(180, 255, 230, 0.1),
-    0 2px 0 rgba(6, 18, 16, 0.4);
+    0 2px 0 var(--slot-lip);
   transition:
     border-color var(--duration) var(--ease),
     background var(--duration) var(--ease),
@@ -380,7 +380,7 @@ function kindLabel(slot: StackSlot): string {
     background: linear-gradient(
       180deg,
       rgba(46, 196, 166, 0.24),
-      rgba(10, 28, 24, 0.85)
+      var(--slot-active)
     );
   }
 

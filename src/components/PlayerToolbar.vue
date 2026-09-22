@@ -179,7 +179,7 @@ function onSelectChange(event: Event) {
   flex-direction: column;
   gap: 0.55rem;
   padding: 0.7rem 0.9rem 0.65rem;
-  background: rgba(10, 21, 38, 0.94);
+  background: var(--float);
   backdrop-filter: blur(12px);
   flex-shrink: 0;
 }
@@ -236,7 +236,7 @@ function onSelectChange(event: Event) {
   background:
     linear-gradient(45deg, transparent 50%, var(--text-muted) 50%) calc(100% - 18px) / 6px 6px no-repeat,
     linear-gradient(135deg, var(--text-muted) 50%, transparent 50%) calc(100% - 12px) / 6px 6px no-repeat,
-    rgba(7, 16, 28, 0.65);
+    var(--control);
   color: var(--text);
   font: inherit;
   font-weight: 600;
@@ -335,7 +335,7 @@ function onSelectChange(event: Event) {
     background var(--duration) var(--ease);
 
   &.is-done {
-    background: rgba(107, 163, 240, 0.55);
+    background: var(--accent-dot);
   }
 
   &.is-active {
@@ -348,7 +348,7 @@ function onSelectChange(event: Event) {
   padding: 0.45rem 0.8rem;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--chip);
   font-weight: 600;
   white-space: nowrap;
   transition:
@@ -357,7 +357,7 @@ function onSelectChange(event: Event) {
     opacity var(--duration) var(--ease);
 
   &:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.07);
+    background: var(--chip-hover);
     border-color: var(--text-dim);
   }
 
@@ -372,11 +372,11 @@ function onSelectChange(event: Event) {
 
   &--primary {
     background: var(--accent-soft);
-    border-color: rgba(107, 163, 240, 0.45);
-    color: #d7e7ff;
+    border-color: var(--accent-line);
+    color: var(--on-accent);
 
     &:hover:not(:disabled) {
-      background: rgba(107, 163, 240, 0.28);
+      background: var(--accent-fill);
     }
   }
 }

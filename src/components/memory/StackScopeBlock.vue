@@ -72,7 +72,7 @@ function isScopeBlock(node: StackSlot | ScopeBlock): node is ScopeBlock {
   border: 1px dashed rgba(46, 196, 166, 0.55);
   background:
     linear-gradient(90deg, rgba(46, 196, 166, 0.14), transparent 12px),
-    rgba(8, 24, 22, 0.55);
+    var(--scope-1);
   box-shadow: inset 3px 0 0 rgba(46, 196, 166, 0.55);
 }
 
@@ -80,7 +80,7 @@ function isScopeBlock(node: StackSlot | ScopeBlock): node is ScopeBlock {
   border-color: rgba(107, 163, 240, 0.5);
   background:
     linear-gradient(90deg, rgba(107, 163, 240, 0.14), transparent 12px),
-    rgba(10, 20, 36, 0.55);
+    var(--scope-2);
   box-shadow: inset 3px 0 0 rgba(107, 163, 240, 0.55);
 
   .scope__label {
@@ -92,11 +92,11 @@ function isScopeBlock(node: StackSlot | ScopeBlock): node is ScopeBlock {
   border-color: rgba(240, 180, 107, 0.5);
   background:
     linear-gradient(90deg, rgba(240, 180, 107, 0.12), transparent 12px),
-    rgba(28, 22, 10, 0.5);
+    var(--scope-3);
   box-shadow: inset 3px 0 0 rgba(240, 180, 107, 0.55);
 
   .scope__label {
-    color: #e0b26a;
+    color: var(--gold);
   }
 }
 
@@ -140,7 +140,7 @@ function isScopeBlock(node: StackSlot | ScopeBlock): node is ScopeBlock {
   background: linear-gradient(
     180deg,
     rgba(46, 196, 166, 0.14),
-    rgba(7, 16, 28, 0.72)
+    var(--well-strong)
   );
   box-shadow: inset 0 1px 0 rgba(180, 255, 230, 0.08);
   transition:

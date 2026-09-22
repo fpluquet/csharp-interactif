@@ -39,7 +39,7 @@ watch(
   max-height: 7.5rem;
   padding: 0.75rem 0.9rem 0.85rem;
   flex-shrink: 0;
-  background: linear-gradient(165deg, #0c1522, #0a121c);
+  background: linear-gradient(165deg, var(--bg-console-top), var(--bg-console-end));
 }
 
 .console__body {
@@ -59,6 +59,6 @@ watch(
 .console__line {
   margin: 0;
   white-space: pre-wrap;
-  color: #c8e6c0;
+  color: var(--console-text);
 }
 </style>

@@ -4,6 +4,9 @@ import { useRoute, useRouter } from "vue-router";
 import { scenarios, getScenario } from "../data";
 import ScenarioPicker from "../components/ScenarioPicker.vue";
 import ScenarioPlayer from "../components/ScenarioPlayer.vue";
+import { useTheme } from "../composables/useTheme";
+
+const { isLight, toggleTheme } = useTheme();
 
 const route = useRoute();
 const router = useRouter();
@@ -53,6 +56,42 @@ function selectScenario(id: string) {
     </header>
 
     <div class="home__picker-toggle">
+      <button
+        type="button"
+        class="theme-toggle"
+        :aria-pressed="isLight"
+        @click="toggleTheme"
+      >
+        <svg
+          v-if="isLight"
+          class="theme-toggle__icon"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            fill="currentColor"
+            d="M14.5 3.2a8.8 8.8 0 1 0 6.3 12.4A7.2 7.2 0 0 1 14.5 3.2Z"
+          />
+        </svg>
+        <svg
+          v-else
+          class="theme-toggle__icon"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="3.4" fill="currentColor" />
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+          >
+            <path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1" />
+            <path d="m5.6 5.6 1.5 1.5M16.9 16.9l1.5 1.5M18.4 5.6l-1.5 1.5M7.1 16.9l-1.5 1.5" />
+          </g>
+        </svg>
+        {{ isLight ? "Thème sombre" : "Thème clair" }}
+      </button>
       <button
         type="button"
         class="home__toggle-btn"
@@ -112,7 +151,7 @@ function selectScenario(id: string) {
   letter-spacing: -0.03em;
   line-height: 1.02;
   margin-top: 0.35rem;
-  background: linear-gradient(120deg, var(--text) 40%, #b8d4ff 100%);
+  background: linear-gradient(120deg, var(--text) 40%, var(--title-fade) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -133,7 +172,7 @@ function selectScenario(id: string) {
   padding: 1rem 1.1rem;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
-  background: rgba(16, 28, 48, 0.55);
+  background: var(--card-soft);
 
   li {
     font-size: 0.95rem;
@@ -161,7 +200,45 @@ function selectScenario(id: string) {
 
 .home__picker-toggle {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.32rem 0.75rem 0.32rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card-soft);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  transition:
+    color var(--duration) var(--ease),
+    border-color var(--duration) var(--ease),
+    background var(--duration) var(--ease);
+
+  &:hover {
+    color: var(--text);
+    border-color: var(--text-dim);
+    background: var(--chip-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+.theme-toggle__icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
 }
 
 .home__toggle-btn {
@@ -173,7 +250,7 @@ function selectScenario(id: string) {
   padding: 0.25rem 0.15rem;
 
   &:hover {
-    color: #9bc2f7;
+    color: var(--link-hover);
   }
 }
 

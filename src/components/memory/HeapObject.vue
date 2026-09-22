@@ -221,7 +221,7 @@ const arrayView = computed(() => {
   gap: 0.75rem;
   padding: 0.35rem 0.5rem;
   border-radius: var(--radius-sm);
-  background: rgba(7, 16, 28, 0.42);
+  background: var(--well-soft);
   font-family: var(--font-code);
   font-size: 0.85rem;
 
@@ -275,12 +275,12 @@ const arrayView = computed(() => {
   min-height: 2.55rem;
   padding: 0.28rem 0.35rem;
   border-radius: var(--radius-sm);
-  background: rgba(7, 16, 28, 0.42);
+  background: var(--well-soft);
   font-family: var(--font-code);
 
   &.is-empty {
     min-height: 2.55rem;
-    background: rgba(7, 16, 28, 0.18);
+    background: var(--well-ghost);
     border: 1px dashed rgba(240, 160, 90, 0.22);
   }
 

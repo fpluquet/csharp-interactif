@@ -107,7 +107,7 @@ const items = computed<PickerItem[]>(() => {
   padding: 0.9rem 1rem;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: rgba(16, 28, 48, 0.72);
+  background: var(--card);
   transition:
     border-color var(--duration) var(--ease),
     background var(--duration) var(--ease),
@@ -120,7 +120,7 @@ const items = computed<PickerItem[]>(() => {
 
   &.is-active {
     border-color: rgba(107, 163, 240, 0.55);
-    background: linear-gradient(160deg, rgba(107, 163, 240, 0.16), rgba(16, 28, 48, 0.9));
+    background: linear-gradient(160deg, var(--accent-soft), var(--card-active));
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
   }
 }

@@ -136,17 +136,17 @@ function chipClass(phase: LoopPhase) {
   text-transform: uppercase;
   padding: 0.15rem 0.45rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--tag);
   color: var(--text-muted);
 
   &--ok {
     background: rgba(46, 196, 166, 0.2);
-    color: #b8f5e4;
+    color: var(--badge-ok);
   }
 
   &--no {
     background: rgba(240, 113, 120, 0.2);
-    color: #ffc4c7;
+    color: var(--badge-no);
   }
 }
 
@@ -166,7 +166,7 @@ function chipClass(phase: LoopPhase) {
   padding: 0.4rem 0.65rem;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: rgba(7, 16, 28, 0.45);
+  background: var(--well);
   transition:
     border-color var(--duration) var(--ease),
     transform var(--duration) var(--ease),

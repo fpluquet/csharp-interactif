@@ -58,7 +58,7 @@ defineProps<{
   margin: 0;
   padding: 0.45rem 0.55rem;
   border-radius: var(--radius-sm);
-  background: rgba(7, 16, 28, 0.55);
+  background: var(--well-mid);
   border: 1px solid var(--border-soft);
   font-family: var(--font-code);
   font-size: 0.82rem;

@@ -104,7 +104,7 @@ const phaseLabel: Record<ReturnFlow["phase"], string> = {
   padding: 0.45rem 0.7rem;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: rgba(7, 16, 28, 0.45);
+  background: var(--well);
   transition:
     border-color var(--duration) var(--ease),
     transform var(--duration) var(--ease),
